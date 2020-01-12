@@ -27,6 +27,7 @@
 Copy SPIKE's filesystem to a local directory
 """
 
+# standard libraries
 import argparse
 import grp
 import logging
@@ -36,7 +37,6 @@ import subprocess
 import sys
 from pprint import pformat
 from typing import List, Tuple
-
 
 log = logging.getLogger(__name__)
 

@@ -27,6 +27,7 @@
 Get a micropython file to one of SPIKE's program slots
 """
 
+# standard libraries
 import argparse
 import grp
 import logging
@@ -34,7 +35,6 @@ import os
 import pwd
 import subprocess
 import sys
-
 
 log = logging.getLogger(__name__)
 
