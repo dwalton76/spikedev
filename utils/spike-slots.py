@@ -36,7 +36,7 @@ import sys
 
 try:
     from tabulate import tabulate
-except (ImportError, ModuleNotFoundError) as e:
+except (ImportError, ModuleNotFoundError):
     print("tabulate is not installed...run 'pip3 install tabulate'")
     sys.exit(1)
 

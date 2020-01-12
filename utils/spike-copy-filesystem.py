@@ -32,7 +32,6 @@ import grp
 import logging
 import os
 import pwd
-import re
 import subprocess
 import sys
 from pprint import pformat
