@@ -4,7 +4,7 @@ A micropython library for LEGO SPIKE.
 # stop the SPIKE UI
 The SPIKE UI (heart picture, click left/right to select a program, etc) is produced by a program called `main.py` that runs when the hub boots.  We need to stop `main.py` so that we can run our own micropython programs.
 
-To stop `main.py we must access the REPL (Read Evaluate Print Loop) prompt and ctrl-C `main.py`. To access the REPL prompt on linux we can use the `screen` utility:
+To stop `main.py` we must access the REPL (Read Evaluate Print Loop) prompt and ctrl-C `main.py`. To access the REPL prompt on linux we can use the `screen` utility:
 
 ```bash
 sudo screen /dev/ttyACM0
@@ -29,6 +29,7 @@ Exit `screen` by pressing `ctrl-A` followed by `\`.  It will prompt you with `Re
 Write your micropython program on your laptop. Here is basic hello-world.py
 ```micropython
 import hub
+
 print("Hello World")
 print(hub.info())
 ```
