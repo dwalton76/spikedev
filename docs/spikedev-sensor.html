@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spikedev.sensor &mdash; spikedev  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="spikedev.stopwatch" href="spikedev-stopwatch.html" />
+    <link rel="prev" title="spikedev.motor" href="spikedev-motor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> spikedev
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Install</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.sensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-spikedev.sensor">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-stopwatch.html">spikedev.stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">spikedev</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>spikedev.sensor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spikedev-sensor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spikedev-sensor">
+<h1>spikedev.sensor<a class="headerlink" href="#spikedev-sensor" title="Permalink to this headline">¶</a></h1>
+<p>A module to interact with the <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">distance</span></code>, and <code class="docutils literal notranslate"><span class="pre">touch</span></code> sensors</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.sensor</span> <span class="kn">import</span> <span class="n">ColorSensor</span><span class="p">,</span> <span class="n">TouchSensor</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">()</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">TouchSensor</span><span class="p">()</span>
+
+<span class="c1"># when the user presses the TouchSensor, read the RGB values from the ColorSensor</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">wait_for_bump</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;color sensor RGB values are </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cs</span><span class="o">.</span><span class="n">rgb</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-spikedev.sensor">
+<span id="classes"></span><h2>Classes<a class="headerlink" href="#module-spikedev.sensor" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="spikedev.sensor.Sensor">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">Sensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>hub.port</em>) – the hub.port.X for this sensor</p></li>
+<li><p><strong>desc</strong> (<em>str</em>) – description, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="spikedev.sensor.Sensor.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode for the sensor to <code class="docutils literal notranslate"><span class="pre">mode</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.Sensor.value">
+<code class="sig-name descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current value(s) from the sensor</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.TouchSensorMode">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">TouchSensorMode</code><a class="headerlink" href="#spikedev.sensor.TouchSensorMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.FORCE">
+<code class="sig-name descname">FORCE</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FORCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.TOUCH">
+<code class="sig-name descname">TOUCH</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.TOUCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.TAP">
+<code class="sig-name descname">TAP</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.TAP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.FPEAK">
+<code class="sig-name descname">FPEAK</code><em class="property"> = 3</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FPEAK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.FRAW">
+<code class="sig-name descname">FRAW</code><em class="property"> = 4</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FRAW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.FPRAW">
+<code class="sig-name descname">FPRAW</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FPRAW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.CALIB">
+<code class="sig-name descname">CALIB</code><em class="property"> = 6</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.TouchSensor">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">TouchSensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.sensor.Sensor" title="spikedev.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.sensor.Sensor</span></code></a></p>
+<img alt="_images/touch-sensor.jpg" src="_images/touch-sensor.jpg" />
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.value">
+<code class="sig-name descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current value of the <code class="docutils literal notranslate"><span class="pre">TouchSensor</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.is_pressed">
+<code class="sig-name descname">is_pressed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.is_pressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">TouchSensorMode.TOUCH</span></code>. Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the TouchSensor
+is currently pressed, else return <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.is_released">
+<code class="sig-name descname">is_released</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.is_released" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">TouchSensorMode.TOUCH</span></code>. Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the TouchSensor
+is currently released, else return <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.wait_for_pressed">
+<code class="sig-name descname">wait_for_pressed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout_ms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.wait_for_pressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code> for the <code class="docutils literal notranslate"><span class="pre">TouchSensor</span></code> to be pressed. Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
+button was pressed within <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>, else return <code class="docutils literal notranslate"><span class="pre">False</span></code>. If <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code> this will wait for forever.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.wait_for_released">
+<code class="sig-name descname">wait_for_released</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout_ms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.wait_for_released" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code> for the <code class="docutils literal notranslate"><span class="pre">TouchSensor</span></code> to be released. Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
+button was released within <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>, else return <code class="docutils literal notranslate"><span class="pre">False</span></code>. If <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code> this will wait for forever.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.TouchSensor.wait_for_bump">
+<code class="sig-name descname">wait_for_bump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout_ms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.wait_for_bump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code> for the <code class="docutils literal notranslate"><span class="pre">TouchSensor</span></code> to be bumped. Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
+button was bumped within <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>, else return <code class="docutils literal notranslate"><span class="pre">False</span></code>. If <code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code> this will wait for forever.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="spikedev.sensor.rgb2lab">
+<code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">rgb2lab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">red</span></em>, <em class="sig-param"><span class="n">green</span></em>, <em class="sig-param"><span class="n">blue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.rgb2lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert RGB (<code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>, <code class="docutils literal notranslate"><span class="pre">blue</span></code>) to <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB</a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.ColorSensorMode">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">ColorSensorMode</code><a class="headerlink" href="#spikedev.sensor.ColorSensorMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.COLOR">
+<code class="sig-name descname">COLOR</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.REFLT">
+<code class="sig-name descname">REFLT</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.REFLT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.AMBI">
+<code class="sig-name descname">AMBI</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.AMBI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.LIGHT">
+<code class="sig-name descname">LIGHT</code><em class="property"> = 3</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.LIGHT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.RREFL">
+<code class="sig-name descname">RREFL</code><em class="property"> = 4</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.RREFL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.RGB_I">
+<code class="sig-name descname">RGB_I</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.RGB_I" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.HSV">
+<code class="sig-name descname">HSV</code><em class="property"> = 6</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.HSV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.SHSV">
+<code class="sig-name descname">SHSV</code><em class="property"> = 7</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.SHSV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.DEBUG">
+<code class="sig-name descname">DEBUG</code><em class="property"> = 8</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.CALIB">
+<code class="sig-name descname">CALIB</code><em class="property"> = 9</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.ColorSensor">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">ColorSensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.sensor.Sensor" title="spikedev.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.sensor.Sensor</span></code></a></p>
+<img alt="_images/color-sensor.jpg" src="_images/color-sensor.jpg" />
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.color">
+<code class="sig-name descname">color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of the color. The LED is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.reflected_light_intensity">
+<code class="sig-name descname">reflected_light_intensity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.reflected_light_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.REFLT</span></code> and return the reflected light intensity as a
+percentage (0 to 100). The LED is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.ambient_light_intensity">
+<code class="sig-name descname">ambient_light_intensity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.ambient_light_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.AMBI</span></code> and return the ambient light intensity as a
+percentage (0 to 100). The LED is off.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.hsv">
+<code class="sig-name descname">hsv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.HSR</span></code> and return the Hue, Saturation, Value values.
+The LED is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.rgb">
+<code class="sig-name descname">rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale_by_intensity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.RGB_I</span></code> and return the Red, Green, Blue values.
+The LED is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.lab">
+<code class="sig-name descname">lab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale_by_intensity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.RGB_I</span></code> and return the
+<a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB</a> values.
+The LED is on.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spikedev-stopwatch.html" class="btn btn-neutral float-right" title="spikedev.stopwatch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spikedev-motor.html" class="btn btn-neutral float-left" title="spikedev.motor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniel Walton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
