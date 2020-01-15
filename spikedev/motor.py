@@ -130,7 +130,12 @@ class Motor(MotorBase):
 
     @property
     def position(self):
-        return get_sensor_value(self.port_letter, 3, 0, (49, 48))
+        # HMMM this is how it is done in the scratch->python translation
+        # but this always returns 0.  Am not sure yet how to get the motor position.
+        #return get_sensor_value(self.port_letter, 3, 0, (49, 48))
+
+        # This returns something but I don't know what it is...it isn't the position though
+        return self.port.motor.get()
 
     @position.setter
     def position(self, value):
@@ -160,6 +165,20 @@ class Motor(MotorBase):
 
     def _speed_with_polarity(self, speed):
         return self._number_with_polarity(speed)
+
+    def stop(self, stop_action=MotorStop.BRAKE):
+
+        if stop_action == MotorStop.FLOAT:
+            self.port.motor.float()
+
+        elif stop_action == MotorStop.BRAKE:
+            self.port.motor.brake()
+
+        elif stop_action == MotorStop.HOLD:
+            self.port.motor.hold()
+
+        else:
+            raise ValueError("invalid stop_action %s" % stop_action)
 
     def run_at_speed(self, speed, max_power=0, acceleration=100, deceleration=150, stall=True):
         self.port.motor.run_at_speed(
@@ -232,9 +251,6 @@ class Motor(MotorBase):
         if block:
             self._wait()
 
-    def stop(self, degrees, speed):
-        pass
-
 
 class MediumMotor(Motor):
     def __str__(self):
@@ -282,6 +298,9 @@ class MoveTank(MotorBase):
             raise ValueError("%s invalid polarity %s" % (self, self.right_motor.polarity))
 
         return (left_speed, right_speed)
+
+    def stop(self):
+        self.pair.brake()
 
     def run_at_speed(self, left_speed, right_speed, max_power=0, acceleration=100, deceleration=150):
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
