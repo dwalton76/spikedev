@@ -132,7 +132,7 @@ class Motor(MotorBase):
     def position(self):
         # HMMM this is how it is done in the scratch->python translation
         # but this always returns 0.  Am not sure yet how to get the motor position.
-        #return get_sensor_value(self.port_letter, 3, 0, (49, 48))
+        # return get_sensor_value(self.port_letter, 3, 0, (49, 48))
 
         # This returns something but I don't know what it is...it isn't the position though
         return self.port.motor.get()
@@ -305,11 +305,7 @@ class MoveTank(MotorBase):
     def run_at_speed(self, left_speed, right_speed, max_power=0, acceleration=100, deceleration=150):
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
         self.pair.run_at_speed(
-            left_speed,
-            right_speed,
-            max_power=max_power,
-            acceleration=acceleration,
-            deceleration=deceleration,
+            left_speed, right_speed, max_power=max_power, acceleration=acceleration, deceleration=deceleration
         )
 
     def run_for_degrees(
