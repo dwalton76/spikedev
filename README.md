@@ -1,5 +1,5 @@
 # spikedev
-A micropython library for (LEGO SPIKE)[https://education.lego.com/en-us/products/lego-education-spike-prime-set/45678#product]. The goal of this library is to bring much of the work done at (ev3dev-lang-python)[https://github.com/ev3dev/ev3dev-lang-python] to SPIKE.
+A micropython library for [LEGO SPIKE](https://education.lego.com/en-us/products/lego-education-spike-prime-set/45678#product). The goal of this library is to bring much of the work done at [ev3dev-lang-python](https://github.com/ev3dev/ev3dev-lang-python) to SPIKE.
 
 # Installing spikedev
 ## ampy
