@@ -30,7 +30,7 @@ import sys
 # spikedev libraries
 import utime
 from spikedev.logging import log_msg
-from spikedev.unit import distance_to_mm
+from spikedev.unit import distance_in_mm
 
 MAXINT = sys.maxsize
 MININT = MAXINT * -1
@@ -567,9 +567,12 @@ class MoveSteering(MoveTank):
 
     .. code:: python
 
-        steering_drive = MoveSteering(OUTPUT_A, OUTPUT_B)
-        # drive in a turn for 10 rotations of the outer motor
-        steering_drive.on_for_rotations(-20, SpeedPercent(75), 10)
+        import hub
+        from spikedev.motor import MoveSteering, SpeedDPS
+
+        ms = MoveSteering(hub.port.E, hub.port.F)
+        ms.run_for_degrees(180, 80, SpeedDPS(180))
+        ms.run_for_time(1000, -80, SpeedDPS(180))
     """
 
     def get_speed_steering(self, steering, speed):
@@ -644,7 +647,7 @@ class MoveDifferential(MoveTank):
 
     New arguments:
 
-    wheel_class - Typically a child class of :class:`ev3dev2.wheel.Wheel`. This is used to
+    wheel_class - A child class of :class:`ev3dev2.wheel.Wheel`. This is used to
     get the circumference of the wheels of the robot. The circumference is
     needed for several calculations in this class.
 
@@ -654,37 +657,29 @@ class MoveDifferential(MoveTank):
     the distance between the midpoints of the two wheels. The weight of
     the robot, center of gravity, etc come into play.
 
-    You can use utils/move_differential.py to call run_arc_left() to do
-    some test drives of circles with a radius of 200mm. Adjust your
-    wheel_distance_mm until your robot can drive in a perfect circle
-    and stop exactly where it started. It does not have to be a circle
-    with a radius of 200mm, you can test with any size circle but you do
-    not want it to be too small or it will be difficult to test small
-    adjustments to wheel_distance_mm.
-
     Example:
 
     .. code:: python
 
-        from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
-        from ev3dev2.wheel import EV3Tire
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceInches, DistanceStuds
+        from spikedev.wheel import SpikeWheel
 
-        STUD_MM = 8
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
-        # test with a robot that:
-        # - uses the standard wheels known as EV3Tire
-        # - wheels are 16 studs apart
-        mdiff = MoveDifferential(OUTPUT_A, OUTPUT_B, EV3Tire, 16 * STUD_MM)
+        # rotate 90 degrees clockwise
+        md.turn_right(90, SpeedDPS(100))
 
-        # Rotate 90 degrees clockwise
-        mdiff.turn_right(SpeedRPM(40), 90)
+        # rotate 90 degrees counter-clockwise
+        md.turn_left(90, SpeedDPS(100))
 
-        # Drive forward 500 mm
-        mdiff.run_for_distance(SpeedRPM(40), 500)
+        # drive forward 6 inches
+        md.run_for_distance(DistanceInches(6), SpeedDPS(100))
 
-        # Drive in arc to the right along an imaginary circle of radius 150 mm.
-        # Drive for 700 mm around this imaginary circle.
-        mdiff.run_arc_right(SpeedRPM(80), 150, 700)
+        # Drive in arc to the right along an imaginary circle of radius 12 inches.
+        # Drive for 6 inches around this imaginary circle.
+        md.run_arc_right(DistanceInches(12), DistanceInches(6), SpeedDPS(100))
     """
 
     def __init__(
@@ -708,25 +703,26 @@ class MoveDifferential(MoveTank):
         )
 
         self.wheel = wheel_class()
-        self.wheel_distance_mm = distance_to_mm(wheel_distance)
+        self.wheel_distance_mm = distance_in_mm(wheel_distance)
 
         # The circumference of the circle made if this robot were to rotate in place
         self.circumference_mm = self.wheel_distance_mm * math.pi
 
         self.min_circle_radius_mm = self.wheel_distance_mm / 2
 
-    def run_for_distance(self, speed, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_for_distance(self, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive in a straight line for ``distance``
         """
-        distance_mm = distance_to_mm(distance)
+        distance_mm = distance_in_mm(distance)
         rotations = distance_mm / self.wheel.circumference_mm
+        degrees = int(rotations * 360)
         log_msg(
             "{}: run_for_distance distance_mm {}, rotations {}, speed {}".format(self, distance_mm, rotations, speed)
         )
-        MoveTank.run_for_degrees(self, speed, speed, rotations * 360, stop=stop, block=block, **kwargs)
+        MoveTank.run_for_degrees(self, degrees, speed, speed, stop=stop, block=block, **kwargs)
 
-    def _run_arc(self, speed, radius_mm, distance_mm, stop, block, arc_right, **kwargs):
+    def _run_arc(self, radius_mm, distance_mm, speed, stop, block, arc_right, **kwargs):
         """
         Drive in a circle with ``radius`` for ``distance``
         """
@@ -736,6 +732,8 @@ class MoveDifferential(MoveTank):
                     self, radius_mm, self.min_circle_radius_mm
                 )
             )
+
+        speed = self._speed_percentage(speed)
 
         # The circle formed at the halfway point between the two wheels is the
         # circle that must have a radius of radius_mm
@@ -774,7 +772,7 @@ class MoveDifferential(MoveTank):
         circle_outer_final_mm = circle_middle_percentage * circle_outer_mm
 
         outer_wheel_rotations = float(circle_outer_final_mm / self.wheel.circumference_mm)
-        outer_wheel_degrees = outer_wheel_rotations * 360
+        outer_wheel_degrees = int(outer_wheel_rotations * 360)
 
         log_msg(
             "{}: arc {}, circle_middle_percentage {}, circle_outer_final_mm {}, ".format(
@@ -783,25 +781,25 @@ class MoveDifferential(MoveTank):
             + "outer_wheel_rotations {}, outer_wheel_degrees {}".format(outer_wheel_rotations, outer_wheel_degrees)
         )
 
-        MoveTank.on_for_degrees(self, left_speed, right_speed, outer_wheel_degrees, stop=stop, block=block, **kwargs)
+        MoveTank.run_for_degrees(self, outer_wheel_degrees, left_speed, right_speed, stop=stop, block=block, **kwargs)
 
-    def run_arc_right(self, speed, radius, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_arc_right(self, radius, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive clockwise in a circle with ``radius`` for ``distance``
         """
-        radius_mm = distance_to_mm(radius)
-        distance_mm = distance_to_mm(distance)
-        self._run_arc(speed, radius_mm, distance_mm, stop, block, True, **kwargs)
+        radius_mm = distance_in_mm(radius)
+        distance_mm = distance_in_mm(distance)
+        self._run_arc(radius_mm, distance_mm, speed, stop, block, True, **kwargs)
 
-    def run_arc_left(self, speed, radius, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_arc_left(self, radius, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive counter-clockwise in a circle with ``radius`` for ``distance``
         """
-        radius_mm = distance_to_mm(radius)
-        distance_mm = distance_to_mm(distance)
-        self._run_arc(speed, radius_mm, distance_mm, stop, block, False, **kwargs)
+        radius_mm = distance_in_mm(radius)
+        distance_mm = distance_in_mm(distance)
+        self._run_arc(radius_mm, distance_mm, speed, stop, block, False, **kwargs)
 
-    def turn_degrees(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
         """
         Rotate in place ``degrees``. Both wheels must turn at the same speed for us
         to rotate in place.  If the following conditions are met the GryoSensor will
@@ -810,6 +808,7 @@ class MoveDifferential(MoveTank):
         - A GyroSensor has been defined via ``self.gyro = GyroSensor()``
         """
 
+        """
         def final_angle(init_angle, degrees):
             result = init_angle - degrees
 
@@ -839,21 +838,24 @@ class MoveDifferential(MoveTank):
                 self, degrees, angle_init_degrees, angle_target_degrees
             )
         )
+        """
 
         # The distance each wheel needs to travel
-        distance_mm = (abs(degrees) / 360) * self.circumference_mm
+        distance_mm = (degrees * self.circumference_mm) / 360
 
         # The number of rotations to move distance_mm
         rotations = distance_mm / self.wheel.circumference_mm
+        degrees = int(rotations * 360)
 
         # If degrees is positive rotate clockwise
         if degrees > 0:
-            MoveTank.run_for_degrees(self, speed, speed * -1, rotations * 360, stop=stop, block=block, **kwargs)
+            MoveTank.run_for_degrees(self, degrees, speed, speed * -1, stop=stop, block=block, **kwargs)
 
         # If degrees is negative rotate counter-clockwise
         else:
-            MoveTank.run_for_degrees(self, speed * -1, speed, rotations * 360, stop=stop, block=block, **kwargs)
+            MoveTank.run_for_degrees(self, degrees, speed * -1, speed, stop=stop, block=block, **kwargs)
 
+        """
         if use_gyro:
             angle_current_degrees = self._gyro.circle_angle()
 
@@ -882,16 +884,17 @@ class MoveDifferential(MoveTank):
             )
 
             if abs(degrees_error) > error_margin:
-                self.turn_degrees(speed, degrees_error, stop, block, error_margin, use_gyro, **kwargs)
+                self.turn_degrees(degrees_error, speed, stop, block, error_margin, use_gyro, **kwargs)
+        """
 
-    def turn_right(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_right(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
         """
         Rotate clockwise ``degrees`` in place
         """
-        self.turn_degrees(speed, abs(degrees), stop, block, error_margin, use_gyro, **kwargs)
+        self.turn_degrees(abs(degrees), speed, stop, block, error_margin, use_gyro, **kwargs)
 
-    def turn_left(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_left(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
         """
         Rotate counter-clockwise ``degrees`` in place
         """
-        self.turn_degrees(speed, abs(degrees) * -1, stop, block, error_margin, use_gyro, **kwargs)
+        self.turn_degrees(abs(degrees) * -1, speed, stop, block, error_margin, use_gyro, **kwargs)
