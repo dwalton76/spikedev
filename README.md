@@ -19,6 +19,8 @@ You will not see the heart picture or hear the familiar chime, that is expected.
 however see the circle button turn white.
 
 ## Copy spikedev files
+We need to create a `spikedev` directory on SPIKE and copy all of our files to that
+directory. To do that run:
 ```bash
 $ sudo make install
 ```
@@ -29,9 +31,10 @@ Write your micropython program on your laptop. Here is basic hello-world.py
 ```micropython
 import hub
 from spikedev.motor import SpeedDPS, SpikeMediumMotor
-from spikedev.unit import DistanceInches, DistanceStuds
 
 print("Hello World")
+
+# Run the motor 720 degrees at 180 degrees-per-second
 mtr = SpikeMediumMotor(hub.port.E)
 mtr.run_for_degrees(720, SpeedDPS(180))
 ```
