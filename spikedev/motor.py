@@ -606,3 +606,98 @@ class MoveTank(MotorBase):
 
         if block:
             self._wait()
+
+
+class MoveSteering(MoveTank):
+    """
+    Controls a pair of motors simultaneously, via a single "steering" value and a speed.
+
+    steering [-100, 100]:
+        * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
+        *  0   means drive in a straight line, and
+        *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
+
+    "steering" can be any number between -100 and 100.
+
+    Example:
+
+    .. code:: python
+
+        steering_drive = MoveSteering(OUTPUT_A, OUTPUT_B)
+        # drive in a turn for 10 rotations of the outer motor
+        steering_drive.on_for_rotations(-20, SpeedPercent(75), 10)
+    """
+
+    def run_at_speed(self, steering, speed, max_power=0, acceleration=100, deceleration=150):
+        """
+        Start rotating the motors according to the provided ``steering`` and
+        ``speed`` forever.
+        """
+        (left_speed, right_speed) = self.get_speed_steering(steering, speed)
+        MoveTank.run_at_speed(self, left_speed, right_speed, max_power, acceleration, deceleration)
+
+    def run_for_degrees(
+        self,
+        steering,
+        speed,
+        degrees,
+        max_power=0,
+        stop=MotorStop.BRAKE,
+        acceleration=100,
+        deceleration=150,
+        block=True,
+    ):
+        """
+        Rotate the motors according to the provided ``steering``.
+
+        The distance each motor will travel follows the rules of :meth:`MoveTank.on_for_degrees`.
+        """
+        (left_speed, right_speed) = self.get_speed_steering(steering, speed)
+        MoveTank.run_for_degrees(
+            self, degrees, left_speed, right_speed, max_power, stop, acceleration, deceleration, block
+        )
+
+    def run_for_time(
+        self, msec, steering, speed, max_power=0, stop=MotorStop.BRAKE, acceleration=100, deceleration=150, block=True
+    ):
+        """
+        Rotate the motors according to the provided ``steering`` for ``seconds``.
+        """
+        (left_speed, right_speed) = self.get_speed_steering(steering, speed)
+        MoveTank.run_for_time(self, msec, left_speed, right_speed, max_power, stop, acceleration, deceleration, block)
+
+    def get_speed_steering(self, steering, speed):
+        """
+        Calculate the speed_sp for each motor in a pair to achieve the specified
+        steering. Note that calling this function alone will not make the
+        motors move, it only calculates the speed. A run_* function must be called
+        afterwards to make the motors move.
+
+        steering [-100, 100]:
+            * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
+            *  0   means drive in a straight line, and
+            *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
+
+        speed:
+            The speed that should be applied to the outmost motor (the one
+            rotating faster). The speed of the other motor will be computed
+            automatically.
+        """
+
+        if steering < -100 or steering > 100:
+            raise ValueError("{} is an invalid steering, must be between -100 and 100 (inclusive)".format(steering))
+
+        # We don't have a good way to make this generic for the pair... so we
+        # assume that the left motor's speed stats are the same as the right
+        # motor's.
+        speed = self._speed_percentage(speed)
+        left_speed = speed
+        right_speed = speed
+        speed_factor = (50 - abs(float(steering))) / 50
+
+        if steering >= 0:
+            right_speed *= speed_factor
+        else:
+            left_speed *= speed_factor
+
+        return (left_speed, right_speed)
