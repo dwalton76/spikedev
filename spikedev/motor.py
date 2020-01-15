@@ -30,6 +30,7 @@ import sys
 # spikedev libraries
 import utime
 from spikedev.logging import log_msg
+from spikedev.unit import distance_to_mm
 
 MAXINT = sys.maxsize
 MININT = MAXINT * -1
@@ -345,8 +346,11 @@ class Motor(MotorBase):
             return speed.to_native_units(self)
 
         # If speed is not a SpeedValue object we treat it as a percentage
-        else:
+        elif isinstance(speed, (float, int)):
             return SpeedPercent(speed).to_native_units(self)
+
+        else:
+            raise TypeError(type(speed))
 
     @property
     def position(self):
@@ -687,8 +691,8 @@ class MoveDifferential(MoveTank):
         self,
         left_motor_port,
         right_motor_port,
-        wheel_class,
-        wheel_distance_mm,
+        wheel_class,  # an object from wheel.py
+        wheel_distance,  # an int of mm or any DistanceValue object
         motor_class=SpikeMediumMotor,
         left_motor_polarity=MotorPolarity.REVERSED,
         right_motor_polarity=MotorPolarity.NORMAL,
@@ -704,17 +708,18 @@ class MoveDifferential(MoveTank):
         )
 
         self.wheel = wheel_class()
-        self.wheel_distance_mm = wheel_distance_mm
+        self.wheel_distance_mm = distance_to_mm(wheel_distance)
 
         # The circumference of the circle made if this robot were to rotate in place
         self.circumference_mm = self.wheel_distance_mm * math.pi
 
         self.min_circle_radius_mm = self.wheel_distance_mm / 2
 
-    def run_for_distance(self, speed, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_for_distance(self, speed, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Drive in a straight line for ``distance_mm``
+        Drive in a straight line for ``distance``
         """
+        distance_mm = distance_to_mm(distance)
         rotations = distance_mm / self.wheel.circumference_mm
         log_msg(
             "{}: run_for_distance distance_mm {}, rotations {}, speed {}".format(self, distance_mm, rotations, speed)
@@ -725,7 +730,6 @@ class MoveDifferential(MoveTank):
         """
         Drive in a circle with ``radius`` for ``distance``
         """
-
         if radius_mm < self.min_circle_radius_mm:
             raise ValueError(
                 "{}: radius_mm {} is less than min_circle_radius_mm {}".format(
@@ -781,16 +785,20 @@ class MoveDifferential(MoveTank):
 
         MoveTank.on_for_degrees(self, left_speed, right_speed, outer_wheel_degrees, stop=stop, block=block, **kwargs)
 
-    def run_arc_right(self, speed, radius_mm, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_arc_right(self, speed, radius, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Drive clockwise in a circle with ``radius_mm`` for ``distance_mm``
+        Drive clockwise in a circle with ``radius`` for ``distance``
         """
+        radius_mm = distance_to_mm(radius)
+        distance_mm = distance_to_mm(distance)
         self._run_arc(speed, radius_mm, distance_mm, stop, block, True, **kwargs)
 
-    def run_arc_left(self, speed, radius_mm, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_arc_left(self, speed, radius, distance, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Drive counter-clockwise in a circle with ``radius_mm`` for ``distance_mm``
+        Drive counter-clockwise in a circle with ``radius`` for ``distance``
         """
+        radius_mm = distance_to_mm(radius)
+        distance_mm = distance_to_mm(distance)
         self._run_arc(speed, radius_mm, distance_mm, stop, block, False, **kwargs)
 
     def turn_degrees(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
