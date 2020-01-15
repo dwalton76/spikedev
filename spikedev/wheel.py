@@ -8,7 +8,7 @@ from math import pi
 
 
 class Wheel(object):
-    """ 
+    """
     A base class for various types of wheels, tires, etc.  All units are in mm.
 
     One scenario where one of the child classes below would be used is when the
@@ -39,7 +39,7 @@ class Wheel(object):
 
 
 class SpikeWheel(Wheel):
-    """ 
+    """
     part number 39367
     comes in set 45678-1
     """
@@ -49,7 +49,7 @@ class SpikeWheel(Wheel):
 
 
 class SpikeLargeWheel(Wheel):
-    """ 
+    """
     part number 49295
     comes in set 45680-1
     """
