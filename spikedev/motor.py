@@ -1,5 +1,5 @@
-# Much of the code in this file was ported from ev3dev-lang-python with minimal
-# changes...here is the license for ev3dev-lang-python.
+# Much of the code in this file was ported from ev3dev-lang-python so we
+# are including the license for ev3dev-lang-python.
 
 # -----------------------------------------------------------------------------
 # Copyright (c) 2015 Ralph Hempel <rhempel@hempeldesigngroup.com>
@@ -24,10 +24,11 @@
 # -----------------------------------------------------------------------------
 
 # standard libraries
+import math
 import sys
-import utime
 
 # spikedev libraries
+import utime
 from spikedev.logging import log_msg
 
 MAXINT = sys.maxsize
@@ -53,6 +54,20 @@ class MotorCallbackEvent:
 class MotorPolarity:
     NORMAL = 0
     REVERSED = 1
+
+
+class MotorMode:
+    """
+    for x in hub.port.E.info()["modes"]:
+        print(x)
+    """
+
+    POWER = 0
+    SPEED = 1
+    POS = 2
+    APOS = 3  # position but limited to -180 -> 180
+    LOAD = 4
+    CALIB = 5
 
 
 class SpeedValue(object):
@@ -236,7 +251,7 @@ class MotorBase:
             self.interrupted = False
             self.stalled = True
         else:
-            raise ValueError("invalid callback reason {}" % (reason))
+            raise ValueError("invalid callback reason {}".format(reason))
 
         self.rxed_callback = True
 
@@ -247,34 +262,37 @@ class MotorBase:
 
     def _validate_degrees(self, degrees):
         if degrees < MININT or degrees > MAXINT:
-            raise ValueError("degrees{} is invalid, must be between {} and {} (inclusive)" % (degrees, MININT, MAXINT))
+            raise ValueError(
+                "degrees {} is invalid, must be between {} and {} (inclusive)".format(degrees, MININT, MAXINT)
+            )
 
     def _validate_speed(self, speed):
         if speed < -100 or speed > 100:
-            raise ValueError("speed {} is invalid, must be between -100 and 100 (inclusive)" % (speed))
+            raise ValueError("speed {} is invalid, must be between -100 and 100 (inclusive)".format(speed))
 
     def _validate_max_power(self, max_power):
         if max_power < 0 or max_power > 100:
-            raise ValueError("max_power {} is invalid, must be between 0 and 100 (inclusive)" % (max_power))
+            raise ValueError("max_power {} is invalid, must be between 0 and 100 (inclusive)".format(max_power))
 
     def _validate_stop(self, stop):
         if stop not in (MotorStop.FLOAT, MotorStop.BRAKE, MotorStop.HOLD):
             raise ValueError(
-                "stop {} is invalid, must be one of %s, %s, %s"
-                % (stop, MotorStop.FLOAT, MotorStop.BRAKE, MotorStop.HOLD)
+                "stop {} is invalid, must be one of {}, {}, {}".format(
+                    stop, MotorStop.FLOAT, MotorStop.BRAKE, MotorStop.HOLD
+                )
             )
 
     def _validate_acceleration(self, acceleration):
         if acceleration < 0 or acceleration > 10000:
-            raise ValueError("acceleration {} is invalid, must be between 0 and 10000 (inclusive)" % (acceleration))
+            raise ValueError("acceleration {} is invalid, must be between 0 and 10000 (inclusive)".format(acceleration))
 
     def _validate_deceleration(self, deceleration):
         if deceleration < 0 or deceleration > 10000:
-            raise ValueError("deceleration {} is invalid, must be between 0 and 10000 (inclusive)" % (deceleration))
+            raise ValueError("deceleration {} is invalid, must be between 0 and 10000 (inclusive)".format(deceleration))
 
     def _validate_stall(self, stall):
         if stall not in (True, False):
-            raise ValueError("stall {} is invalid, must be True or False" % (stall))
+            raise ValueError("stall {} is invalid, must be True or False".format(stall))
 
     def _validate_args(self, kwargs):
 
@@ -316,9 +334,10 @@ class Motor(MotorBase):
             utime.sleep(0.1)
 
         self.port.motor.callback(self._event_callback)
+        self.port.motor.mode(MotorMode.POS)
 
     def __str__(self):
-        return "%s(port %s)" % (self.__class__.__name__, self.port_letter)
+        return "{}(port {})".format(self.__class__.__name__, self.port_letter)
 
     def _speed_percentage(self, speed):
 
@@ -331,12 +350,6 @@ class Motor(MotorBase):
 
     @property
     def position(self):
-        # HMMM this is how it is done in the scratch->python translation
-        # but this always returns 0.  Am not sure yet how to get the motor position.
-        # from util.sensors import get_sensor_value
-        # return get_sensor_value(self.port_letter, 3, 0, (49, 48))
-
-        # This returns something but I don't know what it is...it isn't the position though
         return self.port.motor.get()
 
     @position.setter
@@ -360,7 +373,7 @@ class Motor(MotorBase):
         elif self.polarity == MotorPolarity.REVERSED:
             return value * -1
         else:
-            raise ValueError("%s invalid polarity %s" % (self, self.polarity))
+            raise ValueError("{} invalid polarity {}".format(self, self.polarity))
 
     def _degrees_with_polarity(self, degrees):
         return self._number_with_polarity(degrees)
@@ -380,79 +393,35 @@ class Motor(MotorBase):
             self.port.motor.hold()
 
         else:
-            raise ValueError("invalid stop_action %s" % stop_action)
+            raise ValueError("invalid stop_action {}".format(stop_action))
 
-    def run_at_speed(self, speed, max_power=0, acceleration=100, deceleration=150, stall=True):
+    def run_at_speed(self, speed, **kwargs):
         speed = self._speed_percentage(speed)
-        self.port.motor.run_at_speed(
-            self._speed_with_polarity(speed),
-            max_power=max_power,
-            acceleration=acceleration,
-            deceleration=deceleration,
-            stall=stall,
-        )
+        self.port.motor.run_at_speed(self._speed_with_polarity(speed), **kwargs)
 
-    def run_for_degrees(
-        self,
-        degrees,
-        speed,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        stall=True,
-        block=True,
-    ):
-        log_msg("%s: run_for_degrees %s at speed %s" % (self, degrees, speed))
+    def run_for_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        log_msg("{}: run_for_degrees {} at speed {}".format(self, degrees, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
-        self.port.motor.run_for_degrees(
-            degrees=self._degrees_with_polarity(degrees),
-            speed=speed,
-            max_power=max_power,
-            stop=stop,
-            acceleration=acceleration,
-            deceleration=deceleration,
-            stall=stall,
-        )
+        self.port.motor.run_for_degrees(self._degrees_with_polarity(degrees), speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
 
-    def run_to_position(
-        self,
-        position,
-        speed,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        stall=True,
-        block=True,
-    ):
-        log_msg("%s: run_to_position %s at speed %s" % (self, position, speed))
+    def run_to_position(self, position, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        log_msg("{}: run_to_position {} at speed {}".format(self, position, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
-        self.port.motor.run_to_position(
-            position=position,
-            speed=speed,
-            max_power=max_power,
-            stop=stop,
-            acceleration=acceleration,
-            deceleration=deceleration,
-            stall=stall,
-        )
+        self.port.motor.run_to_position(position, speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
 
-    def run_for_time(
-        self, msec, speed, max_power=0, stop=MotorStop.BRAKE, acceleration=100, deceleration=150, stall=True, block=True
-    ):
-        log_msg("%s: run_for_time %sms at speed %s" % (self, msec, speed))
+    def run_for_time(self, msec, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        log_msg("{}: run_for_time {}ms at speed {}".format(self, msec, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
-        self.port.motor.run_for_time(msec, speed, max_power, stop, acceleration, deceleration, stall)
+        self.port.motor.run_for_time(msec, speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
@@ -469,7 +438,7 @@ class SpikeMediumMotor(Motor):
     MAX_DPS = 810  # degrees per second
 
     def __str__(self):
-        return "SpikeMediumMotor(port %s)" % self.port_letter
+        return "SpikeMediumMotor(port {})".format(self.port_letter)
 
 
 class SpikeLargeMotor(Motor):
@@ -483,7 +452,7 @@ class SpikeLargeMotor(Motor):
     MAX_DPS = 1050
 
     def __str__(self):
-        return "SpikeLargeMotor(port %s)" % self.port_letter
+        return "SpikeLargeMotor(port {})".format(self.port_letter)
 
 
 class MoveTank(MotorBase):
@@ -521,112 +490,59 @@ class MoveTank(MotorBase):
         elif self.left_motor.polarity == MotorPolarity.REVERSED:
             left_speed *= -1
         else:
-            raise ValueError("%s invalid polarity %s" % (self, self.left_motor.polarity))
+            raise ValueError("{} invalid polarity {}".format(self, self.left_motor.polarity))
 
         if self.right_motor.polarity == MotorPolarity.NORMAL:
             pass
         elif self.right_motor.polarity == MotorPolarity.REVERSED:
             right_speed *= -1
         else:
-            raise ValueError("%s invalid polarity %s" % (self, self.right_motor.polarity))
+            raise ValueError("{} invalid polarity {}".format(self, self.right_motor.polarity))
 
         return (left_speed, right_speed)
 
     def stop(self):
         self.pair.brake()
 
-    def run_at_speed(self, left_speed, right_speed, max_power=0, acceleration=100, deceleration=150):
+    def run_at_speed(self, left_speed, right_speed, **kwargs):
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
-        self.pair.run_at_speed(
-            left_speed, right_speed, max_power=max_power, acceleration=acceleration, deceleration=deceleration
-        )
+        self.pair.run_at_speed(left_speed, right_speed, **kwargs)
 
-    def run_for_degrees(
-        self,
-        degrees,
-        left_speed,
-        right_speed,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        block=True,
-    ):
-        log_msg("%s: run_for_degrees %s at left_speed %s, right_speed %s" % (self, degrees, left_speed, right_speed))
+    def run_for_degrees(self, degrees, left_speed, right_speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        log_msg(
+            "{}: run_for_degrees {} at left_speed {}, right_speed {}".format(self, degrees, left_speed, right_speed)
+        )
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
         self.rxed_callback = False
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
-        self.pair.run_for_degrees(
-            degrees,
-            left_speed,
-            right_speed,
-            max_power=max_power,
-            stop=stop,
-            acceleration=acceleration,
-            deceleration=deceleration,
-        )
+        self.pair.run_for_degrees(degrees, left_speed, right_speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
 
-    def run_to_position(
-        self,
-        left_position,
-        right_position,
-        speed,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        block=True,
-    ):
+    def run_to_position(self, left_position, right_position, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         log_msg(
-            "%s: run_to_position left_position %s, right_position %s, at speed %s"
-            % (self, left_position, right_position, speed)
+            "{}: run_to_position left_position {}, right_position {}, at speed {}".format(
+                self, left_position, right_position, speed
+            )
         )
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
-        self.pair.run_to_position(
-            left_position,
-            right_position,
-            speed,
-            max_power=max_power,
-            stop=stop,
-            acceleration=acceleration,
-            deceleration=deceleration,
-        )
+        self.pair.run_to_position(left_position, right_position, speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
 
-    def run_for_time(
-        self,
-        msec,
-        left_speed,
-        right_speed,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        block=True,
-    ):
-        log_msg("%s: run_for_time %sms at left_speed %s, right_speed %s" % (self, msec, left_speed, right_speed))
+    def run_for_time(self, msec, left_speed, right_speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        log_msg("{}: run_for_time {}ms at left_speed {}, right_speed {}".format(self, msec, left_speed, right_speed))
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
         self.rxed_callback = False
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
-        self.pair.run_for_time(
-            msec,
-            left_speed,
-            right_speed,
-            max_power=max_power,
-            stop=stop,
-            acceleration=acceleration,
-            deceleration=deceleration,
-        )
+        self.pair.run_for_time(msec, left_speed, right_speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
@@ -673,9 +589,6 @@ class MoveSteering(MoveTank):
         if steering < -100 or steering > 100:
             raise ValueError("{} is an invalid steering, must be between -100 and 100 (inclusive)".format(steering))
 
-        # We don't have a good way to make this generic for the pair... so we
-        # assume that the left motor's speed stats are the same as the right
-        # motor's.
         speed = self._speed_percentage(speed)
         left_speed = speed
         right_speed = speed
@@ -688,40 +601,289 @@ class MoveSteering(MoveTank):
 
         return (left_speed, right_speed)
 
-    def run_at_speed(self, steering, speed, max_power=0, acceleration=100, deceleration=150):
+    def run_at_speed(self, steering, speed, **kwargs):
         """
         Start rotating the motors according to the provided ``steering`` and
         ``speed`` forever.
         """
         (left_speed, right_speed) = self.get_speed_steering(steering, speed)
-        MoveTank.run_at_speed(self, left_speed, right_speed, max_power, acceleration, deceleration)
+        MoveTank.run_at_speed(self, left_speed, right_speed, **kwargs)
 
-    def run_for_degrees(
-        self,
-        steering,
-        speed,
-        degrees,
-        max_power=0,
-        stop=MotorStop.BRAKE,
-        acceleration=100,
-        deceleration=150,
-        block=True,
-    ):
+    def run_for_degrees(self, steering, speed, degrees, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Rotate the motors according to the provided ``steering``.
 
         The distance each motor will travel follows the rules of :meth:`MoveTank.on_for_degrees`.
         """
         (left_speed, right_speed) = self.get_speed_steering(steering, speed)
-        MoveTank.run_for_degrees(
-            self, degrees, left_speed, right_speed, max_power, stop, acceleration, deceleration, block
-        )
+        MoveTank.run_for_degrees(self, degrees, left_speed, right_speed, stop=stop, block=block, **kwargs)
 
-    def run_for_time(
-        self, msec, steering, speed, max_power=0, stop=MotorStop.BRAKE, acceleration=100, deceleration=150, block=True
-    ):
+    def run_for_time(self, msec, steering, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Rotate the motors according to the provided ``steering`` for ``seconds``.
         """
         (left_speed, right_speed) = self.get_speed_steering(steering, speed)
-        MoveTank.run_for_time(self, msec, left_speed, right_speed, max_power, stop, acceleration, deceleration, block)
+        MoveTank.run_for_time(self, msec, left_speed, right_speed, stop=stop, block=block, **kwargs)
+
+
+class MoveDifferential(MoveTank):
+    """
+    MoveDifferential is a child of MoveTank that adds the following capabilities:
+
+    - drive in a straight line for a specified distance
+
+    - rotate in place in a circle (clockwise or counter clockwise) for a
+      specified number of degrees
+
+    - drive in an arc (clockwise or counter clockwise) of a specified radius
+      for a specified distance
+
+    New arguments:
+
+    wheel_class - Typically a child class of :class:`ev3dev2.wheel.Wheel`. This is used to
+    get the circumference of the wheels of the robot. The circumference is
+    needed for several calculations in this class.
+
+    wheel_distance_mm - The distance between the mid point of the two
+    wheels of the robot. You may need to do some test drives to find
+    the correct value for your robot.  It is not as simple as measuring
+    the distance between the midpoints of the two wheels. The weight of
+    the robot, center of gravity, etc come into play.
+
+    You can use utils/move_differential.py to call run_arc_left() to do
+    some test drives of circles with a radius of 200mm. Adjust your
+    wheel_distance_mm until your robot can drive in a perfect circle
+    and stop exactly where it started. It does not have to be a circle
+    with a radius of 200mm, you can test with any size circle but you do
+    not want it to be too small or it will be difficult to test small
+    adjustments to wheel_distance_mm.
+
+    Example:
+
+    .. code:: python
+
+        from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
+        from ev3dev2.wheel import EV3Tire
+
+        STUD_MM = 8
+
+        # test with a robot that:
+        # - uses the standard wheels known as EV3Tire
+        # - wheels are 16 studs apart
+        mdiff = MoveDifferential(OUTPUT_A, OUTPUT_B, EV3Tire, 16 * STUD_MM)
+
+        # Rotate 90 degrees clockwise
+        mdiff.turn_right(SpeedRPM(40), 90)
+
+        # Drive forward 500 mm
+        mdiff.run_for_distance(SpeedRPM(40), 500)
+
+        # Drive in arc to the right along an imaginary circle of radius 150 mm.
+        # Drive for 700 mm around this imaginary circle.
+        mdiff.run_arc_right(SpeedRPM(80), 150, 700)
+    """
+
+    def __init__(
+        self,
+        left_motor_port,
+        right_motor_port,
+        wheel_class,
+        wheel_distance_mm,
+        motor_class=SpikeMediumMotor,
+        left_motor_polarity=MotorPolarity.REVERSED,
+        right_motor_polarity=MotorPolarity.NORMAL,
+    ):
+
+        MoveTank.__init__(
+            self,
+            left_motor_port,
+            right_motor_port,
+            motor_class=motor_class,
+            left_motor_polarity=left_motor_polarity,
+            right_motor_polarity=right_motor_polarity,
+        )
+
+        self.wheel = wheel_class()
+        self.wheel_distance_mm = wheel_distance_mm
+
+        # The circumference of the circle made if this robot were to rotate in place
+        self.circumference_mm = self.wheel_distance_mm * math.pi
+
+        self.min_circle_radius_mm = self.wheel_distance_mm / 2
+
+    def run_for_distance(self, speed, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Drive in a straight line for ``distance_mm``
+        """
+        rotations = distance_mm / self.wheel.circumference_mm
+        log_msg(
+            "{}: run_for_distance distance_mm {}, rotations {}, speed {}".format(self, distance_mm, rotations, speed)
+        )
+        MoveTank.run_for_degrees(self, speed, speed, rotations * 360, stop=stop, block=block, **kwargs)
+
+    def _run_arc(self, speed, radius_mm, distance_mm, stop, block, arc_right, **kwargs):
+        """
+        Drive in a circle with ``radius`` for ``distance``
+        """
+
+        if radius_mm < self.min_circle_radius_mm:
+            raise ValueError(
+                "{}: radius_mm {} is less than min_circle_radius_mm {}".format(
+                    self, radius_mm, self.min_circle_radius_mm
+                )
+            )
+
+        # The circle formed at the halfway point between the two wheels is the
+        # circle that must have a radius of radius_mm
+        circle_outer_mm = 2 * math.pi * (radius_mm + (self.wheel_distance_mm / 2))
+        circle_middle_mm = 2 * math.pi * radius_mm
+        circle_inner_mm = 2 * math.pi * (radius_mm - (self.wheel_distance_mm / 2))
+
+        if arc_right:
+            # The left wheel is making the larger circle and will move at 'speed'
+            # The right wheel is making a smaller circle so its speed will be a fraction of the left motor's speed
+            left_speed = speed
+            right_speed = float(circle_inner_mm / circle_outer_mm) * left_speed
+
+        else:
+            # The right wheel is making the larger circle and will move at 'speed'
+            # The left wheel is making a smaller circle so its speed will be a fraction of the right motor's speed
+            right_speed = speed
+            left_speed = float(circle_inner_mm / circle_outer_mm) * right_speed
+
+        log_msg(
+            "{}: arc {}, radius {}, distance {}, left-speed {}, right-speed {}, ".format(
+                self, "right" if arc_right else "left", radius_mm, distance_mm, left_speed, right_speed
+            )
+            + "circle_outer_mm {}, circle_middle_mm {}, circle_inner_mm {}".format(
+                circle_outer_mm, circle_middle_mm, circle_inner_mm
+            )
+        )
+
+        # We know we want the middle circle to be of length distance_mm so
+        # calculate the percentage of circle_middle_mm we must travel for the
+        # middle of the robot to travel distance_mm.
+        circle_middle_percentage = float(distance_mm / circle_middle_mm)
+
+        # Now multiple that percentage by circle_outer_mm to calculate how
+        # many mm the outer wheel should travel.
+        circle_outer_final_mm = circle_middle_percentage * circle_outer_mm
+
+        outer_wheel_rotations = float(circle_outer_final_mm / self.wheel.circumference_mm)
+        outer_wheel_degrees = outer_wheel_rotations * 360
+
+        log_msg(
+            "{}: arc {}, circle_middle_percentage {}, circle_outer_final_mm {}, ".format(
+                self, "right" if arc_right else "left", circle_middle_percentage, circle_outer_final_mm
+            )
+            + "outer_wheel_rotations {}, outer_wheel_degrees {}".format(outer_wheel_rotations, outer_wheel_degrees)
+        )
+
+        MoveTank.on_for_degrees(self, left_speed, right_speed, outer_wheel_degrees, stop=stop, block=block, **kwargs)
+
+    def run_arc_right(self, speed, radius_mm, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Drive clockwise in a circle with ``radius_mm`` for ``distance_mm``
+        """
+        self._run_arc(speed, radius_mm, distance_mm, stop, block, True, **kwargs)
+
+    def run_arc_left(self, speed, radius_mm, distance_mm, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Drive counter-clockwise in a circle with ``radius_mm`` for ``distance_mm``
+        """
+        self._run_arc(speed, radius_mm, distance_mm, stop, block, False, **kwargs)
+
+    def turn_degrees(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+        """
+        Rotate in place ``degrees``. Both wheels must turn at the same speed for us
+        to rotate in place.  If the following conditions are met the GryoSensor will
+        be used to improve the accuracy of our turn:
+        - ``use_gyro``, ``brake`` and ``block`` are all True
+        - A GyroSensor has been defined via ``self.gyro = GyroSensor()``
+        """
+
+        def final_angle(init_angle, degrees):
+            result = init_angle - degrees
+
+            while result <= -360:
+                result += 360
+
+            while result >= 360:
+                result -= 360
+
+            if result < 0:
+                result += 360
+
+            return result
+
+        # use the gyro to check that we turned the correct amount?
+        use_gyro = bool(use_gyro and block and stop in (MotorStop.BRAKE, MotorStop.HOLD) and self._gyro)
+
+        if use_gyro:
+            angle_init_degrees = self._gyro.circle_angle()
+        else:
+            angle_init_degrees = math.degrees(self.theta)
+
+        angle_target_degrees = final_angle(angle_init_degrees, degrees)
+
+        log_msg(
+            "{}: turn_degrees() {} degrees from {} to {}".format(
+                self, degrees, angle_init_degrees, angle_target_degrees
+            )
+        )
+
+        # The distance each wheel needs to travel
+        distance_mm = (abs(degrees) / 360) * self.circumference_mm
+
+        # The number of rotations to move distance_mm
+        rotations = distance_mm / self.wheel.circumference_mm
+
+        # If degrees is positive rotate clockwise
+        if degrees > 0:
+            MoveTank.run_for_degrees(self, speed, speed * -1, rotations * 360, stop=stop, block=block, **kwargs)
+
+        # If degrees is negative rotate counter-clockwise
+        else:
+            MoveTank.run_for_degrees(self, speed * -1, speed, rotations * 360, stop=stop, block=block, **kwargs)
+
+        if use_gyro:
+            angle_current_degrees = self._gyro.circle_angle()
+
+            # This can happen if we are aiming for 2 degrees and overrotate to 358 degrees
+            # We need to rotate counter-clockwise
+            if 90 >= angle_target_degrees >= 0 and 270 <= angle_current_degrees <= 360:
+                degrees_error = (angle_target_degrees + (360 - angle_current_degrees)) * -1
+
+            # This can happen if we are aiming for 358 degrees and overrotate to 2 degrees
+            # We need to rotate clockwise
+            elif 360 >= angle_target_degrees >= 270 and 0 <= angle_current_degrees <= 90:
+                degrees_error = angle_current_degrees + (360 - angle_target_degrees)
+
+            # We need to rotate clockwise
+            elif angle_current_degrees > angle_target_degrees:
+                degrees_error = angle_current_degrees - angle_target_degrees
+
+            # We need to rotate counter-clockwise
+            else:
+                degrees_error = (angle_target_degrees - angle_current_degrees) * -1
+
+            log_msg(
+                "{}: turn_degrees() ended up at {}, error {}, error_margin {}".format(
+                    self, angle_current_degrees, degrees_error, error_margin
+                )
+            )
+
+            if abs(degrees_error) > error_margin:
+                self.turn_degrees(speed, degrees_error, stop, block, error_margin, use_gyro, **kwargs)
+
+    def turn_right(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+        """
+        Rotate clockwise ``degrees`` in place
+        """
+        self.turn_degrees(speed, abs(degrees), stop, block, error_margin, use_gyro, **kwargs)
+
+    def turn_left(self, speed, degrees, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+        """
+        Rotate counter-clockwise ``degrees`` in place
+        """
+        self.turn_degrees(speed, abs(degrees) * -1, stop, block, error_margin, use_gyro, **kwargs)
