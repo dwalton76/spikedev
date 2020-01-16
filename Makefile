@@ -27,4 +27,4 @@ install-lite:
 sphinx:
 	rm -rf docs
 	sphinx-build -c docs-sphinx/ -w docs.log docs-sphinx docs
-	touch docs/.nojekyll
+	echo "baseurl: /spikedev" >> docs/_config.yml
