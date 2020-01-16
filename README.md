@@ -30,13 +30,13 @@ $ sudo make install
 Write your micropython program on your laptop. Here is a basic hello-world.py
 ```micropython
 import hub
-from spikedev.motor import SpeedDPS, SpikeMediumMotor
+from spikedev.motor import MotorSpeedDPS, SpikeMediumMotor
 
 print("Hello World")
 
 # Run the motor 720 degrees at 180 degrees-per-second
 mtr = SpikeMediumMotor(hub.port.E)
-mtr.run_for_degrees(720, SpeedDPS(180))
+mtr.run_for_degrees(720, MotorSpeedDPS(180))
 ```
 
 ## Run your program

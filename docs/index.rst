@@ -12,5 +12,6 @@ Welcome to spikedev's documentation!
 
    spikedev-logging
    spikedev-motor
+   spikedev-tank
    spikedev-unit
    spikedev-wheel

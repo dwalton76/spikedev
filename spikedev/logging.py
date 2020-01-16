@@ -4,8 +4,9 @@ A simple module for logging message with timestamps
 .. image:: images/logging.jpg
 """
 
-# spikedev libraries
+# standard libraries
 import utime
+
 
 def _timestamp():
     """

@@ -34,7 +34,7 @@ STUD_MM = 8
 
 class DistanceValue:
     """
-    A base class for other unit types. Do not use this directly. Use one of:
+    A base class for ``Distance`` classes. Do not use this directly. Use one of:
 
     * :class:`DistanceMillimeters`
     * :class:`DistanceCentimeters`
@@ -66,14 +66,14 @@ class DistanceMillimeters(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceMillimeters, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 600 millimeters
-        md.run_for_distance(DistanceMillimeters(600), SpeedDPS(100))
+        md.run_for_distance(DistanceMillimeters(600), MotorSpeedDPS(100))
     """
 
     def __init__(self, millimeters):
@@ -108,14 +108,14 @@ class DistanceCentimeters(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceCentimeters, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 60 centimeters
-        md.run_for_distance(DistanceCentimeters(60), SpeedDPS(100))
+        md.run_for_distance(DistanceCentimeters(60), MotorSpeedDPS(100))
     """
 
     def __init__(self, centimeters):
@@ -150,14 +150,14 @@ class DistanceDecimeters(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceDecimeters, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 6 decimeters
-        md.run_for_distance(DistanceDecimeters(6), SpeedDPS(100))
+        md.run_for_distance(DistanceDecimeters(6), MotorSpeedDPS(100))
     """
 
     def __init__(self, decimeters):
@@ -192,14 +192,14 @@ class DistanceMeters(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceMeters, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 2 meters
-        md.run_for_distance(DistanceMeters(2), SpeedDPS(100))
+        md.run_for_distance(DistanceMeters(2), MotorSpeedDPS(100))
     """
 
     def __init__(self, meters):
@@ -234,14 +234,14 @@ class DistanceInches(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceInches, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 6 inches
-        md.run_for_distance(DistanceInches(6), SpeedDPS(100))
+        md.run_for_distance(DistanceInches(6), MotorSpeedDPS(100))
     """
 
     def __init__(self, inches):
@@ -276,14 +276,14 @@ class DistanceFeet(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceFeet, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 3 feet
-        md.run_for_distance(DistanceFeet(3), SpeedDPS(100))
+        md.run_for_distance(DistanceFeet(3), MotorSpeedDPS(100))
     """
 
     def __init__(self, feet):
@@ -318,14 +318,14 @@ class DistanceYards(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceYards, DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 2 yards
-        md.run_for_distance(DistanceYards(2), SpeedDPS(100))
+        md.run_for_distance(DistanceYards(2), MotorSpeedDPS(100))
     """
 
     def __init__(self, yards):
@@ -360,14 +360,14 @@ class DistanceStuds(DistanceValue):
     .. code:: python
 
         import hub
-        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.motor import MoveDifferential, MotorSpeedDPS
         from spikedev.unit import DistanceStuds
         from spikedev.wheel import SpikeWheel
 
         md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 
         # drive forward 2 studs
-        md.run_for_distance(DistanceStuds(6), SpeedDPS(100))
+        md.run_for_distance(DistanceStuds(6), MotorSpeedDPS(100))
     """
 
     def __init__(self, studs):

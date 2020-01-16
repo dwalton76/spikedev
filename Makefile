@@ -12,6 +12,7 @@ install:
 	ampy --port /dev/ttyACM0 put spikedev/__init__.py spikedev/__init__.py
 	ampy --port /dev/ttyACM0 put spikedev/logging.py spikedev/logging.py
 	ampy --port /dev/ttyACM0 put spikedev/motor.py spikedev/motor.py
+	ampy --port /dev/ttyACM0 put spikedev/tank.py spikedev/tank.py
 	ampy --port /dev/ttyACM0 put spikedev/unit.py spikedev/unit.py
 	ampy --port /dev/ttyACM0 put spikedev/wheel.py spikedev/wheel.py
 
@@ -19,6 +20,7 @@ install-lite:
 	ampy --port /dev/ttyACM0 put spikedev/__init__.py spikedev/__init__.py
 	ampy --port /dev/ttyACM0 put spikedev/logging.py spikedev/logging.py
 	ampy --port /dev/ttyACM0 put spikedev/motor.py spikedev/motor.py
+	ampy --port /dev/ttyACM0 put spikedev/tank.py spikedev/tank.py
 	ampy --port /dev/ttyACM0 put spikedev/unit.py spikedev/unit.py
 	ampy --port /dev/ttyACM0 put spikedev/wheel.py spikedev/wheel.py
 
