@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spikedev.motor &mdash; spikedev  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="spikedev.tank" href="spikedev-tank.html" />
+    <link rel="prev" title="spikedev.logging" href="spikedev-logging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> spikedev
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.motor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">spikedev</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>spikedev.motor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spikedev-motor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-spikedev.motor">
+<span id="spikedev-motor"></span><h1>spikedev.motor<a class="headerlink" href="#module-spikedev.motor" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeed">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeed</code><a class="headerlink" href="#spikedev.motor.MotorSpeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>A base class for <code class="docutils literal notranslate"><span class="pre">MotorSpeed</span></code> classes. Do not use this directly. Use one of:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#spikedev.motor.MotorSpeedPercent" title="spikedev.motor.MotorSpeedPercent"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorSpeedPercent</span></code></a></li>
+<li><a class="reference internal" href="#spikedev.motor.MotorSpeedRPS" title="spikedev.motor.MotorSpeedRPS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorSpeedRPS</span></code></a></li>
+<li><a class="reference internal" href="#spikedev.motor.MotorSpeedRPM" title="spikedev.motor.MotorSpeedRPM"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorSpeedRPM</span></code></a></li>
+<li><a class="reference internal" href="#spikedev.motor.MotorSpeedDPS" title="spikedev.motor.MotorSpeedDPS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorSpeedDPS</span></code></a></li>
+<li><a class="reference internal" href="#spikedev.motor.MotorSpeedDPM" title="spikedev.motor.MotorSpeedDPM"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorSpeedDPM</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeedPercent">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeedPercent</code><span class="sig-paren">(</span><em>percent</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedPercent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.MotorSpeed</span></code></a></p>
+<p>Motor speed as a percentage of the motor’s maximum rated speed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>percent</strong> (<em>int</em>) – the speed percentage to store</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedPercent</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 40% of motor&#39;s maximum speed</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.motor.MotorSpeedPercent.to_native_units">
+<code class="descname">to_native_units</code><span class="sig-paren">(</span><em>motor</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedPercent.to_native_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>The native unit for a Spike motor is speed percentage so there is nothing to adjust here</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>motor</strong> (<a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the motor to use for calculating the speed percentage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the speed percentage</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeedRPS">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeedRPS</code><span class="sig-paren">(</span><em>rotations_per_second</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedRPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.MotorSpeed</span></code></a></p>
+<p>Motor speed in rotations-per-second</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rotations_per_second</strong> (<em>int</em>) – the rotations-per-second to store</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedRPS</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 1.5 rotations-per-second</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedRPS</span><span class="p">(</span><span class="mf">1.5</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.motor.MotorSpeedRPS.to_native_units">
+<code class="descname">to_native_units</code><span class="sig-paren">(</span><em>motor</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedRPS.to_native_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the speed percentage required to achieve the desired rotations-per-second</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>motor</strong> (<a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the motor to use for calculating the speed percentage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the speed percentage required to achieve the desired rotations-per-second</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeedRPM">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeedRPM</code><span class="sig-paren">(</span><em>rotations_per_minute</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedRPM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.MotorSpeed</span></code></a></p>
+<p>Motor speed in rotations-per-minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rotations_per_minute</strong> (<em>int</em>) – the rotations-per-minute to store</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedRPM</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 20 rotations-per-minute</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedRPM</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.motor.MotorSpeedRPM.to_native_units">
+<code class="descname">to_native_units</code><span class="sig-paren">(</span><em>motor</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedRPM.to_native_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the speed percentage required to achieve the desired rotations-per-minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>motor</strong> (<a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the motor to use for calculating the speed percentage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the speed percentage required to achieve the desired rotations-per-minute</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeedDPS">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeedDPS</code><span class="sig-paren">(</span><em>degrees_per_second</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedDPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.MotorSpeed</span></code></a></p>
+<p>Motor speed in degrees-per-second</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>degrees_per_second</strong> (<em>int</em>) – the degrees-per-second to store</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 180 degrees-per-second</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.motor.MotorSpeedDPS.to_native_units">
+<code class="descname">to_native_units</code><span class="sig-paren">(</span><em>motor</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedDPS.to_native_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the speed percentage required to achieve the desired degrees-per-second</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>motor</strong> (<a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the motor to use for calculating the speed percentage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the speed percentage required to achieve the desired degrees-per-second</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorSpeedDPM">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorSpeedDPM</code><span class="sig-paren">(</span><em>degrees_per_minute</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedDPM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.MotorSpeed</span></code></a></p>
+<p>Motor speed in degrees-per-minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>degrees_per_minute</strong> (<em>int</em>) – the degrees-per-minute to store</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPM</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 10000 degrees-per-minute</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedDPM</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.motor.MotorSpeedDPM.to_native_units">
+<code class="descname">to_native_units</code><span class="sig-paren">(</span><em>motor</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.MotorSpeedDPM.to_native_units" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the speed percentage required to achieve the desired degrees-per-minute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>motor</strong> (<a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the motor to use for calculating the speed percentage</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the speed percentage required to achieve the desired degrees-per-minute</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorStop">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorStop</code><a class="headerlink" href="#spikedev.motor.MotorStop" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="spikedev.motor.MotorStop.FLOAT">
+<code class="descname">FLOAT</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.motor.MotorStop.FLOAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorStop.BRAKE">
+<code class="descname">BRAKE</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.motor.MotorStop.BRAKE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorStop.HOLD">
+<code class="descname">HOLD</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.motor.MotorStop.HOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorCallbackEvent">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorCallbackEvent</code><a class="headerlink" href="#spikedev.motor.MotorCallbackEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="spikedev.motor.MotorCallbackEvent.COMPLETED">
+<code class="descname">COMPLETED</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.motor.MotorCallbackEvent.COMPLETED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorCallbackEvent.INTERRUPTED">
+<code class="descname">INTERRUPTED</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.motor.MotorCallbackEvent.INTERRUPTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorCallbackEvent.STALL">
+<code class="descname">STALL</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.motor.MotorCallbackEvent.STALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorPolarity">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorPolarity</code><a class="headerlink" href="#spikedev.motor.MotorPolarity" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="spikedev.motor.MotorPolarity.NORMAL">
+<code class="descname">NORMAL</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.motor.MotorPolarity.NORMAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorPolarity.REVERSED">
+<code class="descname">REVERSED</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.motor.MotorPolarity.REVERSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.MotorMode">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">MotorMode</code><a class="headerlink" href="#spikedev.motor.MotorMode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="spikedev.motor.MotorMode.POWER">
+<code class="descname">POWER</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.motor.MotorMode.POWER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorMode.SPEED">
+<code class="descname">SPEED</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.motor.MotorMode.SPEED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorMode.POS">
+<code class="descname">POS</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.motor.MotorMode.POS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorMode.APOS">
+<code class="descname">APOS</code><em class="property"> = 3</em><a class="headerlink" href="#spikedev.motor.MotorMode.APOS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorMode.LOAD">
+<code class="descname">LOAD</code><em class="property"> = 4</em><a class="headerlink" href="#spikedev.motor.MotorMode.LOAD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.MotorMode.CALIB">
+<code class="descname">CALIB</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.motor.MotorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.Motor">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">Motor</code><span class="sig-paren">(</span><em>port</em>, <em>polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="spikedev.motor.Motor.position">
+<code class="descname">position</code><a class="headerlink" href="#spikedev.motor.Motor.position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.Motor.is_stalled">
+<code class="descname">is_stalled</code><a class="headerlink" href="#spikedev.motor.Motor.is_stalled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.Motor.is_running">
+<code class="descname">is_running</code><a class="headerlink" href="#spikedev.motor.Motor.is_running" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.motor.Motor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><em>stop_action=1</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.motor.Motor.run_at_speed">
+<code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_at_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.motor.Motor.run_for_degrees">
+<code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_for_degrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.motor.Motor.run_to_position">
+<code class="descname">run_to_position</code><span class="sig-paren">(</span><em>position</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_to_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.motor.Motor.run_for_time">
+<code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_for_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.SpikeMediumMotor">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">SpikeMediumMotor</code><span class="sig-paren">(</span><em>port</em>, <em>polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.SpikeMediumMotor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.Motor</span></code></a></p>
+<ul class="simple">
+<li>part number <a class="reference external" href="https://brickset.com/parts/design-54696">54696</a></li>
+<li>comes in set <a class="reference external" href="https://brickset.com/sets/45678-1/">45678-1</a></li>
+</ul>
+<img alt="_images/spike-medium-motor.jpg" src="_images/spike-medium-motor.jpg" />
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedPercent</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+
+<span class="c1"># run for 720 degrees at 40% of motor&#39;s maximum speed</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeMediumMotor.MAX_RPM">
+<code class="descname">MAX_RPM</code><em class="property"> = 135</em><a class="headerlink" href="#spikedev.motor.SpikeMediumMotor.MAX_RPM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeMediumMotor.MAX_RPS">
+<code class="descname">MAX_RPS</code><em class="property"> = 2.25</em><a class="headerlink" href="#spikedev.motor.SpikeMediumMotor.MAX_RPS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeMediumMotor.MAX_DPM">
+<code class="descname">MAX_DPM</code><em class="property"> = 48600</em><a class="headerlink" href="#spikedev.motor.SpikeMediumMotor.MAX_DPM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeMediumMotor.MAX_DPS">
+<code class="descname">MAX_DPS</code><em class="property"> = 810</em><a class="headerlink" href="#spikedev.motor.SpikeMediumMotor.MAX_DPS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.motor.SpikeLargeMotor">
+<em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">SpikeLargeMotor</code><span class="sig-paren">(</span><em>port</em>, <em>polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.SpikeLargeMotor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.motor.Motor" title="spikedev.motor.Motor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.motor.Motor</span></code></a></p>
+<ul class="simple">
+<li>part number <a class="reference external" href="https://brickset.com/parts/design-54675">54675</a></li>
+<li>comes in set <a class="reference external" href="https://brickset.com/sets/45678-1/">45678-1</a></li>
+</ul>
+<img alt="_images/spike-large-motor.jpg" src="_images/spike-large-motor.jpg" />
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedPercent</span><span class="p">,</span> <span class="n">SpikeLargeMotor</span>
+
+<span class="c1"># run for 720 degrees at 40% of motor&#39;s maximum speed</span>
+<span class="n">mtr</span> <span class="o">=</span> <span class="n">SpikeLargeMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+<span class="n">mtr</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">720</span><span class="p">,</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeLargeMotor.MAX_RPM">
+<code class="descname">MAX_RPM</code><em class="property"> = 175</em><a class="headerlink" href="#spikedev.motor.SpikeLargeMotor.MAX_RPM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeLargeMotor.MAX_RPS">
+<code class="descname">MAX_RPS</code><em class="property"> = 2.916666</em><a class="headerlink" href="#spikedev.motor.SpikeLargeMotor.MAX_RPS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeLargeMotor.MAX_DPM">
+<code class="descname">MAX_DPM</code><em class="property"> = 63000</em><a class="headerlink" href="#spikedev.motor.SpikeLargeMotor.MAX_DPM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="spikedev.motor.SpikeLargeMotor.MAX_DPS">
+<code class="descname">MAX_DPS</code><em class="property"> = 1050</em><a class="headerlink" href="#spikedev.motor.SpikeLargeMotor.MAX_DPS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spikedev-tank.html" class="btn btn-neutral float-right" title="spikedev.tank" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spikedev-logging.html" class="btn btn-neutral float-left" title="spikedev.logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniel Walton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

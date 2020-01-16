@@ -25,5 +25,5 @@ install-lite:
 	ampy --port /dev/ttyACM0 put spikedev/wheel.py spikedev/wheel.py
 
 sphinx:
-	rm -rf build/html/
-	sphinx-build -c docs/ -w docs.log docs build/html
+	rm -rf docsource
+	sphinx-build -c docs/ -w docs.log docs docsource

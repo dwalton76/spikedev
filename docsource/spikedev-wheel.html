@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spikedev.wheel &mdash; spikedev  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="spikedev.unit" href="spikedev-unit.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> spikedev
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.wheel</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">spikedev</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>spikedev.wheel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spikedev-wheel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-spikedev.wheel">
+<span id="spikedev-wheel"></span><h1>spikedev.wheel<a class="headerlink" href="#module-spikedev.wheel" title="Permalink to this headline">¶</a></h1>
+<p>Wheel and Rim classes</p>
+<img alt="_images/tires.jpg" src="_images/tires.jpg" />
+<dl class="class">
+<dt id="spikedev.wheel.Wheel">
+<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">Wheel</code><span class="sig-paren">(</span><em>diameter_mm</em>, <em>width_mm</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.wheel.Wheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A base class for various types of wheels, tires, etc.  All units are in mm.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter_mm</strong> (<em>int</em>) – the wheel’s diameter in millimeters</li>
+<li><strong>width_mm</strong> (<em>int</em>) – the wheel’s width in millimeters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A scenario where a <code class="docutils literal notranslate"><span class="pre">Wheel</span></code> class would be used is when the user needs their
+robot to drive at a specific speed or drive for a specific distance. Both of
+those calculations require the circumference of the wheel of the robot.</p>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+
+<span class="n">tire</span> <span class="o">=</span> <span class="n">SpikeWheel</span><span class="p">()</span>
+
+<span class="c1"># calculate the number of rotations needed to travel forward 500 mm</span>
+<span class="n">rotations_for_500mm</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">/</span> <span class="n">tire</span><span class="o">.</span><span class="n">circumference_mm</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.wheel.SpikeWheel">
+<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">SpikeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeWheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.wheel.Wheel" title="spikedev.wheel.Wheel"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.wheel.Wheel</span></code></a></p>
+<p><strong>56mm</strong></p>
+<ul class="simple">
+<li>part number <a class="reference external" href="https://brickset.com/parts/design-39367">39367</a></li>
+<li>comes in set <a class="reference external" href="https://brickset.com/sets/45678-1/">45678-1</a></li>
+</ul>
+<img alt="_images/39367.jpeg" src="_images/39367.jpeg" />
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.wheel.SpikeLargeWheel">
+<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">SpikeLargeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeLargeWheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.wheel.Wheel" title="spikedev.wheel.Wheel"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.wheel.Wheel</span></code></a></p>
+<p><strong>88mm</strong></p>
+<ul class="simple">
+<li>part number <a class="reference external" href="https://brickset.com/parts/design-49295">49295</a></li>
+<li>comes in set <a class="reference external" href="https://brickset.com/sets/45680-1/">45680-1</a></li>
+</ul>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="spikedev-unit.html" class="btn btn-neutral float-left" title="spikedev.unit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniel Walton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

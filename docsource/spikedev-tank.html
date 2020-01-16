@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spikedev.tank &mdash; spikedev  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="spikedev.unit" href="spikedev-unit.html" />
+    <link rel="prev" title="spikedev.motor" href="spikedev-motor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> spikedev
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">spikedev</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>spikedev.tank</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spikedev-tank.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-spikedev.tank">
+<span id="spikedev-tank"></span><h1>spikedev.tank<a class="headerlink" href="#module-spikedev.tank" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="spikedev.tank.MoveTank">
+<em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveTank</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="spikedev.tank.MoveTank.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveTank.run_at_speed">
+<code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>left_speed</em>, <em>right_speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_at_speed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveTank.run_for_degrees">
+<code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>left_speed</em>, <em>right_speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_for_degrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveTank.run_to_position">
+<code class="descname">run_to_position</code><span class="sig-paren">(</span><em>left_position</em>, <em>right_position</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_to_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveTank.run_for_time">
+<code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>left_speed</em>, <em>right_speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_for_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.tank.MoveSteering">
+<em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveSteering</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.tank.MoveTank</span></code></a></p>
+<p>Controls a pair of motors simultaneously, via a single “steering” value and a speed.</p>
+<dl class="docutils">
+<dt>steering [-100, 100]:</dt>
+<dd><ul class="first last simple">
+<li>-100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),</li>
+<li>0   means drive in a straight line, and</li>
+<li>100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).</li>
+</ul>
+</dd>
+</dl>
+<p>“steering” can be any number between -100 and 100.</p>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="k">import</span> <span class="n">MoveSteering</span>
+
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MoveSteering</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">run_for_time</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.tank.MoveSteering.run_at_speed">
+<code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>steering</em>, <em>speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_at_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start rotating the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> and
+<code class="docutils literal notranslate"><span class="pre">speed</span></code> forever.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveSteering.run_for_degrees">
+<code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>steering</em>, <em>speed</em>, <em>degrees</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_for_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code>.</p>
+<p>The distance each motor will travel follows the rules of <code class="xref py py-meth docutils literal notranslate"><span class="pre">MoveTank.on_for_degrees()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveSteering.run_for_time">
+<code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>steering</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_for_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> for <code class="docutils literal notranslate"><span class="pre">seconds</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="spikedev.tank.MoveDifferential">
+<em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveDifferential</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>wheel_class</em>, <em>wheel_distance</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.tank.MoveTank</span></code></a></p>
+<p>MoveDifferential is a child of MoveTank that adds the following capabilities:</p>
+<ul class="simple">
+<li>drive in a straight line for a specified distance</li>
+<li>rotate in place in a circle (clockwise or counter clockwise) for a
+specified number of degrees</li>
+<li>drive in an arc (clockwise or counter clockwise) of a specified radius
+for a specified distance</li>
+</ul>
+<p>New arguments:</p>
+<p>wheel_class - A child class of <code class="xref py py-class docutils literal notranslate"><span class="pre">ev3dev2.wheel.Wheel</span></code>. This is used to
+get the circumference of the wheels of the robot. The circumference is
+needed for several calculations in this class.</p>
+<p>wheel_distance_mm - The distance between the mid point of the two
+wheels of the robot. You may need to do some test drives to find
+the correct value for your robot.  It is not as simple as measuring
+the distance between the midpoints of the two wheels. The weight of
+the robot, center of gravity, etc come into play.</p>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="k">import</span> <span class="n">MoveDifferential</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceInches</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+
+<span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="c1"># rotate 90 degrees clockwise</span>
+<span class="n">md</span><span class="o">.</span><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># rotate 90 degrees counter-clockwise</span>
+<span class="n">md</span><span class="o">.</span><span class="n">turn_left</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># drive forward 6 inches</span>
+<span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceInches</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># Drive in arc to the right along an imaginary circle of radius 12 inches.</span>
+<span class="c1"># Drive for 6 inches around this imaginary circle.</span>
+<span class="n">md</span><span class="o">.</span><span class="n">run_arc_right</span><span class="p">(</span><span class="n">DistanceInches</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">DistanceInches</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.run_for_distance">
+<code class="descname">run_for_distance</code><span class="sig-paren">(</span><em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_for_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive in a straight line for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.run_arc_right">
+<code class="descname">run_arc_right</code><span class="sig-paren">(</span><em>radius</em>, <em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_arc_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive clockwise in a circle with <code class="docutils literal notranslate"><span class="pre">radius</span></code> for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.run_arc_left">
+<code class="descname">run_arc_left</code><span class="sig-paren">(</span><em>radius</em>, <em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_arc_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive counter-clockwise in a circle with <code class="docutils literal notranslate"><span class="pre">radius</span></code> for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.turn_degrees">
+<code class="descname">turn_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate in place <code class="docutils literal notranslate"><span class="pre">degrees</span></code>. Both wheels must turn at the same speed for us
+to rotate in place.  If the following conditions are met the GryoSensor will
+be used to improve the accuracy of our turn:
+- <code class="docutils literal notranslate"><span class="pre">use_gyro</span></code>, <code class="docutils literal notranslate"><span class="pre">brake</span></code> and <code class="docutils literal notranslate"><span class="pre">block</span></code> are all True
+- A GyroSensor has been defined via <code class="docutils literal notranslate"><span class="pre">self.gyro</span> <span class="pre">=</span> <span class="pre">GyroSensor()</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.turn_right">
+<code class="descname">turn_right</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate clockwise <code class="docutils literal notranslate"><span class="pre">degrees</span></code> in place</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spikedev.tank.MoveDifferential.turn_left">
+<code class="descname">turn_left</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate counter-clockwise <code class="docutils literal notranslate"><span class="pre">degrees</span></code> in place</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spikedev-unit.html" class="btn btn-neutral float-right" title="spikedev.unit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spikedev-motor.html" class="btn btn-neutral float-left" title="spikedev.motor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniel Walton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
