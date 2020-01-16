@@ -34,9 +34,16 @@ STUD_MM = 8
 
 class DistanceValue:
     """
-    A base class for other unit types. Don't use this directly; instead, see
-    :class:`DistanceMillimeters`, :class:`DistanceCentimeters`, :class:`DistanceDecimeters``, :class:`DistanceMeters`,
-    :class:`DistanceInches`, :class:`DistanceFeet`, :class:`DistanceYards` and :class:`DistanceStuds`.
+    A base class for other unit types. Do not use this directly. Use one of:
+
+    * :class:`DistanceMillimeters`
+    * :class:`DistanceCentimeters`
+    * :class:`DistanceDecimeters`
+    * :class:`DistanceMeters`
+    * :class:`DistanceInches`
+    * :class:`DistanceFeet`
+    * :class:`DistanceYards`
+    * :class:`DistanceStuds`.
     """
 
     # This allows us to sort lists of DistanceValue objects
@@ -50,6 +57,23 @@ class DistanceValue:
 class DistanceMillimeters(DistanceValue):
     """
     Distance in millimeters
+
+    Args:
+        millimeters (int): the number of millimeters
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceMillimeters, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 600 millimeters
+        md.run_for_distance(DistanceMillimeters(600), SpeedDPS(100))
     """
 
     def __init__(self, millimeters):
@@ -65,12 +89,33 @@ class DistanceMillimeters(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.millimeters
 
 
 class DistanceCentimeters(DistanceValue):
     """
     Distance in centimeters
+
+    Args:
+        centimeters (int): the number of centimeters
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceCentimeters, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 60 centimeters
+        md.run_for_distance(DistanceCentimeters(60), SpeedDPS(100))
     """
 
     def __init__(self, centimeters):
@@ -86,12 +131,33 @@ class DistanceCentimeters(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.centimeters * CENTIMETER_MM
 
 
 class DistanceDecimeters(DistanceValue):
     """
     Distance in decimeters
+
+    Args:
+        decimeters (int): the number of decimeters
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceDecimeters, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 6 decimeters
+        md.run_for_distance(DistanceDecimeters(6), SpeedDPS(100))
     """
 
     def __init__(self, decimeters):
@@ -107,12 +173,33 @@ class DistanceDecimeters(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.decimeters * DECIMETER_MM
 
 
 class DistanceMeters(DistanceValue):
     """
     Distance in meters
+
+    Args:
+        meters (int): the number of meters
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceMeters, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 2 meters
+        md.run_for_distance(DistanceMeters(2), SpeedDPS(100))
     """
 
     def __init__(self, meters):
@@ -128,12 +215,33 @@ class DistanceMeters(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.meters * METER_MM
 
 
 class DistanceInches(DistanceValue):
     """
     Distance in inches
+
+    Args:
+        inches (int): the number of inches
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceInches, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 6 inches
+        md.run_for_distance(DistanceInches(6), SpeedDPS(100))
     """
 
     def __init__(self, inches):
@@ -149,12 +257,33 @@ class DistanceInches(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.inches * INCH_MM
 
 
 class DistanceFeet(DistanceValue):
     """
     Distance in feet
+
+    Args:
+        feet (int): the number of feet
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceFeet, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 3 feet
+        md.run_for_distance(DistanceFeet(3), SpeedDPS(100))
     """
 
     def __init__(self, feet):
@@ -170,12 +299,33 @@ class DistanceFeet(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.feet * FOOT_MM
 
 
 class DistanceYards(DistanceValue):
     """
     Distance in yards
+
+    Args:
+        yards (int): the number of yards
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceYards, DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 2 yards
+        md.run_for_distance(DistanceYards(2), SpeedDPS(100))
     """
 
     def __init__(self, yards):
@@ -191,12 +341,33 @@ class DistanceYards(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.yards * YARD_MM
 
 
 class DistanceStuds(DistanceValue):
     """
     Distance in studs
+
+    Args:
+        studs (int): the number of LEGO studs
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MoveDifferential, SpeedDPS
+        from spikedev.unit import DistanceStuds
+        from spikedev.wheel import SpikeWheel
+
+        md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
+
+        # drive forward 2 studs
+        md.run_for_distance(DistanceStuds(6), SpeedDPS(100))
     """
 
     def __init__(self, studs):
@@ -212,10 +383,29 @@ class DistanceStuds(DistanceValue):
 
     @property
     def mm(self):
+        """
+        Returns:
+            int: our distance in millimeters
+        """
         return self.studs * STUD_MM
 
 
 def distance_in_mm(distance):
+    """
+    Args:
+        distance (DistanceValue, int): the distance to convert to millimeters
+
+    Returns:
+        int: ``distance`` converted to millimeters
+
+    Example:
+
+    .. code:: python
+
+        from spikedev.unit import DistanceFeet
+
+        two_feet_in_mm = distance_in_mm(DistanceFeet(2))
+    """
     if isinstance(distance, DistanceValue):
         return distance.mm
 

@@ -1,8 +1,11 @@
+clean:
+	rm -rf build
+	find . -name *.pyc | xargs rm -rf
 
 format:
-	isort -rc .
-	python3 -m black --config=.black.cfg .
-	python3 -m flake8 --config=.flake8.cfg .
+	isort -rc demo spikedev
+	python3 -m black --config=.black.cfg demo spikedev
+	python3 -m flake8 --config=.flake8.cfg demo spikedev
 
 install:
 	ampy --port /dev/ttyACM0 mkdir spikedev
@@ -18,3 +21,7 @@ install-lite:
 	ampy --port /dev/ttyACM0 put spikedev/motor.py spikedev/motor.py
 	ampy --port /dev/ttyACM0 put spikedev/unit.py spikedev/unit.py
 	ampy --port /dev/ttyACM0 put spikedev/wheel.py spikedev/wheel.py
+
+sphinx:
+	rm -rf build/html/
+	sphinx-build -c docs/ -w docs.log docs build/html

@@ -433,7 +433,10 @@ class Motor(MotorBase):
 
 class SpikeMediumMotor(Motor):
     """
-    part number 45603
+    * part number `54696 <https://brickset.com/parts/design-54696>`_
+    * comes in set `45678-1 <https://brickset.com/sets/45678-1/>`_
+
+    .. image:: images/spike-medium-motor.jpg
     """
 
     MAX_RPM = 135  # rotations per minute
@@ -447,7 +450,10 @@ class SpikeMediumMotor(Motor):
 
 class SpikeLargeMotor(Motor):
     """
-    part number 45602
+    * part number `54675 <https://brickset.com/parts/design-54675>`_
+    * comes in set `45678-1 <https://brickset.com/sets/45678-1/>`_
+
+    .. image:: images/spike-large-motor.jpg
     """
 
     MAX_RPM = 175

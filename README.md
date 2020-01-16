@@ -27,7 +27,7 @@ $ sudo make install
 
 # Workflow steps
 ## Write your program
-Write your micropython program on your laptop. Here is basic hello-world.py
+Write your micropython program on your laptop. Here is a basic hello-world.py
 ```micropython
 import hub
 from spikedev.motor import SpeedDPS, SpikeMediumMotor

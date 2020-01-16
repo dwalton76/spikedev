@@ -1,20 +1,24 @@
 """
 Wheel and Rim classes
 
-A great reference when adding new wheels is http://wheels.sariel.pl/
+.. image:: images/tires.jpg
 """
 # standard libraries
 from math import pi
 
+# A great reference when adding new wheels is http://wheels.sariel.pl/
 
 class Wheel(object):
     """
     A base class for various types of wheels, tires, etc.  All units are in mm.
 
-    One scenario where one of the child classes below would be used is when the
-    user needs their robot to drive at a specific speed or drive for a specific
-    distance. Both of those calculations require the circumference of the wheel
-    of the robot.
+    Args:
+        diameter_mm (int): the wheel's diameter in millimeters
+        width_mm (int): the wheel's width in millimeters
+
+    A scenario where a ``Wheel`` class would be used is when the user needs their
+    robot to drive at a specific speed or drive for a specific distance. Both of
+    those calculations require the circumference of the wheel of the robot.
 
     Example:
 
@@ -40,8 +44,12 @@ class Wheel(object):
 
 class SpikeWheel(Wheel):
     """
-    part number 39367
-    comes in set 45678-1
+    **56mm**
+
+    * part number `39367 <https://brickset.com/parts/design-39367>`_
+    * comes in set `45678-1 <https://brickset.com/sets/45678-1/>`_
+
+    .. image:: images/39367.jpeg
     """
 
     def __init__(self):
@@ -50,8 +58,10 @@ class SpikeWheel(Wheel):
 
 class SpikeLargeWheel(Wheel):
     """
-    part number 49295
-    comes in set 45680-1
+    **88mm**
+
+    * part number `49295 <https://brickset.com/parts/design-49295>`_
+    * comes in set `45680-1 <https://brickset.com/sets/45680-1/>`_
     """
 
     def __init__(self):

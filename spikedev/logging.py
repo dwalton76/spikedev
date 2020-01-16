@@ -1,10 +1,16 @@
+"""
+A simple module for logging message with timestamps
+
+.. image:: images/logging.jpg
+"""
+
 # spikedev libraries
 import utime
 
-
-def timestamp():
+def _timestamp():
     """
-    Return a string of the current timestamp
+    Returns:
+        str: the current timestamp
     """
     (year, month, day, hour, minute, second, _, _) = utime.localtime()
     ms = utime.ticks_ms() % 1000
@@ -21,4 +27,18 @@ def timestamp():
 
 
 def log_msg(msg):
-    print("%s: %s" % (timestamp(), msg))
+    """
+    prints a timestamp followed by `msg`
+
+    Args:
+        msg (str): the string to print
+
+    Example:
+
+    .. code:: python
+
+        from spikedev.logging import log_msg
+
+        log_msg("Hello World")
+    """
+    print("%s: %s" % (_timestamp(), msg))
