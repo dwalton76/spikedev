@@ -26,4 +26,4 @@ install-lite:
 
 sphinx:
 	rm -rf docsource
-	sphinx-build -c docs/ -w docs.log docs docsource
+	sphinx-build -c docs-sphinx/ -w docs.log docs-sphinx docs
