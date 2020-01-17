@@ -29,7 +29,7 @@ def _timestamp():
 
 def log_msg(msg):
     """
-    prints a timestamp followed by `msg`
+    prints a timestamp followed by ``msg``
 
     Args:
         msg (str): the string to print
@@ -41,5 +41,6 @@ def log_msg(msg):
         from spikedev.logging import log_msg
 
         log_msg("Hello World")
+        # 2015-01-01 00:13:02.440 AM: Hello World
     """
     print("%s: %s" % (_timestamp(), msg))

@@ -340,6 +340,15 @@ class MotorMode:
 
 
 class Motor:
+    """
+    A base class for SPIKE motors
+
+    Args:
+        port (str): must be A, B, C, D, E or F
+        polarity (MotorPolarity): defaults to :class:`MotorPolarity.NORMAL`
+        desc (str): defaults to None
+    """
+
     def __init__(self, port, polarity=MotorPolarity.NORMAL, desc=None):
         super().__init__()
         self.port = port
@@ -364,15 +373,22 @@ class Motor:
             return "{}(port {})".format(self.__class__.__name__, self.port_letter)
 
     def _event_callback(self, reason):
+
         if reason == MotorCallbackEvent.COMPLETED:
             self.interrupted = False
             self.stalled = False
+            # log_msg("{}: _event_callback COMPLETED".format(self))
+
         elif reason == MotorCallbackEvent.INTERRUPTED:
             self.interrupted = True
             self.stalled = False
+            log_msg("{}: _event_callback INTERRUPTED".format(self))
+
         elif reason == MotorCallbackEvent.STALL:
             self.interrupted = False
             self.stalled = True
+            log_msg("{}: _event_callback STALL".format(self))
+
         else:
             raise ValueError("invalid callback reason {}".format(reason))
 
@@ -456,21 +472,36 @@ class Motor:
 
     @property
     def position(self):
+        """
+        Returns:
+            int: the motor's position encoder value
+        """
         return self.port.motor.get()
 
     @position.setter
     def position(self, value):
         """
-        Set the motor encoder position to `value`
+        Set the motor encoder position to ``value``
+
+        Args:
+            value (int): the new value for the motor's position encoder
         """
         self.port.motor.preset(value)
 
     @property
     def is_stalled(self):
+        """
+        Returns:
+            bool: True if the motor has stalled
+        """
         return self.stalled
 
     @property
     def is_running(self):
+        """
+        Returns:
+            bool: True if the motor is running
+        """
         return bool(self.port.motor.busy(BUSY_MOTOR))
 
     def _number_with_polarity(self, value):
@@ -488,6 +519,12 @@ class Motor:
         return self._number_with_polarity(speed)
 
     def stop(self, stop_action=MotorStop.BRAKE):
+        """
+        stops the motor
+
+        Args:
+            stop_action (MotorStop): defaults to :class:`MotorStop.BRAKE`
+        """
 
         if stop_action == MotorStop.FLOAT:
             self.port.motor.float()
@@ -502,10 +539,27 @@ class Motor:
             raise ValueError("invalid stop_action {}".format(stop_action))
 
     def run_at_speed(self, speed, **kwargs):
+        """
+        Run the motor at ``speed``. The motor will run until you call ``stop()``
+
+        Args:
+            speed (MotorSpeed): the speed of the motor
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         speed = self._speed_percentage(speed)
         self.port.motor.run_at_speed(self._speed_with_polarity(speed), **kwargs)
 
     def run_for_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run the motor at ``speed`` for ``degrees``
+
+        Args:
+            degrees (int): the number of degrees to move the motor
+            speed (MotorSpeed): the speed of the motor
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg("{}: run_for_degrees {} at speed {}".format(self, degrees, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
@@ -515,6 +569,16 @@ class Motor:
             self._wait()
 
     def run_to_position(self, position, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run the motor at ``speed`` to the desired position
+
+        Args:
+            position (int): the target position for the left motor
+            speed (MotorSpeed): the speed of the motor
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg("{}: run_to_position {} at speed {}".format(self, position, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
@@ -524,6 +588,16 @@ class Motor:
             self._wait()
 
     def run_for_time(self, msec, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run the motor at ``speed`` for ``msec``
+
+        Args:
+            msec (int): the number of milliseconds to run the motor
+            speed (MotorSpeed): the speed of the motor
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg("{}: run_for_time {}ms at speed {}".format(self, msec, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False

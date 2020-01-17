@@ -469,45 +469,162 @@
 <dl class="class">
 <dt id="spikedev.motor.Motor">
 <em class="property">class </em><code class="descclassname">spikedev.motor.</code><code class="descname">Motor</code><span class="sig-paren">(</span><em>port</em>, <em>polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
+<dd><p>A base class for SPIKE motors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>port</strong> (<em>str</em>) – must be A, B, C, D, E or F</li>
+<li><strong>polarity</strong> (<a class="reference internal" href="#spikedev.motor.MotorPolarity" title="spikedev.motor.MotorPolarity"><em>MotorPolarity</em></a>) – defaults to <a class="reference internal" href="#spikedev.motor.MotorPolarity.NORMAL" title="spikedev.motor.MotorPolarity.NORMAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorPolarity.NORMAL</span></code></a></li>
+<li><strong>desc</strong> (<em>str</em>) – defaults to None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
 <dt id="spikedev.motor.Motor.position">
 <code class="descname">position</code><a class="headerlink" href="#spikedev.motor.Motor.position" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>the motor’s position encoder value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="spikedev.motor.Motor.is_stalled">
 <code class="descname">is_stalled</code><a class="headerlink" href="#spikedev.motor.Motor.is_stalled" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>True if the motor has stalled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="spikedev.motor.Motor.is_running">
 <code class="descname">is_running</code><a class="headerlink" href="#spikedev.motor.Motor.is_running" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>True if the motor is running</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.motor.Motor.stop">
 <code class="descname">stop</code><span class="sig-paren">(</span><em>stop_action=1</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>stops the motor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stop_action</strong> (<a class="reference internal" href="#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – defaults to <a class="reference internal" href="#spikedev.motor.MotorStop.BRAKE" title="spikedev.motor.MotorStop.BRAKE"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.motor.Motor.run_at_speed">
 <code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_at_speed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motor at <code class="docutils literal notranslate"><span class="pre">speed</span></code>. The motor will run until you call <code class="docutils literal notranslate"><span class="pre">stop()</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>speed</strong> (<a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the motor</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.motor.Motor.run_for_degrees">
 <code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_for_degrees" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motor at <code class="docutils literal notranslate"><span class="pre">speed</span></code> for <code class="docutils literal notranslate"><span class="pre">degrees</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees to move the motor</li>
+<li><strong>speed</strong> (<a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the motor</li>
+<li><strong>stop</strong> (<a class="reference internal" href="#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <a class="reference internal" href="#spikedev.motor.MotorStop.BRAKE" title="spikedev.motor.MotorStop.BRAKE"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></a></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.motor.Motor.run_to_position">
 <code class="descname">run_to_position</code><span class="sig-paren">(</span><em>position</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_to_position" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motor at <code class="docutils literal notranslate"><span class="pre">speed</span></code> to the desired position</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>position</strong> (<em>int</em>) – the target position for the left motor</li>
+<li><strong>speed</strong> (<a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the motor</li>
+<li><strong>stop</strong> (<a class="reference internal" href="#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <a class="reference internal" href="#spikedev.motor.MotorStop.BRAKE" title="spikedev.motor.MotorStop.BRAKE"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></a></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.motor.Motor.run_for_time">
 <code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.motor.Motor.run_for_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motor at <code class="docutils literal notranslate"><span class="pre">speed</span></code> for <code class="docutils literal notranslate"><span class="pre">msec</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msec</strong> (<em>int</em>) – the number of milliseconds to run the motor</li>
+<li><strong>speed</strong> (<a class="reference internal" href="#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the motor</li>
+<li><strong>stop</strong> (<a class="reference internal" href="#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <a class="reference internal" href="#spikedev.motor.MotorStop.BRAKE" title="spikedev.motor.MotorStop.BRAKE"><code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></a></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

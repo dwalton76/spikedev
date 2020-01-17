@@ -85,15 +85,22 @@ class MoveTank:
             return self.__class__.__name__
 
     def _event_callback(self, reason):
+
         if reason == MotorCallbackEvent.COMPLETED:
             self.interrupted = False
             self.stalled = False
+            # log_msg("{}: _event_callback COMPLETED".format(self))
+
         elif reason == MotorCallbackEvent.INTERRUPTED:
             self.interrupted = True
             self.stalled = False
+            log_msg("{}: _event_callback INTERRUPTED".format(self))
+
         elif reason == MotorCallbackEvent.STALL:
             self.interrupted = False
             self.stalled = True
+            log_msg("{}: _event_callback STALL".format(self))
+
         else:
             raise ValueError("invalid callback reason {}".format(reason))
 
@@ -552,7 +559,7 @@ class MoveDifferential(MoveTank):
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        self.turn_degrees(abs(degrees), speed, stop, block, error_margin, use_gyro, **kwargs)
+        self.turn_degrees(abs(degrees), speed, stop, block, **kwargs)
 
     def turn_left(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
@@ -565,4 +572,4 @@ class MoveDifferential(MoveTank):
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        self.turn_degrees(abs(degrees) * -1, speed, stop, block, error_margin, use_gyro, **kwargs)
+        self.turn_degrees(abs(degrees) * -1, speed, stop, block, **kwargs)
