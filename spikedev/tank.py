@@ -34,6 +34,31 @@ from spikedev.unit import distance_in_mm
 
 
 class MoveTank:
+    """
+    .. image:: images/tank.png
+
+    A class for supporting tank style robots that are driven by two motors
+
+    Args:
+        left_motor_port (str): port letter of the left motor
+        right_motor_port (str): port letter of the right motor
+        motor_class (Motor): the type of motor that is used, defaults to :class:`SpikeMediumMotor`
+        left_motor_polarity (MotorPolarity): the polarity for the left motor, defaults to :class:`MotorPolarity.REVERSED`
+        right_motor_polarity (MotorPolarity): the polarity for the right motor, defaults to :class:`MotorPolarity.NORMAL`
+        desc (str): defaults to None
+
+    Example:
+
+    .. code:: python
+
+        import hub
+        from spikedev.motor import MotorSpeedDPS
+        from spikedev.tank import MoveTank
+
+        tank = MoveTank(hub.port.E, hub.port.F)
+        tank.run_for_time(3000, MotorSpeedDPS(180), MotorSpeedDPS(360))
+    """
+
     def __init__(
         self,
         left_motor_port,
@@ -106,15 +131,37 @@ class MoveTank:
         return (left_speed, right_speed)
 
     def stop(self):
+        """
+        Stop both motors
+        """
         self.pair.brake()
 
     def run_at_speed(self, left_speed, right_speed, **kwargs):
+        """
+        Run the motors at the specified speeds. The motors will run until you call ``stop()``
+
+        Args:
+            left_speed (MotorSpeed): the speed of the left motor
+            right_speed (MotorSpeed): the speed of the right motor
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
         self.pair.run_at_speed(left_speed, right_speed, **kwargs)
 
     def run_for_degrees(self, degrees, left_speed, right_speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run the motors at the specified speeds, the left motor will run for ``degrees``
+
+        Args:
+            degrees (int): the number of degrees to move the left motor
+            left_speed (MotorSpeed): the speed of the left motor
+            right_speed (MotorSpeed): the speed of the right motor
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg(
             "{}: run_for_degrees {} at left_speed {}, right_speed {}".format(self, degrees, left_speed, right_speed)
         )
@@ -128,6 +175,17 @@ class MoveTank:
             self._wait()
 
     def run_to_position(self, left_position, right_position, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run both motors at ``speed`` to the desired positions
+
+        Args:
+            left_position (int): the target position for the left motor
+            right_position (int): the target position for the right motor
+            speed (MotorSpeed): the speed of both motors
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg(
             "{}: run_to_position left_position {}, right_position {}, at speed {}".format(
                 self, left_position, right_position, speed
@@ -141,6 +199,17 @@ class MoveTank:
             self._wait()
 
     def run_for_time(self, msec, left_speed, right_speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+        """
+        Run the motors at the specified speeds for ``msec``
+
+        Args:
+            msec (int): the number of milliseconds to run the motors
+            left_speed (MotorSpeed): the speed of the left motor
+            right_speed (MotorSpeed): the speed of the right motor
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
+        """
         log_msg("{}: run_for_time {}ms at left_speed {}, right_speed {}".format(self, msec, left_speed, right_speed))
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
@@ -154,14 +223,10 @@ class MoveTank:
 
 class MoveSteering(MoveTank):
     """
-    Controls a pair of motors simultaneously, via a single "steering" value and a speed.
+    .. image:: images/steering.jpg
 
-    steering [-100, 100]:
-        * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
-        *  0   means drive in a straight line, and
-        *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
-
-    "steering" can be any number between -100 and 100.
+    MoveSteering is a child of :class:`MoveTank` that adds the ability to control the tank
+    via a ``steering`` value and a ``speed`` value.
 
     Example:
 
@@ -172,26 +237,14 @@ class MoveSteering(MoveTank):
         from spikedev.tank import MoveSteering
 
         ms = MoveSteering(hub.port.E, hub.port.F)
-        ms.run_for_degrees(180, 80, MotorSpeedDPS(180))
-        ms.run_for_time(1000, -80, MotorSpeedDPS(180))
+
+        # Move forward and to the right for 500 degrees
+        ms.run_for_degrees(500, 60, MotorSpeedDPS(180))
     """
 
     def _get_speed_steering(self, steering, speed):
         """
-        Calculate the speed_sp for each motor in a pair to achieve the specified
-        steering. Note that calling this function alone will not make the
-        motors move, it only calculates the speed. A run_* function must be called
-        afterwards to make the motors move.
-
-        steering [-100, 100]:
-            * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
-            *  0   means drive in a straight line, and
-            *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
-
-        speed:
-            The speed that should be applied to the outmost motor (the one
-            rotating faster). The speed of the other motor will be computed
-            automatically.
+        Calculate the speed_sp for each motor in a pair to achieve the specified steering
         """
 
         if steering < -100 or steering > 100:
@@ -211,17 +264,41 @@ class MoveSteering(MoveTank):
 
     def run_at_speed(self, steering, speed, **kwargs):
         """
-        Start rotating the motors according to the provided ``steering`` and
-        ``speed`` forever.
+        Run the motors according to the provided ``steering`` at ``speed``
+        The motors will run until you call ``stop()``
+
+        ``steering`` details:
+            * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
+            *  0   means drive in a straight line, and
+            *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
+
+        Args:
+            steering (int): a number from -100 to 100
+            speed (SpeedValue): The speed that should be applied to the outmost motor (the one rotating faster).
+                The speed of the other motor will be computed automatically.
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         (left_speed, right_speed) = self._get_speed_steering(steering, speed)
         MoveTank.run_at_speed(self, left_speed, right_speed, **kwargs)
 
     def run_for_degrees(self, steering, speed, degrees, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Rotate the motors according to the provided ``steering``.
+        Rotate the motors according to the provided ``steering`` at ``speed`` where the outmost motor (the
+        one rotating faster) will move for ``degrees``.
 
-        The distance each motor will travel follows the rules of :meth:`MoveTank.on_for_degrees`.
+        ``steering`` details:
+            * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
+            *  0   means drive in a straight line, and
+            *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
+
+        Args:
+            steering (int): a number from -100 to 100
+            speed (SpeedValue): The speed that should be applied to the outmost motor (the one rotating faster).
+                The speed of the other motor will be computed automatically.
+            degrees (int): the number of degrees for the outmost motor (the one rotating faster) to move
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         (left_speed, right_speed) = self._get_speed_steering(steering, speed)
         MoveTank.run_for_degrees(self, degrees, left_speed, right_speed, stop=stop, block=block, **kwargs)
@@ -229,6 +306,20 @@ class MoveSteering(MoveTank):
     def run_for_time(self, msec, steering, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Rotate the motors according to the provided ``steering`` for ``seconds``.
+
+        ``steering`` details:
+            * -100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),
+            *  0   means drive in a straight line, and
+            *  100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).
+
+        Args:
+            msec (int): the number of milliseconds to run the motors
+            steering (int): a number from -100 to 100
+            speed (SpeedValue): The speed that should be applied to the outmost motor (the one rotating faster).
+                The speed of the other motor will be computed automatically.
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         (left_speed, right_speed) = self._get_speed_steering(steering, speed)
         MoveTank.run_for_time(self, msec, left_speed, right_speed, stop=stop, block=block, **kwargs)
@@ -236,27 +327,23 @@ class MoveSteering(MoveTank):
 
 class MoveDifferential(MoveTank):
     """
-    MoveDifferential is a child of MoveTank that adds the following capabilities:
+    .. image:: images/differential.jpg
 
-    - drive in a straight line for a specified distance
+    MoveDifferential is a child of :class:`MoveTank` that adds the following capabilities:
+        * drive in a straight line for a specified distance
+        * rotate in place in a circle (clockwise or counter clockwise) for a specified number of degrees
+        * drive in an arc (clockwise or counter clockwise) of a specified radius for a specified distance
 
-    - rotate in place in a circle (clockwise or counter clockwise) for a
-      specified number of degrees
+    All of the args from MoveTank apply plus two additional args:
 
-    - drive in an arc (clockwise or counter clockwise) of a specified radius
-      for a specified distance
-
-    New arguments:
-
-    wheel_class - A child class of :class:`ev3dev2.wheel.Wheel`. This is used to
-    get the circumference of the wheels of the robot. The circumference is
-    needed for several calculations in this class.
-
-    wheel_distance_mm - The distance between the mid point of the two
-    wheels of the robot. You may need to do some test drives to find
-    the correct value for your robot.  It is not as simple as measuring
-    the distance between the midpoints of the two wheels. The weight of
-    the robot, center of gravity, etc come into play.
+    Args:
+        wheel_class (Wheel): used to get the circumference of the wheels of the robot. The
+            circumference is needed for several calculations in this class.
+        wheel_distance_mm (DistanceValue): The distance between the mid point of the two
+            wheels of the robot. You may need to do some test drives to find
+            the correct value for your robot.  It is not as simple as measuring
+            the distance between the midpoints of the two wheels. The weight of
+            the robot, center of gravity, etc come into play.
 
     Example:
 
@@ -315,6 +402,13 @@ class MoveDifferential(MoveTank):
     def run_for_distance(self, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive in a straight line for ``distance``
+
+        Args:
+            distance (DistanceValue): how far the midpoint between the wheels should travel
+            speed (MotorSpeed): how fast the midpoint between the wheels should travel
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         distance_mm = distance_in_mm(distance)
         rotations = distance_mm / self.wheel.circumference_mm
@@ -388,6 +482,15 @@ class MoveDifferential(MoveTank):
     def run_arc_right(self, radius, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive clockwise in a circle with ``radius`` for ``distance``
+
+        Args:
+            radius (DistanceValue): the radius of the arc to drive in, think of this as the size of
+                the imaginary circle the robot will follow
+            distance (DistanceValue): how far the midpoint between the wheels should travel along the imaginary circle
+            speed (MotorSpeed): how fast the midpoint between the wheels should travel
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         radius_mm = distance_in_mm(radius)
         distance_mm = distance_in_mm(distance)
@@ -396,50 +499,31 @@ class MoveDifferential(MoveTank):
     def run_arc_left(self, radius, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Drive counter-clockwise in a circle with ``radius`` for ``distance``
+
+        Args:
+            radius (DistanceValue): the radius of the arc to drive in, think of this as the size of
+                the imaginary circle the robot will follow
+            distance (DistanceValue): how far the midpoint between the wheels should travel along the imaginary circle
+            speed (MotorSpeed): how fast the midpoint between the wheels should travel
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         radius_mm = distance_in_mm(radius)
         distance_mm = distance_in_mm(distance)
         self._run_arc(radius_mm, distance_mm, speed, stop, block, False, **kwargs)
 
-    def turn_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Rotate in place ``degrees``. Both wheels must turn at the same speed for us
-        to rotate in place.  If the following conditions are met the GryoSensor will
-        be used to improve the accuracy of our turn:
-        - ``use_gyro``, ``brake`` and ``block`` are all True
-        - A GyroSensor has been defined via ``self.gyro = GyroSensor()``
-        """
+        Rotate in place ``degrees``. Both wheels will turn at the same speed for us
+        to rotate in place.
 
-        """
-        def final_angle(init_angle, degrees):
-            result = init_angle - degrees
-
-            while result <= -360:
-                result += 360
-
-            while result >= 360:
-                result -= 360
-
-            if result < 0:
-                result += 360
-
-            return result
-
-        # use the gyro to check that we turned the correct amount?
-        use_gyro = bool(use_gyro and block and stop in (MotorStop.BRAKE, MotorStop.HOLD) and self._gyro)
-
-        if use_gyro:
-            angle_init_degrees = self._gyro.circle_angle()
-        else:
-            angle_init_degrees = math.degrees(self.theta)
-
-        angle_target_degrees = final_angle(angle_init_degrees, degrees)
-
-        log_msg(
-            "{}: turn_degrees() {} degrees from {} to {}".format(
-                self, degrees, angle_init_degrees, angle_target_degrees
-            )
-        )
+        Args:
+            degrees (int): the number of degrees to rotate in place
+            speed (MotorSpeed): how fast each wheel should move
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
 
         # The distance each wheel needs to travel
@@ -457,46 +541,28 @@ class MoveDifferential(MoveTank):
         else:
             MoveTank.run_for_degrees(self, degrees, speed * -1, speed, stop=stop, block=block, **kwargs)
 
-        """
-        if use_gyro:
-            angle_current_degrees = self._gyro.circle_angle()
-
-            # This can happen if we are aiming for 2 degrees and overrotate to 358 degrees
-            # We need to rotate counter-clockwise
-            if 90 >= angle_target_degrees >= 0 and 270 <= angle_current_degrees <= 360:
-                degrees_error = (angle_target_degrees + (360 - angle_current_degrees)) * -1
-
-            # This can happen if we are aiming for 358 degrees and overrotate to 2 degrees
-            # We need to rotate clockwise
-            elif 360 >= angle_target_degrees >= 270 and 0 <= angle_current_degrees <= 90:
-                degrees_error = angle_current_degrees + (360 - angle_target_degrees)
-
-            # We need to rotate clockwise
-            elif angle_current_degrees > angle_target_degrees:
-                degrees_error = angle_current_degrees - angle_target_degrees
-
-            # We need to rotate counter-clockwise
-            else:
-                degrees_error = (angle_target_degrees - angle_current_degrees) * -1
-
-            log_msg(
-                "{}: turn_degrees() ended up at {}, error {}, error_margin {}".format(
-                    self, angle_current_degrees, degrees_error, error_margin
-                )
-            )
-
-            if abs(degrees_error) > error_margin:
-                self.turn_degrees(degrees_error, speed, stop, block, error_margin, use_gyro, **kwargs)
-        """
-
-    def turn_right(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_right(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Rotate clockwise ``degrees`` in place
+
+        Args:
+            degrees (int): the number of degrees to rotate clockwise in place
+            speed (MotorSpeed): how fast each wheel should move
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         self.turn_degrees(abs(degrees), speed, stop, block, error_margin, use_gyro, **kwargs)
 
-    def turn_left(self, degrees, speed, stop=MotorStop.BRAKE, block=True, error_margin=2, use_gyro=False, **kwargs):
+    def turn_left(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Rotate counter-clockwise ``degrees`` in place
+
+        Args:
+            degrees (int): the number of degrees to rotate counter-clockwise in place
+            speed (MotorSpeed): how fast each wheel should move
+            stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
+            block (bool): if True this function will not return until the motors have finished moving
+            **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
         self.turn_degrees(abs(degrees) * -1, speed, stop, block, error_margin, use_gyro, **kwargs)

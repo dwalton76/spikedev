@@ -156,30 +156,123 @@
 <dl class="class">
 <dt id="spikedev.tank.MoveTank">
 <em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveTank</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><img alt="_images/tank.png" src="_images/tank.png" />
+<p>A class for supporting tank style robots that are driven by two motors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>left_motor_port</strong> (<em>str</em>) – port letter of the left motor</li>
+<li><strong>right_motor_port</strong> (<em>str</em>) – port letter of the right motor</li>
+<li><strong>motor_class</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.Motor" title="spikedev.motor.Motor"><em>Motor</em></a>) – the type of motor that is used, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">SpikeMediumMotor</span></code></li>
+<li><strong>left_motor_polarity</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorPolarity" title="spikedev.motor.MotorPolarity"><em>MotorPolarity</em></a>) – the polarity for the left motor, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorPolarity.REVERSED</span></code></li>
+<li><strong>right_motor_polarity</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorPolarity" title="spikedev.motor.MotorPolarity"><em>MotorPolarity</em></a>) – the polarity for the right motor, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorPolarity.NORMAL</span></code></li>
+<li><strong>desc</strong> (<em>str</em>) – defaults to None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="k">import</span> <span class="n">MoveTank</span>
+
+<span class="n">tank</span> <span class="o">=</span> <span class="n">MoveTank</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
+<span class="n">tank</span><span class="o">.</span><span class="n">run_for_time</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">360</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
 <dt id="spikedev.tank.MoveTank.stop">
 <code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Stop both motors</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveTank.run_at_speed">
 <code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>left_speed</em>, <em>right_speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_at_speed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motors at the specified speeds. The motors will run until you call <code class="docutils literal notranslate"><span class="pre">stop()</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>left_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the left motor</li>
+<li><strong>right_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the right motor</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveTank.run_for_degrees">
 <code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>left_speed</em>, <em>right_speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_for_degrees" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motors at the specified speeds, the left motor will run for <code class="docutils literal notranslate"><span class="pre">degrees</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees to move the left motor</li>
+<li><strong>left_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the left motor</li>
+<li><strong>right_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the right motor</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveTank.run_to_position">
 <code class="descname">run_to_position</code><span class="sig-paren">(</span><em>left_position</em>, <em>right_position</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_to_position" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run both motors at <code class="docutils literal notranslate"><span class="pre">speed</span></code> to the desired positions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>left_position</strong> (<em>int</em>) – the target position for the left motor</li>
+<li><strong>right_position</strong> (<em>int</em>) – the target position for the right motor</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of both motors</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveTank.run_for_time">
 <code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>left_speed</em>, <em>right_speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_for_time" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Run the motors at the specified speeds for <code class="docutils literal notranslate"><span class="pre">msec</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msec</strong> (<em>int</em>) – the number of milliseconds to run the motors</li>
+<li><strong>left_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the left motor</li>
+<li><strong>right_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the right motor</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -187,9 +280,27 @@
 <dt id="spikedev.tank.MoveSteering">
 <em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveSteering</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.tank.MoveTank</span></code></a></p>
-<p>Controls a pair of motors simultaneously, via a single “steering” value and a speed.</p>
+<img alt="_images/steering.jpg" src="_images/steering.jpg" />
+<p>MoveSteering is a child of <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveTank</span></code></a> that adds the ability to control the tank
+via a <code class="docutils literal notranslate"><span class="pre">steering</span></code> value and a <code class="docutils literal notranslate"><span class="pre">speed</span></code> value.</p>
+<p>Example:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="k">import</span> <span class="n">MoveSteering</span>
+
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MoveSteering</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
+
+<span class="c1"># Move forward and to the right for 500 degrees</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="spikedev.tank.MoveSteering.run_at_speed">
+<code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>steering</em>, <em>speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_at_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> at <code class="docutils literal notranslate"><span class="pre">speed</span></code>
+The motors will run until you call <code class="docutils literal notranslate"><span class="pre">stop()</span></code></p>
 <dl class="docutils">
-<dt>steering [-100, 100]:</dt>
+<dt><code class="docutils literal notranslate"><span class="pre">steering</span></code> details:</dt>
 <dd><ul class="first last simple">
 <li>-100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),</li>
 <li>0   means drive in a straight line, and</li>
@@ -197,35 +308,85 @@
 </ul>
 </dd>
 </dl>
-<p>“steering” can be any number between -100 and 100.</p>
-<p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="k">import</span> <span class="n">MoveSteering</span>
-
-<span class="n">ms</span> <span class="o">=</span> <span class="n">MoveSteering</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
-<span class="n">ms</span><span class="o">.</span><span class="n">run_for_degrees</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
-<span class="n">ms</span><span class="o">.</span><span class="n">run_for_time</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
-</pre></div>
-</div>
-<dl class="method">
-<dt id="spikedev.tank.MoveSteering.run_at_speed">
-<code class="descname">run_at_speed</code><span class="sig-paren">(</span><em>steering</em>, <em>speed</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_at_speed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start rotating the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> and
-<code class="docutils literal notranslate"><span class="pre">speed</span></code> forever.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>steering</strong> (<em>int</em>) – a number from -100 to 100</li>
+<li><strong>speed</strong> (<em>SpeedValue</em>) – The speed that should be applied to the outmost motor (the one rotating faster).
+The speed of the other motor will be computed automatically.</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveSteering.run_for_degrees">
 <code class="descname">run_for_degrees</code><span class="sig-paren">(</span><em>steering</em>, <em>speed</em>, <em>degrees</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_for_degrees" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code>.</p>
-<p>The distance each motor will travel follows the rules of <code class="xref py py-meth docutils literal notranslate"><span class="pre">MoveTank.on_for_degrees()</span></code>.</p>
+<dd><p>Rotate the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> at <code class="docutils literal notranslate"><span class="pre">speed</span></code> where the outmost motor (the
+one rotating faster) will move for <code class="docutils literal notranslate"><span class="pre">degrees</span></code>.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">steering</span></code> details:</dt>
+<dd><ul class="first last simple">
+<li>-100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),</li>
+<li>0   means drive in a straight line, and</li>
+<li>100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>steering</strong> (<em>int</em>) – a number from -100 to 100</li>
+<li><strong>speed</strong> (<em>SpeedValue</em>) – The speed that should be applied to the outmost motor (the one rotating faster).
+The speed of the other motor will be computed automatically.</li>
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees for the outmost motor (the one rotating faster) to move</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveSteering.run_for_time">
 <code class="descname">run_for_time</code><span class="sig-paren">(</span><em>msec</em>, <em>steering</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveSteering.run_for_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotate the motors according to the provided <code class="docutils literal notranslate"><span class="pre">steering</span></code> for <code class="docutils literal notranslate"><span class="pre">seconds</span></code>.</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">steering</span></code> details:</dt>
+<dd><ul class="first last simple">
+<li>-100 means turn left on the spot (right motor at 100% forward, left motor at 100% backward),</li>
+<li>0   means drive in a straight line, and</li>
+<li>100 means turn right on the spot (left motor at 100% forward, right motor at 100% backward).</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msec</strong> (<em>int</em>) – the number of milliseconds to run the motors</li>
+<li><strong>steering</strong> (<em>int</em>) – a number from -100 to 100</li>
+<li><strong>speed</strong> (<em>SpeedValue</em>) – The speed that should be applied to the outmost motor (the one rotating faster).
+The speed of the other motor will be computed automatically.</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -234,23 +395,34 @@
 <dt id="spikedev.tank.MoveDifferential">
 <em class="property">class </em><code class="descclassname">spikedev.tank.</code><code class="descname">MoveDifferential</code><span class="sig-paren">(</span><em>left_motor_port</em>, <em>right_motor_port</em>, <em>wheel_class</em>, <em>wheel_distance</em>, <em>motor_class=&lt;class spikedev.motor.SpikeMediumMotor&gt;</em>, <em>left_motor_polarity=1</em>, <em>right_motor_polarity=0</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.tank.MoveTank</span></code></a></p>
-<p>MoveDifferential is a child of MoveTank that adds the following capabilities:</p>
-<ul class="simple">
+<img alt="_images/differential.jpg" src="_images/differential.jpg" />
+<dl class="docutils">
+<dt>MoveDifferential is a child of <a class="reference internal" href="#spikedev.tank.MoveTank" title="spikedev.tank.MoveTank"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveTank</span></code></a> that adds the following capabilities:</dt>
+<dd><ul class="first last simple">
 <li>drive in a straight line for a specified distance</li>
-<li>rotate in place in a circle (clockwise or counter clockwise) for a
-specified number of degrees</li>
-<li>drive in an arc (clockwise or counter clockwise) of a specified radius
-for a specified distance</li>
+<li>rotate in place in a circle (clockwise or counter clockwise) for a specified number of degrees</li>
+<li>drive in an arc (clockwise or counter clockwise) of a specified radius for a specified distance</li>
 </ul>
-<p>New arguments:</p>
-<p>wheel_class - A child class of <code class="xref py py-class docutils literal notranslate"><span class="pre">ev3dev2.wheel.Wheel</span></code>. This is used to
-get the circumference of the wheels of the robot. The circumference is
-needed for several calculations in this class.</p>
-<p>wheel_distance_mm - The distance between the mid point of the two
+</dd>
+</dl>
+<p>All of the args from MoveTank apply plus two additional args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wheel_class</strong> (<a class="reference internal" href="spikedev-wheel.html#spikedev.wheel.Wheel" title="spikedev.wheel.Wheel"><em>Wheel</em></a>) – used to get the circumference of the wheels of the robot. The
+circumference is needed for several calculations in this class.</li>
+<li><strong>wheel_distance_mm</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – The distance between the mid point of the two
 wheels of the robot. You may need to do some test drives to find
 the correct value for your robot.  It is not as simple as measuring
 the distance between the midpoints of the two wheels. The weight of
-the robot, center of gravity, etc come into play.</p>
+the robot, center of gravity, etc come into play.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Example:</p>
 <div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
 <span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MotorSpeedDPS</span>
@@ -278,40 +450,131 @@ the robot, center of gravity, etc come into play.</p>
 <dt id="spikedev.tank.MoveDifferential.run_for_distance">
 <code class="descname">run_for_distance</code><span class="sig-paren">(</span><em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_for_distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drive in a straight line for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>distance</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – how far the midpoint between the wheels should travel</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast the midpoint between the wheels should travel</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveDifferential.run_arc_right">
 <code class="descname">run_arc_right</code><span class="sig-paren">(</span><em>radius</em>, <em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_arc_right" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drive clockwise in a circle with <code class="docutils literal notranslate"><span class="pre">radius</span></code> for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>radius</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – the radius of the arc to drive in, think of this as the size of
+the imaginary circle the robot will follow</li>
+<li><strong>distance</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – how far the midpoint between the wheels should travel along the imaginary circle</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast the midpoint between the wheels should travel</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveDifferential.run_arc_left">
 <code class="descname">run_arc_left</code><span class="sig-paren">(</span><em>radius</em>, <em>distance</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.run_arc_left" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drive counter-clockwise in a circle with <code class="docutils literal notranslate"><span class="pre">radius</span></code> for <code class="docutils literal notranslate"><span class="pre">distance</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>radius</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – the radius of the arc to drive in, think of this as the size of
+the imaginary circle the robot will follow</li>
+<li><strong>distance</strong> (<a class="reference internal" href="spikedev-unit.html#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a>) – how far the midpoint between the wheels should travel along the imaginary circle</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast the midpoint between the wheels should travel</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveDifferential.turn_degrees">
-<code class="descname">turn_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_degrees" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotate in place <code class="docutils literal notranslate"><span class="pre">degrees</span></code>. Both wheels must turn at the same speed for us
-to rotate in place.  If the following conditions are met the GryoSensor will
-be used to improve the accuracy of our turn:
-- <code class="docutils literal notranslate"><span class="pre">use_gyro</span></code>, <code class="docutils literal notranslate"><span class="pre">brake</span></code> and <code class="docutils literal notranslate"><span class="pre">block</span></code> are all True
-- A GyroSensor has been defined via <code class="docutils literal notranslate"><span class="pre">self.gyro</span> <span class="pre">=</span> <span class="pre">GyroSensor()</span></code></p>
+<code class="descname">turn_degrees</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate in place <code class="docutils literal notranslate"><span class="pre">degrees</span></code>. Both wheels will turn at the same speed for us
+to rotate in place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees to rotate in place</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast each wheel should move</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveDifferential.turn_right">
-<code class="descname">turn_right</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_right" title="Permalink to this definition">¶</a></dt>
+<code class="descname">turn_right</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_right" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotate clockwise <code class="docutils literal notranslate"><span class="pre">degrees</span></code> in place</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees to rotate clockwise in place</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast each wheel should move</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="spikedev.tank.MoveDifferential.turn_left">
-<code class="descname">turn_left</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>error_margin=2</em>, <em>use_gyro=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_left" title="Permalink to this definition">¶</a></dt>
+<code class="descname">turn_left</code><span class="sig-paren">(</span><em>degrees</em>, <em>speed</em>, <em>stop=1</em>, <em>block=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveDifferential.turn_left" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotate counter-clockwise <code class="docutils literal notranslate"><span class="pre">degrees</span></code> in place</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>degrees</strong> (<em>int</em>) – the number of degrees to rotate counter-clockwise in place</li>
+<li><strong>speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – how fast each wheel should move</li>
+<li><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></li>
+<li><strong>block</strong> (<em>bool</em>) – if True this function will not return until the motors have finished moving</li>
+<li><strong>**kwargs</strong> – optional kwargs that will pass all the way down to the LEGO <code class="docutils literal notranslate"><span class="pre">hub.port.X.motor</span></code> API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

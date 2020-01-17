@@ -1,6 +1,9 @@
 # spikedev
 A micropython library for [LEGO SPIKE](https://education.lego.com/en-us/products/lego-education-spike-prime-set/45678#product). The goal of this library is to bring much of the work done at [ev3dev-lang-python](https://github.com/ev3dev/ev3dev-lang-python) to SPIKE.
 
+# API Documentation
+[spikedev API documentation](https://dwalton76.github.io/spikedev/)
+
 # Installing spikedev
 ## ampy
 Install [ampy](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) on your laptop. We will use ampy to communicate with the SPIKE hub via
@@ -22,6 +25,8 @@ however see the circle button turn white.
 We need to create a `spikedev` directory on SPIKE and copy all of our files to that
 directory. To do that run:
 ```bash
+$ git clone https://github.com/dwalton76/spikedev.git
+$ cd spikedev
 $ sudo make install
 ```
 

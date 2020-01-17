@@ -15,7 +15,6 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-#sys.path.insert(0, os.path.abspath('../spikedev/'))
 
 
 # -- Project information -----------------------------------------------------
@@ -183,7 +182,5 @@ autodoc_member_order = "bysource"
 
 # HTML output
 html_theme = "sphinx_rtd_theme"
-#html_static_path = ["_static"]
-html_static_path = [""]
 html_sidebars = {"**": ["relations.html", "searchbox.html"]}
 htmlhelp_basename = "myprojectdoc"
