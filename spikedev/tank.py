@@ -30,6 +30,7 @@ import utime
 # spikedev libraries
 from spikedev.logging import log_msg
 from spikedev.motor import MotorCallbackEvent, MotorPolarity, MotorSpeed, MotorSpeedPercent, MotorStop, SpikeMediumMotor
+from spikedev.motor import _port2motor, _callback, _callback_A, _callback_B, _callback_C, _callback_D, _callback_E, _callback_F,
 from spikedev.unit import distance_in_mm
 
 
@@ -43,8 +44,10 @@ class MoveTank:
         left_motor_port (str): port letter of the left motor
         right_motor_port (str): port letter of the right motor
         motor_class (Motor): the type of motor that is used, defaults to :class:`SpikeMediumMotor`
-        left_motor_polarity (MotorPolarity): the polarity for the left motor, defaults to :class:`MotorPolarity.REVERSED`
-        right_motor_polarity (MotorPolarity): the polarity for the right motor, defaults to :class:`MotorPolarity.NORMAL`
+        left_motor_polarity (MotorPolarity): the polarity for the left motor, defaults
+            to :class:`MotorPolarity.REVERSED`
+        right_motor_polarity (MotorPolarity): the polarity for the right motor, defaults
+            to :class:`MotorPolarity.NORMAL`
         desc (str): defaults to None
 
     Example:
@@ -74,37 +77,32 @@ class MoveTank:
         self.interrupted = False
         self.stalled = False
         self.pair = self.left_motor.port.motor.pair(self.right_motor.port.motor)
-        self.pair.callback(self._event_callback)
         self.desc = None
         self.rxed_callback = True
 
+        # callback setup
+        if left_motor_port == "A":
+            self.pair.callback(_callback_A)
+        elif left_motor_port == "B":
+            self.pair.callback(_callback_B)
+        elif left_motor_port == "C":
+            self.pair.callback(_callback_C)
+        elif left_motor_port == "D":
+            self.pair.callback(_callback_D)
+        elif left_motor_port == "E":
+            self.pair.callback(_callback_E)
+        elif left_motor_port == "F":
+            self.pair.callback(_callback_F)
+        else:
+            raise ValueError("invalid port {}".format(self.port_letter))
+
+        global _port2motor
+        _port2motor[self.port_letter] = self
     def __str__(self):
         if self.desc is not None:
             return self.desc
         else:
             return self.__class__.__name__
-
-    def _event_callback(self, reason):
-
-        if reason == MotorCallbackEvent.COMPLETED:
-            self.interrupted = False
-            self.stalled = False
-            # log_msg("{}: _event_callback COMPLETED".format(self))
-
-        elif reason == MotorCallbackEvent.INTERRUPTED:
-            self.interrupted = True
-            self.stalled = False
-            log_msg("{}: _event_callback INTERRUPTED".format(self))
-
-        elif reason == MotorCallbackEvent.STALL:
-            self.interrupted = False
-            self.stalled = True
-            log_msg("{}: _event_callback STALL".format(self))
-
-        else:
-            raise ValueError("invalid callback reason {}".format(reason))
-
-        self.rxed_callback = True
 
     def _wait(self):
         # This is ugly but SPIKE does not have the _thread module :(
@@ -217,11 +215,25 @@ class MoveTank:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
+
+        """
+        rxed_callback = False
+
+        def local_callback(reason):
+            rxed_callback = True
+            log_msg("rxed callback with reason {}".format(reason))
+
+        if block:
+            self.pair.callback(local_callback)
+        else:
+            self.pair.callback(None)
+        """
+
         log_msg("{}: run_for_time {}ms at left_speed {}, right_speed {}".format(self, msec, left_speed, right_speed))
         left_speed = self._speed_percentage(left_speed)
         right_speed = self._speed_percentage(right_speed)
-        self.rxed_callback = False
         (left_speed, right_speed) = self._speed_with_polarity(left_speed, right_speed)
+        self.rxed_callback = False
         self.pair.run_for_time(msec, left_speed, right_speed, stop=stop, **kwargs)
 
         if block:
@@ -429,6 +441,7 @@ class MoveDifferential(MoveTank):
         """
         Drive in a circle with ``radius`` for ``distance``
         """
+
         if radius_mm < self.min_circle_radius_mm:
             raise ValueError(
                 "{}: radius_mm {} is less than min_circle_radius_mm {}".format(

@@ -339,6 +339,62 @@ class MotorMode:
     CALIB = 5
 
 
+# callback() infrastructure
+_port2motor = {}
+
+
+def _callback(mtr, reason):
+    if reason == MotorCallbackEvent.COMPLETED:
+        mtr.interrupted = False
+        mtr.stalled = False
+        log_msg("{}: _callback COMPLETED".format(mtr))
+
+    elif reason == MotorCallbackEvent.INTERRUPTED:
+        mtr.interrupted = True
+        mtr.stalled = False
+        log_msg("{}: _callback INTERRUPTED".format(mtr))
+
+    elif reason == MotorCallbackEvent.STALL:
+        mtr.interrupted = False
+        mtr.stalled = True
+        log_msg("{}: _callback STALL".format(mtr))
+
+    else:
+        raise ValueError("invalid callback reason {}".format(reason))
+
+    mtr.rxed_callback = True
+
+
+def _callback_A(reason):
+    mtr = _port2motor["A"]
+    _callback(mtr, reason)
+
+
+def _callback_B(reason):
+    mtr = _port2motor["B"]
+    _callback(mtr, reason)
+
+
+def _callback_C(reason):
+    mtr = _port2motor["C"]
+    _callback(mtr, reason)
+
+
+def _callback_D(reason):
+    mtr = _port2motor["D"]
+    _callback(mtr, reason)
+
+
+def _callback_E(reason):
+    mtr = _port2motor["E"]
+    _callback(mtr, reason)
+
+
+def _callback_F(reason):
+    mtr = _port2motor["F"]
+    _callback(mtr, reason)
+
+
 class Motor:
     """
     A base class for SPIKE motors
@@ -363,36 +419,32 @@ class Motor:
         while self.port.motor is None:
             utime.sleep(0.1)
 
-        self.port.motor.callback(self._event_callback)
         self.port.motor.mode(MotorMode.POS)
+
+        # callback setup
+        if self.port_letter == "A":
+            self.port.motor.callback(_callback_A)
+        elif self.port_letter == "B":
+            self.port.motor.callback(_callback_B)
+        elif self.port_letter == "C":
+            self.port.motor.callback(_callback_C)
+        elif self.port_letter == "D":
+            self.port.motor.callback(_callback_D)
+        elif self.port_letter == "E":
+            self.port.motor.callback(_callback_E)
+        elif self.port_letter == "F":
+            self.port.motor.callback(_callback_F)
+        else:
+            raise ValueError("invalid port {}".format(self.port_letter))
+
+        global _port2motor
+        _port2motor[self.port_letter] = self
 
     def __str__(self):
         if self.desc is not None:
             return self.desc
         else:
             return "{}(port {})".format(self.__class__.__name__, self.port_letter)
-
-    def _event_callback(self, reason):
-
-        if reason == MotorCallbackEvent.COMPLETED:
-            self.interrupted = False
-            self.stalled = False
-            # log_msg("{}: _event_callback COMPLETED".format(self))
-
-        elif reason == MotorCallbackEvent.INTERRUPTED:
-            self.interrupted = True
-            self.stalled = False
-            log_msg("{}: _event_callback INTERRUPTED".format(self))
-
-        elif reason == MotorCallbackEvent.STALL:
-            self.interrupted = False
-            self.stalled = True
-            log_msg("{}: _event_callback STALL".format(self))
-
-        else:
-            raise ValueError("invalid callback reason {}".format(reason))
-
-        self.rxed_callback = True
 
     def _wait(self):
         # This is ugly but SPIKE does not have the _thread module :(
