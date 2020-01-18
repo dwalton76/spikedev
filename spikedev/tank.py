@@ -29,8 +29,21 @@ import utime
 
 # spikedev libraries
 from spikedev.logging import log_msg
-from spikedev.motor import MotorCallbackEvent, MotorPolarity, MotorSpeed, MotorSpeedPercent, MotorStop, SpikeMediumMotor
-from spikedev.motor import _port2motor, _callback, _callback_A, _callback_B, _callback_C, _callback_D, _callback_E, _callback_F,
+from spikedev.motor import (
+    MotorPolarity,
+    MotorSpeed,
+    MotorSpeedPercent,
+    MotorStop,
+    SpikeMediumMotor,
+    _callback,
+    _callback_A,
+    _callback_B,
+    _callback_C,
+    _callback_D,
+    _callback_E,
+    _callback_F,
+    _port2motor,
+)
 from spikedev.unit import distance_in_mm
 
 
@@ -98,6 +111,7 @@ class MoveTank:
 
         global _port2motor
         _port2motor[self.port_letter] = self
+
     def __str__(self):
         if self.desc is not None:
             return self.desc

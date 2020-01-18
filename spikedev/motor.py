@@ -615,7 +615,7 @@ class Motor:
         log_msg("{}: run_for_degrees {} at speed {}".format(self, degrees, speed))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
-        self.port.motor.run_for_degrees(self._degrees_with_polarity(degrees), speed, stop=stop, **kwargs)
+        self.port.motor.run_for_degrees(degrees, self._speed_with_polarity(speed), stop=stop, **kwargs)
 
         if block:
             self._wait()
