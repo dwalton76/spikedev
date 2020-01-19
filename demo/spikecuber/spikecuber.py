@@ -12,18 +12,18 @@ PORT D - holder/colorsensor motor
 """
 
 # standard libraries
-import sys
 import utime
 
 # third party libraries
 import hub
+from rubikscolorresolver.base import RubiksColorSolverGenericBase
 from rubikscubesolvermicropython.cube import RubiksCube333
 from util.sensors import get_sensor_value
 
 # spikedev libraries
-from rubikscolorresolver.base import RubiksColorSolverGenericBase
+from spikedev.logging import log_msg
+from spikedev.motor import SpikeLargeMotor, SpikeMediumMotor
 
-LOG_FILENAME = "spikecuber.log"
 BLACK = 0
 VIOLET = 1
 BLUE = 3
@@ -44,159 +44,7 @@ def color_sensor_to_side_name():
 
 # def print_mem_stats(desc):
 #    import gc
-#    log_to_file('{} free: {} allocated: {}'.format(desc, gc.mem_free(), gc.mem_alloc()))
-
-
-def log_init():
-    with open(LOG_FILENAME, "w") as fh:
-        pass
-
-
-def log_time():
-    """
-    Return a string of HH:MM:SS.MSEC elapsed since the hub booted
-    """
-    usec = utime.ticks_us()
-    msec, usec = divmod(usec, 1000)
-    sec, msec = divmod(msec, 1000)
-    minute, sec = divmod(sec, 60)
-    hour, minute = divmod(minute, 60)
-    day, hour = divmod(hour, 24)
-    return "%02d:%02d:%02d.%03d" % (hour, minute, sec, msec)
-
-
-def log_to_file(msg):
-    with open(LOG_FILENAME, "a") as fh:
-        msg = "%s: %s" % (log_time(), msg)
-        print(msg)
-        fh.write(msg + "\n")
-        fh.flush()
-
-
-def log_exception(exc):
-    with open(LOG_FILENAME, "a") as fh:
-        fh.write("%s: logging exception\n" % log_time())
-        sys.print_exception(exc, fh)
-        fh.flush()
-
-
-class MotorPlus:
-    def __init__(self, port, port_letter, desc=None):
-        self.port = port
-        self.port_letter = port_letter
-        self.desc = desc
-
-    def __str__(self):
-        if self.desc:
-            return self.desc
-        else:
-            return str(self.port)
-
-    def position(self):
-
-        while self.port.motor is None:
-            utime.sleep(0.01)
-
-        result = None
-        self.port.motor.mode(3)
-
-        while result is None:
-            data = self.port.motor.get()
-            log_to_file("%s: position data %s" % (self, data))
-            result = data[0]
-
-        return result
-
-        """
-        position = get_sensor_value(self.port_letter, 3, 0, (49, 48))
-
-        if abs(position) > 360:
-            position = position % 360
-
-        return position
-        """
-
-    def run_for_degrees(self, degrees, speed):
-
-        while self.port.motor is None:
-            utime.sleep(0.01)
-
-        log_to_file("%s: run_for_degrees %s at speed %s, position %s" % (self, degrees, speed, self.position()))
-        self.port.motor.run_for_degrees(degrees, speed)
-        # dwalton
-
-        # run_for_degrees does not block, wait for motor
-        # to finish
-        while self.port.motor.busy(self.port.motor.BUSY_MOTOR):
-            pass
-
-        """
-        motor_busy = self.motor.busy
-        BUSY_MOTOR = self.motor.BUSY_MOTOR
-
-        # Wait for the motor to start moving
-        while not motor_busy(BUSY_MOTOR):
-            pass
-
-        # TODO using callback() should be another option
-        # Wait for the motor to stop moving
-        while motor_busy(BUSY_MOTOR):
-            pass
-        """
-
-        log_to_file("%s: run_for_degrees, position %s" % (self, self.position()))
-
-    def run_direction_to_position(self, target_pos, speed, direction):
-        current_pos = self.position()
-
-        # clockwise
-        if speed < 0:
-            clockwise_speed = speed * -1
-        else:
-            clockwise_speed = speed
-
-        if current_pos < target_pos:
-            clockwise_degrees = target_pos - current_pos
-        else:
-            clockwise_degrees = 360 - (current_pos - target_pos)
-
-        # counterclockwise
-        if speed > 0:
-            counterclockwise_speed = speed * -1
-        else:
-            counterclockwise_speed = speed
-
-        if current_pos > target_pos:
-            counterclockwise_degrees = current_pos - target_pos
-        else:
-            counterclockwise_degrees = 360 - (target_pos - current_pos)
-
-        # set speed and degrees based on direction
-        if direction == "clockwise":
-            speed = clockwise_speed
-            degrees = clockwise_degrees
-
-        elif direction == "counterclockwise":
-            speed = counterclockwise_speed
-            degrees = counterclockwise_degrees
-
-        elif direction == "shortestpath":
-
-            if clockwise_degrees <= counterclockwise_degrees:
-                speed = clockwise_speed
-                degrees = clockwise_degrees
-            else:
-                speed = counterclockwise_speed
-                degrees = counterclockwise_degrees
-
-        else:
-            raise Exception("invalid direction %s" % direction)
-
-        log_to_file(
-            "%s: run_direction_to_position current_pos %s, target_pos %s, direction %s, speed %s, degrees %s"
-            % (self, current_pos, target_pos, direction, speed, degrees)
-        )
-        self.run_for_degrees(degrees, speed)
+#    log_msg('{} free: {} allocated: {}'.format(desc, gc.mem_free(), gc.mem_alloc()))
 
 
 class SpikeCuber(object):
@@ -226,17 +74,18 @@ class SpikeCuber(object):
             while port.motor is None:
                 utime.sleep(0.1)
 
-        self.poker = MotorPlus(hub.port.A, "A", "poker(A)")
-        self.turntable = MotorPlus(hub.port.C, "C", "turntable(C)")
-        self.colorarm = MotorPlus(hub.port.D, "D", "colorarm(D)")
+        self.poker = SpikeMediumMotor(hub.port.A, desc="poker(A)")
+        self.turntable = SpikeLargeMotor(hub.port.C, desc="turntable(C)")
+        self.colorarm = SpikeMediumMotor(hub.port.D, desc="colorarm(D)")
 
     def init_motors(self):
         """
         - move poker all the way back
         - move colorarm all the way back
         """
-        self.poker.run_direction_to_position(347, 20, "shortestpath")
-        self.colorarm.run_direction_to_position(0, 20, "shortestpath")
+        self.poker.position = 0
+        self.turntable.position = 0
+        self.colorarm.position = 0
 
     def wait_for_button_press(self):
         """
@@ -287,46 +136,46 @@ class SpikeCuber(object):
                 else:
                     direction = "clockwise"
 
-        log_to_file(
+        log_msg(
             "colorarm_guts at {}, go {} to degrees {}, speed {}, motor {}".format(
                 current_degrees, direction, degrees, speed, self.colorarm
             )
         )
 
         # Motor go direction to position
-        self.colorarm.run_direction_to_position(degrees, speed, direction)
+        self.colorarm.run_to_position(degrees, speed, direction)
 
         # Where did we end up
         current_degrees = get_current_degrees()
-        log_to_file("colorarm_guts at {}\n\n".format(current_degrees))
+        log_msg("colorarm_guts at {}\n\n".format(current_degrees))
 
     def colorarm_middle(self):
         """
         Move the color sensor over the middle square, this in turn holds the
         top two layers of the cube.
         """
-        log_to_file("colorarm_middle()")
+        log_msg("colorarm_middle()")
         self.colorarm_guts(degrees=self.COLOR_SENSOR_CENTER_DEGREES, speed=20)
 
     def colorarm_edge(self):
         """
         Move the color sensor over the edge square
         """
-        log_to_file("colorarm_edge()")
+        log_msg("colorarm_edge()")
         self.colorarm_guts(degrees=self.COLOR_SENSOR_EDGE_DEGREES, speed=20)
 
     def colorarm_corner(self):
         """
         Move the color sensor over the corner square
         """
-        log_to_file("colorarm_corner()")
+        log_msg("colorarm_corner()")
         self.colorarm_guts(degrees=self.COLOR_SENSOR_CORNER_DEGREES, speed=20)
 
     def colorarm_home(self):
         """
         Move the colorarm all the way out of the way
         """
-        log_to_file("colorarm_home()")
+        log_msg("colorarm_home()")
         self.colorarm_guts(degrees=self.COLOR_SENSOR_HOME_DEGREES, speed=20)
 
     def rotate_cube(self, clockwise, quarter_turn_count, hold_cube):
@@ -346,7 +195,7 @@ class SpikeCuber(object):
 
         degrees = self.TURNTABLE_RATIO * 90 * quarter_turn_count
 
-        # log_to_file("rotate_cube() clockwise %s, quarter_turn_count %s, degrees %d" %
+        # log_msg("rotate_cube() clockwise %s, quarter_turn_count %s, degrees %d" %
         #    (clockwise, quarter_turn_count, degrees))
 
         speed = 50
@@ -417,14 +266,14 @@ class SpikeCuber(object):
 
     def flip_guts(self):
         poker_degrees = 140
-        push_center_degreees = 120
+        push_center_degrees = 120
 
-        self.poker.run_direction_to_position(poker_degrees, 60, "clockwise")
-        self.poker.run_direction_to_position(347, 60, "counterclockwise")
+        self.poker.run_to_position(poker_degrees, 60, "clockwise")
+        self.poker.run_to_position(347, 60, "counterclockwise")
 
         # Move colorarm forward to nudge cube
-        self.colorarm.run_direction_to_position(push_center_degrees, 75, "counterclockwise")
-        self.colorarm.run_direction_to_position(0, 75, "clockwise")
+        self.colorarm.run_to_position(push_center_degrees, 75, "counterclockwise")
+        self.colorarm.run_to_position(0, 75, "clockwise")
 
     def flip(self):
         """
@@ -436,7 +285,7 @@ class SpikeCuber(object):
         if self.shutdown:
             return
 
-        log_to_file("flip()")
+        log_msg("flip()")
         self.flip_guts()
 
         self.apply_transformation(self.TRANSFORM_FLIP)
@@ -468,7 +317,7 @@ class SpikeCuber(object):
         if self.shutdown:
             return side_names
 
-        log_to_file("scan_side() %d/6" % side_number)
+        log_msg("scan_side() %d/6" % side_number)
 
         # scan the middle
         self.colorarm_middle()
@@ -504,7 +353,7 @@ class SpikeCuber(object):
         """
         scan the entire cube
         """
-        log_to_file("scan()")
+        log_msg("scan()")
         SCAN_ORDER = {
             "U": (5, 6, 3, 2, 1, 4, 7, 8, 9),
             "L": (14, 15, 12, 11, 10, 13, 16, 17, 18),
@@ -549,7 +398,7 @@ class SpikeCuber(object):
         side_names.extend(side_names_L)
         side_names.extend(side_names_B)
         kociemba_string = "".join(side_names)
-        log_to_file("kociemba_string (init) {}".format(kociemba_string))
+        log_msg("kociemba_string (init) {}".format(kociemba_string))
 
         # Use the color resolver library to make sure our cube state is valid. If it
         # isn't valid the color resolver will change some colors around to make it valid.
@@ -564,14 +413,14 @@ class SpikeCuber(object):
         self.cube_kociemba = "".join(cube.cube_for_kociemba_strict())
         """
         self.cube_kociemba = kociemba_string
-        log_to_file("kociemba_string (final) {}".format(self.cube_kociemba))
+        log_msg("kociemba_string (final) {}".format(self.cube_kociemba))
 
         # This is only used if you want to rotate the cube so U is on top, F is
         # in the front, etc. You would do this if you were troubleshooting color
         # detection and you want to pause to compare the color pattern on the
         # cube vs. what we think the color pattern is.
         """
-        log_to_file("Position the cube so that U is on top, F is in the front, etc...to make debugging easier")
+        log_msg("Position the cube so that U is on top, F is in the front, etc...to make debugging easier")
         self.flip()
         self.flip()
         self.rotate_cube(clockwise=True, quarter_turn_count=2, hold_cube=False)
@@ -583,7 +432,7 @@ class SpikeCuber(object):
         Move 'side' so that it is facing down into the turntable
         """
 
-        log_to_file("move_side_to_down() side%s" % side)
+        log_msg("move_side_to_down() side%s" % side)
 
         # Get the steps need to move 'side' so that it is facing down
         SIDE_DOWN_STEPS = {
@@ -617,7 +466,7 @@ class SpikeCuber(object):
 
         cube = RubiksCube333(self.cube_kociemba, "URFDLB")
         solution = cube.solve()
-        log_to_file("SOLUTION: %s" % " ".join(solution))
+        log_msg("SOLUTION: %s" % " ".join(solution))
         total_steps = len(solution)
 
         for (index, step) in enumerate(solution):
@@ -625,7 +474,7 @@ class SpikeCuber(object):
             if self.shutdown:
                 break
 
-            log_to_file("Move %d/%d: %s" % (index + 1, total_steps, step))
+            log_msg("Move %d/%d: %s" % (index + 1, total_steps, step))
             side = list(step)[0]
             self.move_side_to_down(side)
 
@@ -640,10 +489,8 @@ class SpikeCuber(object):
 
 
 if __name__ == "__main__":
-
-    log_init()
     spike = SpikeCuber()
-    # spike.init_motors()
+    spike.init_motors()
 
     spike.rotate_from_corner_to_edge()
     # spike.colorarm_middle()
