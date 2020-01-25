@@ -612,7 +612,7 @@ class Motor:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_for_degrees {} at speed {}".format(self, degrees, speed))
+        log_msg("{}: run_for_degrees {} at speed {}, kwargs {}".format(self, degrees, speed, kwargs))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
         self.port.motor.run_for_degrees(degrees, self._speed_with_polarity(speed), stop=stop, **kwargs)
@@ -631,7 +631,7 @@ class Motor:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_to_position {} at speed {}".format(self, position, speed))
+        log_msg("{}: run_to_position {} at speed {}, kwargs {}".format(self, position, speed, kwargs))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
         self.port.motor.run_to_position(position, speed, stop=stop, **kwargs)
@@ -650,7 +650,7 @@ class Motor:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_for_time {}ms at speed {}".format(self, msec, speed))
+        log_msg("{}: run_for_time {}ms at speed {}, kwargs {kwargs}".format(self, msec, speed, kwargs))
         speed = self._speed_percentage(speed)
         self.rxed_callback = False
         self.port.motor.run_for_time(msec, speed, stop=stop, **kwargs)

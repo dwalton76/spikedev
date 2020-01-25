@@ -62,6 +62,10 @@ def spike_install_spikedev(dev: str) -> bool:
 
     # copy every file in our spikedev directory to the spikedev on SPIKE
     for filename in get_filenames(LOCAL_DIRECTORY):
+
+        if filename.endswith(".swp"):
+            continue
+
         cmd = f"ampy --port {dev} put {LOCAL_DIRECTORY}/{filename} {REMOTE_DIRECTORY}/{filename}"
         log.info(cmd)
         subprocess.check_output(cmd, shell=True)
