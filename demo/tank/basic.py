@@ -7,8 +7,6 @@ import hub
 # spikedev libraries
 from spikedev.logging import log_msg
 from spikedev.motor import MotorSpeedDPS, MotorSpeedPercent, MotorSpeedRPM, MotorStop, SpikeMediumMotor
-
-# from spikedev.tank import MoveTank, MoveSteering
 from spikedev.unit import DistanceInches, DistanceStuds
 from spikedev.wheel import SpikeWheel
 

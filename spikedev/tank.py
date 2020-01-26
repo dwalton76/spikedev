@@ -29,20 +29,20 @@ import utime
 
 # spikedev libraries
 from spikedev.logging import log_msg
+from spikedev.motor import _callback  # noqa: F401
+from spikedev.motor import _port2motor  # noqa: F401
 from spikedev.motor import (
     MotorPolarity,
     MotorSpeed,
     MotorSpeedPercent,
     MotorStop,
     SpikeMediumMotor,
-    _callback,
     _callback_A,
     _callback_B,
     _callback_C,
     _callback_D,
     _callback_E,
     _callback_F,
-    _port2motor,
 )
 from spikedev.unit import distance_in_mm
 

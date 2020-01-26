@@ -419,6 +419,7 @@ class Motor:
         while self.port.motor is None:
             utime.sleep(0.1)
 
+        # so we can get the motor's position
         self.port.motor.mode(MotorMode.POS)
 
         # callback setup

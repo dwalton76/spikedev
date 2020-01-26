@@ -10,11 +10,24 @@ import utime
 
 def _timestamp():
     """
+    utime.time() only gives second granularity but for debug output we really need
+    millisecond granularity. Use utime.ticks_ms to generate a timestamp string. It
+    will not give you the correct day, hour, etc but if you call this twice in a row
+    100ms apart the timestamps returned will be 100ms apart.
+
     Returns:
-        str: the current timestamp
+        str: a timestamp in ``YY-MM-DD HH:MM:SS.ms`` format
     """
-    (year, month, day, hour, minute, second, _, _) = utime.localtime()
-    ms = utime.ticks_ms() % 1000
+    year = 2020
+    month = 1
+
+    ms = utime.ticks_ms()
+    (day, ms) = divmod(ms, 86400000)
+    (hour, ms) = divmod(ms, 3600000)
+    (minute, ms) = divmod(ms, 60000)
+    (second, ms) = divmod(ms, 1000)
+    day += 1
+
     return "%d-%02d-%02d %02d:%02d:%02d.%03d %s" % (
         year,
         month,
