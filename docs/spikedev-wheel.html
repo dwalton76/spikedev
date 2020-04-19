@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -154,28 +154,24 @@
 <span id="spikedev-wheel"></span><h1>spikedev.wheel<a class="headerlink" href="#module-spikedev.wheel" title="Permalink to this headline">¶</a></h1>
 <p>Wheel and Rim classes</p>
 <img alt="_images/tires.jpg" src="_images/tires.jpg" />
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.wheel.Wheel">
-<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">Wheel</code><span class="sig-paren">(</span><em>diameter_mm</em>, <em>width_mm</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.wheel.Wheel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.wheel.</code><code class="sig-name descname">Wheel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">diameter_mm</span></em>, <em class="sig-param"><span class="n">width_mm</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.wheel.Wheel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A base class for various types of wheels, tires, etc.  All units are in mm.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter_mm</strong> (<em>int</em>) – the wheel’s diameter in millimeters</li>
-<li><strong>width_mm</strong> (<em>int</em>) – the wheel’s width in millimeters</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diameter_mm</strong> (<em>int</em>) – the wheel’s diameter in millimeters</p></li>
+<li><p><strong>width_mm</strong> (<em>int</em>) – the wheel’s width in millimeters</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p>A scenario where a <code class="docutils literal notranslate"><span class="pre">Wheel</span></code> class would be used is when the user needs their
 robot to drive at a specific speed or drive for a specific distance. Both of
 those calculations require the circumference of the wheel of the robot.</p>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">tire</span> <span class="o">=</span> <span class="n">SpikeWheel</span><span class="p">()</span>
 
@@ -185,26 +181,26 @@ those calculations require the circumference of the wheel of the robot.</p>
 </div>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.wheel.SpikeWheel">
-<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">SpikeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeWheel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.wheel.</code><code class="sig-name descname">SpikeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeWheel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.wheel.Wheel" title="spikedev.wheel.Wheel"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.wheel.Wheel</span></code></a></p>
 <p><strong>56mm</strong></p>
 <ul class="simple">
-<li>part number <a class="reference external" href="https://brickset.com/parts/design-39367">39367</a></li>
-<li>comes in set <a class="reference external" href="https://brickset.com/sets/45678-1/">45678-1</a></li>
+<li><p>part number <a class="reference external" href="https://brickset.com/parts/design-39367">39367</a></p></li>
+<li><p>comes in set <a class="reference external" href="https://brickset.com/sets/45678-1/">45678-1</a></p></li>
 </ul>
 <img alt="_images/39367.jpeg" src="_images/39367.jpeg" />
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.wheel.SpikeLargeWheel">
-<em class="property">class </em><code class="descclassname">spikedev.wheel.</code><code class="descname">SpikeLargeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeLargeWheel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.wheel.</code><code class="sig-name descname">SpikeLargeWheel</code><a class="headerlink" href="#spikedev.wheel.SpikeLargeWheel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.wheel.Wheel" title="spikedev.wheel.Wheel"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.wheel.Wheel</span></code></a></p>
 <p><strong>88mm</strong></p>
 <ul class="simple">
-<li>part number <a class="reference external" href="https://brickset.com/parts/design-49295">49295</a></li>
-<li>comes in set <a class="reference external" href="https://brickset.com/sets/45680-1/">45680-1</a></li>
+<li><p>part number <a class="reference external" href="https://brickset.com/parts/design-49295">49295</a></p></li>
+<li><p>comes in set <a class="reference external" href="https://brickset.com/sets/45680-1/">45680-1</a></p></li>
 </ul>
 </dd></dl>
 

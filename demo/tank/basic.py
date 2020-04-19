@@ -5,19 +5,13 @@ import utime
 import hub
 
 # spikedev libraries
+from spikedev.differential import MoveDifferential
 from spikedev.logging import log_msg
 from spikedev.motor import MotorSpeedDPS, MotorSpeedPercent, MotorSpeedRPM, MotorStop, SpikeMediumMotor
 from spikedev.unit import DistanceInches, DistanceStuds
 from spikedev.wheel import SpikeWheel
 
-mtr = SpikeMediumMotor(hub.port.E)
-mtr.run_for_degrees(360, MotorSpeedPercent(40))
-# mtr.run_for_time(6000, MotorSpeedDPS(500), block=True)
-# mtr.run_at_speed(MotorSpeedRPM(10))
-# utime.sleep(10)
-# mtr.stop(MotorStop.BRAKE)
 """
-
 tank = MoveTank(hub.port.E, hub.port.F)
 # tank.run_for_degrees(360, 50, 50)
 tank.run_for_time(3000, MotorSpeedDPS(180), MotorSpeedDPS(360))
@@ -33,12 +27,9 @@ ms = MoveSteering(hub.port.E, hub.port.F)
 ms.run_for_time(1000, -100, MotorSpeedDPS(180))
 """
 
-"""
-from spikedev.differential import MoveDifferential
 md = MoveDifferential(hub.port.E, hub.port.F, SpikeWheel, DistanceStuds(11))
 # md.turn_right(90, MotorSpeedDPS(100))
 # md.turn_left(90, MotorSpeedDPS(100))
 # md.run_for_distance(DistanceInches(6), MotorSpeedDPS(100))
 # md.run_arc_right(DistanceInches(12), DistanceInches(6), MotorSpeedDPS(100))
 md.run_arc_left(DistanceInches(12), DistanceInches(6), MotorSpeedDPS(100))
-"""

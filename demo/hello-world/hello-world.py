@@ -1,7 +1,7 @@
-# spikedev libraries
 # third party libraries
 import hub
 
+# spikedev libraries
 from spikedev.motor import MotorSpeedDPS, SpikeMediumMotor
 
 # Run the motor 720 degrees at 180 degrees-per-second

@@ -30,7 +30,7 @@ import utime
 # spikedev libraries
 from spikedev.logging import log_msg
 from spikedev.motor import _callback  # noqa: F401
-from spikedev.motor import _port2motor  # noqa: F401
+from spikedev.motor import _portletter2motor  # noqa: F401
 from spikedev.motor import (
     MotorPolarity,
     MotorSpeed,
@@ -109,8 +109,8 @@ class MoveTank:
         else:
             raise ValueError("invalid port {}".format(self.port_letter))
 
-        global _port2motor
-        _port2motor[self.port_letter] = self
+        global _portletter2motor
+        _portletter2motor[self.port_letter] = self
 
     def __str__(self):
         if self.desc is not None:
