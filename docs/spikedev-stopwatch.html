@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spikedev.stopwatch &mdash; spikedev  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="spikedev.tank" href="spikedev-tank.html" />
+    <link rel="prev" title="spikedev.sensor" href="spikedev-sensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> spikedev
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-sensor.html">spikedev.sensor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">spikedev</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>spikedev.stopwatch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/spikedev-stopwatch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-spikedev.stopwatch">
+<span id="spikedev-stopwatch"></span><h1>spikedev.stopwatch<a class="headerlink" href="#module-spikedev.stopwatch" title="Permalink to this headline">¶</a></h1>
+<p>A StopWatch class for tracking the amount of time between events</p>
+<dl class="py exception">
+<dt id="spikedev.stopwatch.StopWatchAlreadyStartedException">
+<em class="property">exception </em><code class="sig-prename descclassname">spikedev.stopwatch.</code><code class="sig-name descname">StopWatchAlreadyStartedException</code><a class="headerlink" href="#spikedev.stopwatch.StopWatchAlreadyStartedException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception raised when start() is called on a StopWatch which was already start()ed and not yet
+stopped.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.stopwatch.StopWatch">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.stopwatch.</code><code class="sig-name descname">StopWatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A timer class which lets you start timing and then check the amount of time
+elapsed.</p>
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the timer. If the timer is already running, resets it.</p>
+<p>Raises a <code class="xref py py-class docutils literal notranslate"><span class="pre">ev3dev2.stopwatch.StopWatchAlreadyStartedException</span></code> if already started.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the timer. The time value of this Stopwatch is paused and will not continue increasing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the timer and leaves it stopped.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.restart">
+<code class="sig-name descname">restart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets and then starts the timer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_started">
+<em class="property">property </em><code class="sig-name descname">is_started</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_started" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the StopWatch has been started but not stoped (i.e., it’s currently running), false otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_ms">
+<em class="property">property </em><code class="sig-name descname">value_ms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of the stopwatch in milliseconds</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_secs">
+<em class="property">property </em><code class="sig-name descname">value_secs</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of the stopwatch in seconds</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_hms">
+<em class="property">property </em><code class="sig-name descname">value_hms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns this StopWatch’s elapsed time as a tuple
+<code class="docutils literal notranslate"><span class="pre">(hours,</span> <span class="pre">minutes,</span> <span class="pre">seconds,</span> <span class="pre">milliseconds)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.hms_str">
+<em class="property">property </em><code class="sig-name descname">hms_str</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.hms_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>SS.msec format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Returns the stringified value of the stopwatch in HH</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>MM</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_elapsed_ms">
+<code class="sig-name descname">is_elapsed_ms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_ms</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code>
+milliseconds.
+Otherwise, returns False. If <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code> is None, returns False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_elapsed_secs">
+<code class="sig-name descname">is_elapsed_secs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_secs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> seconds.
+Otherwise, returns False. If <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> is None, returns False.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spikedev-tank.html" class="btn btn-neutral float-right" title="spikedev.tank" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spikedev-sensor.html" class="btn btn-neutral float-left" title="spikedev.sensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Daniel Walton
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

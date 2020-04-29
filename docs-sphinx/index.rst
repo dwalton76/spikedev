@@ -10,8 +10,11 @@ Welcome to spikedev's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   spikedev-button
    spikedev-logging
    spikedev-motor
+   spikedev-sensor
+   spikedev-stopwatch
    spikedev-tank
    spikedev-unit
    spikedev-wheel
