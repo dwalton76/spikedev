@@ -1,14 +1,9 @@
 # standard libraries
 import utime
 
-# third party libraries
-import hub
-
 # spikedev libraries
 from spikedev.logging import log_msg
 from spikedev.stopwatch import StopWatch
-
-_port2sensor = {}
 
 
 class Sensor:
@@ -21,7 +16,6 @@ class Sensor:
         self.port = port
         self.port_letter = str(port)[-2]
         self.desc = desc
-        self._rxed_callback = False
         self.mode = None
 
         # wait for sensor to connect
@@ -38,28 +32,12 @@ class Sensor:
         self.mode = mode
         self.port.device.mode(mode)
 
-    def ensure_mode(self, mode):
+    def _ensure_mode(self, mode):
         if self.mode != mode:
             self.set_mode(mode)
 
-    def _wait(self, timeout_ms=None):
-        stopwatch = StopWatch()
-        stopwatch.start()
-
-        # This is ugly but SPIKE does not have the _thread module :(
-        while not self._rxed_callback:
-
-            if timeout_ms is not None and stopwatch.value_ms >= timeout_ms:
-                return False
-
-            utime.sleep(0.01)
-
-        return True
-
-
     def value(self):
         return self.port.device.get()
-
 
 
 class TouchSensorMode:
@@ -79,11 +57,12 @@ class TouchSensorMode:
     # value will be from 380 to 698
     FRAW = 4
 
-    CALIB = 5
+    FPRAW = 5
+
+    CALIB = 6
 
 
 class TouchSensor(Sensor):
-
     def __init__(self, port, desc=None, mode=TouchSensorMode.TOUCH):
         super().__init__(port, desc)
         self.set_mode(mode)
@@ -100,26 +79,13 @@ class TouchSensor(Sensor):
         self._ensure_mode(TouchSensorMode.TOUCH)
         return bool(self.value())
 
-    def was_pressed(self):
-        """
-        Returns:
-            bool: True if the button was pressed since the device started or the last time this method was called.
-        """
-        return self._button.was_pressed()
-
-    def presses(self):
-        """
-        Returns:
-            int: the running total of button presses. Also resets this total to zero.
-        """
-        return self._button.presses()
-
     def is_released(self):
         """
         Returns:
             bool: True if the button is currently released
         """
-        return not self._button.is_pressed()
+        self._ensure_mode(TouchSensorMode.TOUCH)
+        return not bool(self.value())
 
     def wait_for_pressed(self, timeout_ms=None):
         """
@@ -134,14 +100,18 @@ class TouchSensor(Sensor):
             log_msg("{} already pressed".format(self))
             return True
 
-        self._rxed_callback = False
+        stopwatch = StopWatch()
+        stopwatch.start()
 
-        if self._wait(timeout_ms):
-            log_msg("{} pressed".format(self))
-            return True
-        else:
-            log_msg("{} was not pressed within {}ms".format(self, timeout_ms))
-            return False
+        while not self.is_pressed():
+            if timeout_ms is not None and stopwatch.value_ms >= timeout_ms:
+                log_msg("{} was not pressed within {}ms".format(self, timeout_ms))
+                return False
+
+            utime.sleep(0.01)
+
+        log_msg("{} pressed".format(self))
+        return True
 
     def wait_for_released(self, timeout_ms=None):
         """
@@ -156,14 +126,18 @@ class TouchSensor(Sensor):
             log_msg("{} already released".format(self))
             return True
 
-        self._rxed_callback = False
+        stopwatch = StopWatch()
+        stopwatch.start()
 
-        if self._wait(timeout_ms):
-            log_msg("{} released".format(self))
-            return True
-        else:
-            log_msg("{} was not released within {}ms".format(self, timeout_ms))
-            return False
+        while not self.is_released():
+            if timeout_ms is not None and stopwatch.value_ms >= timeout_ms:
+                log_msg("{} was not released within {}ms".format(self, timeout_ms))
+                return False
+
+            utime.sleep(0.01)
+
+        log_msg("{} released".format(self))
+        return True
 
     def wait_for_bump(self, timeout_ms=None):
         """

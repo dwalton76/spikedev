@@ -54,20 +54,6 @@ class Button:
         else:
             return self.__class__.__name__
 
-    def _wait(self, timeout_ms=None):
-        stopwatch = StopWatch()
-        stopwatch.start()
-
-        # This is ugly but SPIKE does not have the _thread module :(
-        while not self._rxed_callback:
-
-            if timeout_ms is not None and stopwatch.value_ms >= timeout_ms:
-                return False
-
-            utime.sleep(0.01)
-
-        return True
-
     def is_pressed(self):
         """
         Returns:
@@ -95,6 +81,20 @@ class Button:
             bool: True if the button is currently released
         """
         return not self._button.is_pressed()
+
+    def _wait(self, timeout_ms=None):
+        stopwatch = StopWatch()
+        stopwatch.start()
+
+        # This is ugly but SPIKE does not have the _thread module :(
+        while not self._rxed_callback:
+
+            if timeout_ms is not None and stopwatch.value_ms >= timeout_ms:
+                return False
+
+            utime.sleep(0.01)
+
+        return True
 
     def wait_for_pressed(self, timeout_ms=None):
         """
