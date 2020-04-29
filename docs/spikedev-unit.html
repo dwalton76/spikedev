@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -153,40 +153,38 @@
             
   <div class="section" id="module-spikedev.unit">
 <span id="spikedev-unit"></span><h1>spikedev.unit<a class="headerlink" href="#module-spikedev.unit" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceValue">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceValue</code><a class="headerlink" href="#spikedev.unit.DistanceValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>A base class for <code class="docutils literal notranslate"><span class="pre">Distance</span></code> classes. Do not use this directly. Use one of:</p>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceValue</code><a class="headerlink" href="#spikedev.unit.DistanceValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A base class for <code class="docutils literal notranslate"><span class="pre">Distance</span></code> classes. Do not use this directly. Use one of:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#spikedev.unit.DistanceMillimeters" title="spikedev.unit.DistanceMillimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMillimeters</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceCentimeters" title="spikedev.unit.DistanceCentimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceCentimeters</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceDecimeters" title="spikedev.unit.DistanceDecimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceDecimeters</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceMeters" title="spikedev.unit.DistanceMeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMeters</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceInches" title="spikedev.unit.DistanceInches"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceInches</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceFeet" title="spikedev.unit.DistanceFeet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceFeet</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceYards" title="spikedev.unit.DistanceYards"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceYards</span></code></a></li>
-<li><a class="reference internal" href="#spikedev.unit.DistanceStuds" title="spikedev.unit.DistanceStuds"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceStuds</span></code></a>.</li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceMillimeters" title="spikedev.unit.DistanceMillimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMillimeters</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceCentimeters" title="spikedev.unit.DistanceCentimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceCentimeters</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceDecimeters" title="spikedev.unit.DistanceDecimeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceDecimeters</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceMeters" title="spikedev.unit.DistanceMeters"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMeters</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceInches" title="spikedev.unit.DistanceInches"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceInches</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceFeet" title="spikedev.unit.DistanceFeet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceFeet</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceYards" title="spikedev.unit.DistanceYards"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceYards</span></code></a></p></li>
+<li><p><a class="reference internal" href="#spikedev.unit.DistanceStuds" title="spikedev.unit.DistanceStuds"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceStuds</span></code></a>.</p></li>
 </ul>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceMillimeters">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceMillimeters</code><span class="sig-paren">(</span><em>millimeters</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceMillimeters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceMillimeters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">millimeters</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceMillimeters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>millimeters</strong> (<em>int</em>) – the number of millimeters</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>millimeters</strong> (<em>int</em>) – the number of millimeters</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceMillimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceMillimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -194,42 +192,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceMillimeters</span><span class="p">(</span><span class="mi">600</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceMillimeters.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceMillimeters.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceMillimeters.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceCentimeters">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceCentimeters</code><span class="sig-paren">(</span><em>centimeters</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceCentimeters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceCentimeters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">centimeters</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceCentimeters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in centimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>centimeters</strong> (<em>int</em>) – the number of centimeters</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>centimeters</strong> (<em>int</em>) – the number of centimeters</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceCentimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceCentimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -237,42 +223,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceCentimeters</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceCentimeters.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceCentimeters.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceCentimeters.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceDecimeters">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceDecimeters</code><span class="sig-paren">(</span><em>decimeters</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceDecimeters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceDecimeters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decimeters</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceDecimeters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in decimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>decimeters</strong> (<em>int</em>) – the number of decimeters</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>decimeters</strong> (<em>int</em>) – the number of decimeters</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceDecimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceDecimeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -280,42 +254,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceDecimeters</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceDecimeters.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceDecimeters.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceDecimeters.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceMeters">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceMeters</code><span class="sig-paren">(</span><em>meters</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceMeters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceMeters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">meters</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceMeters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in meters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>meters</strong> (<em>int</em>) – the number of meters</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>meters</strong> (<em>int</em>) – the number of meters</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceMeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceMeters</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -323,42 +285,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceMeters</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceMeters.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceMeters.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceMeters.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceInches">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceInches</code><span class="sig-paren">(</span><em>inches</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceInches" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceInches</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inches</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceInches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in inches</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inches</strong> (<em>int</em>) – the number of inches</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inches</strong> (<em>int</em>) – the number of inches</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceInches</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceInches</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -366,42 +316,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceInches</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceInches.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceInches.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceInches.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceFeet">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceFeet</code><span class="sig-paren">(</span><em>feet</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceFeet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceFeet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feet</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceFeet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in feet</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feet</strong> (<em>int</em>) – the number of feet</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feet</strong> (<em>int</em>) – the number of feet</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceFeet</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceFeet</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -409,42 +347,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceFeet</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceFeet.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceFeet.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceFeet.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceYards">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceYards</code><span class="sig-paren">(</span><em>yards</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceYards" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceYards</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yards</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceYards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in yards</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>yards</strong> (<em>int</em>) – the number of yards</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>yards</strong> (<em>int</em>) – the number of yards</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceYards</span><span class="p">,</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceYards</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -452,42 +378,30 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceYards</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceYards.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceYards.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceYards.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spikedev.unit.DistanceStuds">
-<em class="property">class </em><code class="descclassname">spikedev.unit.</code><code class="descname">DistanceStuds</code><span class="sig-paren">(</span><em>studs</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceStuds" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">DistanceStuds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">studs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.DistanceStuds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.unit.DistanceValue</span></code></a></p>
 <p>Distance in studs</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>studs</strong> (<em>int</em>) – the number of LEGO studs</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>studs</strong> (<em>int</em>) – the number of LEGO studs</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
-<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="k">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
-<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceStuds</span>
-<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="k">import</span> <span class="n">SpikeWheel</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MoveDifferential</span><span class="p">,</span> <span class="n">MotorSpeedDPS</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SpikeWheel</span><span class="p">,</span> <span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
 
@@ -495,41 +409,31 @@
 <span class="n">md</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">MotorSpeedDPS</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py method">
 <dt id="spikedev.unit.DistanceStuds.mm">
-<code class="descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceStuds.mm" title="Permalink to this definition">¶</a></dt>
-<dd><p>our distance in millimeters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Returns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<em class="property">property </em><code class="sig-name descname">mm</code><a class="headerlink" href="#spikedev.unit.DistanceStuds.mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+int: our distance in millimeters</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spikedev.unit.distance_in_mm">
-<code class="descclassname">spikedev.unit.</code><code class="descname">distance_in_mm</code><span class="sig-paren">(</span><em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.distance_in_mm" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>distance</strong> (<a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a><em>, </em><em>int</em>) – the distance to convert to millimeters</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">distance</span></code> converted to millimeters</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-prename descclassname">spikedev.unit.</code><code class="sig-name descname">distance_in_mm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">distance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.unit.distance_in_mm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>distance</strong> (<a class="reference internal" href="#spikedev.unit.DistanceValue" title="spikedev.unit.DistanceValue"><em>DistanceValue</em></a><em>, </em><em>int</em>) – the distance to convert to millimeters</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">distance</span></code> converted to millimeters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="k">import</span> <span class="n">DistanceFeet</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceFeet</span>
 
 <span class="n">two_feet_in_mm</span> <span class="o">=</span> <span class="n">distance_in_mm</span><span class="p">(</span><span class="n">DistanceFeet</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>

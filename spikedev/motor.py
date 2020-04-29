@@ -339,15 +339,19 @@ class MotorMode:
     CALIB = 5
 
 
+class InvalidMotorMode(ValueError):
+    pass
+
+
 # callback() infrastructure
-_port2motor = {}
+_portletter2motor = {}
 
 
 def _callback(mtr, reason):
     if reason == MotorCallbackEvent.COMPLETED:
         mtr.interrupted = False
         mtr.stalled = False
-        log_msg("{}: _callback COMPLETED".format(mtr))
+        # log_msg("{}: _callback COMPLETED".format(mtr))
 
     elif reason == MotorCallbackEvent.INTERRUPTED:
         mtr.interrupted = True
@@ -366,32 +370,32 @@ def _callback(mtr, reason):
 
 
 def _callback_A(reason):
-    mtr = _port2motor["A"]
+    mtr = _portletter2motor["A"]
     _callback(mtr, reason)
 
 
 def _callback_B(reason):
-    mtr = _port2motor["B"]
+    mtr = _portletter2motor["B"]
     _callback(mtr, reason)
 
 
 def _callback_C(reason):
-    mtr = _port2motor["C"]
+    mtr = _portletter2motor["C"]
     _callback(mtr, reason)
 
 
 def _callback_D(reason):
-    mtr = _port2motor["D"]
+    mtr = _portletter2motor["D"]
     _callback(mtr, reason)
 
 
 def _callback_E(reason):
-    mtr = _port2motor["E"]
+    mtr = _portletter2motor["E"]
     _callback(mtr, reason)
 
 
 def _callback_F(reason):
-    mtr = _port2motor["F"]
+    mtr = _portletter2motor["F"]
     _callback(mtr, reason)
 
 
@@ -413,13 +417,13 @@ class Motor:
         self.stalled = False
         self.polarity = polarity
         self.desc = desc
-        self.rxed_callback = True
+        self.rxed_callback = False
 
         # wait for motor to connect
         while self.port.motor is None:
             utime.sleep(0.1)
 
-        # so we can get the motor's position
+        # dwalton
         self.port.motor.mode(MotorMode.POS)
 
         # callback setup
@@ -438,8 +442,8 @@ class Motor:
         else:
             raise ValueError("invalid port {}".format(self.port_letter))
 
-        global _port2motor
-        _port2motor[self.port_letter] = self
+        global _portletter2motor
+        _portletter2motor[self.port_letter] = self
 
     def __str__(self):
         if self.desc is not None:
@@ -529,7 +533,7 @@ class Motor:
         Returns:
             int: the motor's position encoder value
         """
-        return self.port.motor.get()
+        return self.port.motor.get()[0]
 
     @position.setter
     def position(self, value):
@@ -571,6 +575,15 @@ class Motor:
     def _speed_with_polarity(self, speed):
         return self._number_with_polarity(speed)
 
+    def init_position(self):
+        """
+        Initialize the POS value from the APOS value
+        """
+        self.port.motor.mode(MotorMode.APOS)
+        a_pos = self.position
+        self.port.motor.mode(MotorMode.POS)
+        self.position = a_pos
+
     def stop(self, stop_action=MotorStop.BRAKE):
         """
         stops the motor
@@ -599,8 +612,9 @@ class Motor:
             speed (MotorSpeed): the speed of the motor
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        speed = self._speed_percentage(speed)
-        self.port.motor.run_at_speed(self._speed_with_polarity(speed), **kwargs)
+        raw_speed = self._speed_percentage(speed)
+        raw_speed = self._speed_with_polarity(raw_speed)
+        self.port.motor.run_at_speed(raw_speed, **kwargs)
 
     def run_for_degrees(self, degrees, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
@@ -613,29 +627,70 @@ class Motor:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_for_degrees {} at speed {}, kwargs {}".format(self, degrees, speed, kwargs))
-        speed = self._speed_percentage(speed)
+        if degrees < 0:
+            raise ValueError("degrees was {}, must be >= 0".format(degrees))
+        elif degrees == 0:
+            return
+
+        raw_speed = self._speed_percentage(speed)
+        raw_speed = self._speed_with_polarity(raw_speed)
+
+        # log_msg(
+        #     "{}: run_for_degrees {} at speed {}, raw_speed {}, stop {}, block {}".format(
+        #         self, degrees, speed, raw_speed, stop, block
+        #     )
+        # )
         self.rxed_callback = False
-        self.port.motor.run_for_degrees(degrees, self._speed_with_polarity(speed), stop=stop, **kwargs)
+        self.port.motor.run_for_degrees(degrees, raw_speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
 
-    def run_to_position(self, position, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
+    def run_to_position(self, position, speed, direction="shortest", stop=MotorStop.BRAKE, block=True, **kwargs):
         """
         Run the motor at ``speed`` to the desired position
 
         Args:
             position (int): the target position for the left motor
             speed (MotorSpeed): the speed of the motor
+            direction (str): one of `clockwise`, `counterclockwise` or `shortest`
             stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_to_position {} at speed {}, kwargs {}".format(self, position, speed, kwargs))
-        speed = self._speed_percentage(speed)
+        if self.port.motor.mode() != [(2, 0)]:
+            raise InvalidMotorMode("MotorMode must be POS, it is {}".format(self.port.motor.mode()))
+
+        delta = abs(self.position - position)
+
+        # If we are already at the target position there is no work to do
+        if not delta:
+            return
+
+        raw_speed = self._speed_percentage(speed)
+
+        if direction == "clockwise":
+            raw_speed = abs(raw_speed)
+            raw_speed = self._speed_with_polarity(raw_speed)
+        elif direction == "counterclockwise":
+            raw_speed = abs(raw_speed) * -1
+            raw_speed = self._speed_with_polarity(raw_speed)
+        elif direction == "shortest":
+            raw_speed = abs(raw_speed)
+        else:
+            raise ValueError(direction)
+
+        # log_msg(
+        #     "{}: run_to_position {} from {} to {} at speed {}, raw_speed {}, stop {}, block {}".format(
+        #         self, direction, self.position, position, speed, raw_speed, stop, block
+        #     )
+        # )
         self.rxed_callback = False
-        self.port.motor.run_to_position(position, speed, stop=stop, **kwargs)
+
+        if direction == "clockwise" or direction == "counterclockwise":
+            self.port.motor.run_for_degrees(delta, speed=raw_speed, stop=stop, **kwargs)
+        elif direction == "shortest":
+            self.port.motor.run_to_position(position, speed=raw_speed, stop=stop, **kwargs)
 
         if block:
             self._wait()
@@ -651,10 +706,20 @@ class Motor:
             block (bool): if True this function will not return until the motors have finished moving
             **kwargs: optional kwargs that will pass all the way down to the LEGO ``hub.port.X.motor`` API call
         """
-        log_msg("{}: run_for_time {}ms at speed {}, kwargs {kwargs}".format(self, msec, speed, kwargs))
-        speed = self._speed_percentage(speed)
+
+        if msec < 0:
+            raise ValueError("msec was {}, must be >= 0".format(msec))
+        elif msec == 0:
+            return
+
+        raw_speed = self._speed_percentage(speed)
+        log_msg(
+            "{}: run_for_time {}ms at speed {}, raw_speed {}, stop {}, block {}".format(
+                self, msec, speed, raw_speed, stop, block
+            )
+        )
         self.rxed_callback = False
-        self.port.motor.run_for_time(msec, speed, stop=stop, **kwargs)
+        self.port_motor.run_for_time(msec, raw_speed, stop=stop, **kwargs)
 
         if block:
             self._wait()

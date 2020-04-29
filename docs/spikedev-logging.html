@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -155,20 +155,17 @@
 <span id="spikedev-logging"></span><h1>spikedev.logging<a class="headerlink" href="#module-spikedev.logging" title="Permalink to this headline">¶</a></h1>
 <p>A simple module for logging message with timestamps</p>
 <img alt="_images/logging.jpg" src="_images/logging.jpg" />
-<dl class="function">
+<dl class="py function">
 <dt id="spikedev.logging.log_msg">
-<code class="descclassname">spikedev.logging.</code><code class="descname">log_msg</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.logging.log_msg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spikedev.logging.</code><code class="sig-name descname">log_msg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.logging.log_msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a timestamp followed by <code class="docutils literal notranslate"><span class="pre">msg</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> (<em>str</em>) – the string to print</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – the string to print</p>
+</dd>
+</dl>
 <p>Example:</p>
-<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.logging</span> <span class="k">import</span> <span class="n">log_msg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.logging</span> <span class="kn">import</span> <span class="n">log_msg</span>
 
 <span class="n">log_msg</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
 <span class="c1"># 2015-01-01 00:13:02.440 AM: Hello World</span>
