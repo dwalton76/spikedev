@@ -6,10 +6,8 @@ Wheel and Rim classes
 # standard libraries
 from math import pi
 
-# A great reference when adding new wheels is http://wheels.sariel.pl/
 
-
-class Wheel(object):
+class Wheel:
     """
     A base class for various types of wheels, tires, etc.  All units are in mm.
 

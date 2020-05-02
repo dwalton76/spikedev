@@ -159,7 +159,6 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
@@ -177,6 +176,12 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.AMBI">AMBI (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.ambient_light_intensity">ambient_light_intensity() (spikedev.sensor.ColorSensor method)</a>
+</li>
       <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.APOS">APOS (spikedev.motor.MotorMode attribute)</a>
 </li>
   </ul></td>
@@ -208,11 +213,21 @@
       <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.CALIB">CALIB (spikedev.motor.MotorMode attribute)</a>
 
       <ul>
+        <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.CALIB">(spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
         <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensorMode.CALIB">(spikedev.sensor.TouchSensorMode attribute)</a>
 </li>
       </ul></li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.COLOR">COLOR (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.color">color() (spikedev.sensor.ColorSensor method)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor">ColorSensor (class in spikedev.sensor)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode">ColorSensorMode (class in spikedev.sensor)</a>
+</li>
       <li><a href="spikedev-motor.html#spikedev.motor.MotorCallbackEvent.COMPLETED">COMPLETED (spikedev.motor.MotorCallbackEvent attribute)</a>
 </li>
   </ul></td>
@@ -221,6 +236,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.DEBUG">DEBUG (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
       <li><a href="spikedev-unit.html#spikedev.unit.distance_in_mm">distance_in_mm() (in module spikedev.unit)</a>
 </li>
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceCentimeters">DistanceCentimeters (class in spikedev.unit)</a>
@@ -229,10 +246,10 @@
 </li>
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceFeet">DistanceFeet (class in spikedev.unit)</a>
 </li>
-      <li><a href="spikedev-unit.html#spikedev.unit.DistanceInches">DistanceInches (class in spikedev.unit)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-unit.html#spikedev.unit.DistanceInches">DistanceInches (class in spikedev.unit)</a>
+</li>
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceMeters">DistanceMeters (class in spikedev.unit)</a>
 </li>
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceMillimeters">DistanceMillimeters (class in spikedev.unit)</a>
@@ -242,14 +259,6 @@
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceValue">DistanceValue (class in spikedev.unit)</a>
 </li>
       <li><a href="spikedev-unit.html#spikedev.unit.DistanceYards">DistanceYards (class in spikedev.unit)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="spikedev-sensor.html#spikedev.sensor.Sensor.ensure_mode">ensure_mode() (spikedev.sensor.Sensor method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -265,6 +274,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensorMode.FPEAK">FPEAK (spikedev.sensor.TouchSensorMode attribute)</a>
 </li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensorMode.FPRAW">FPRAW (spikedev.sensor.TouchSensorMode attribute)</a>
+</li>
       <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensorMode.FRAW">FRAW (spikedev.sensor.TouchSensorMode attribute)</a>
 </li>
   </ul></td>
@@ -275,9 +286,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="spikedev-stopwatch.html#spikedev.stopwatch.StopWatch.hms_str">hms_str() (spikedev.stopwatch.StopWatch property)</a>
 </li>
+      <li><a href="spikedev-motor.html#spikedev.motor.MotorStop.HOLD">HOLD (spikedev.motor.MotorStop attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="spikedev-motor.html#spikedev.motor.MotorStop.HOLD">HOLD (spikedev.motor.MotorStop attribute)</a>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.HSV">HSV (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.hsv">hsv() (spikedev.sensor.ColorSensor method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -321,10 +336,14 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.LOAD">LOAD (spikedev.motor.MotorMode attribute)</a>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.lab">lab() (spikedev.sensor.ColorSensor method)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.LIGHT">LIGHT (spikedev.sensor.ColorSensorMode attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.LOAD">LOAD (spikedev.motor.MotorMode attribute)</a>
+</li>
       <li><a href="spikedev-logging.html#spikedev.logging.log_msg">log_msg() (in module spikedev.logging)</a>
 </li>
   </ul></td>
@@ -449,27 +468,37 @@
       <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.POWER">POWER (spikedev.motor.MotorMode attribute)</a>
 </li>
       <li><a href="spikedev-button.html#spikedev.button.Button.presses">presses() (spikedev.button.Button method)</a>
-
-      <ul>
-        <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensor.presses">(spikedev.sensor.TouchSensor method)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.reflected_light_intensity">reflected_light_intensity() (spikedev.sensor.ColorSensor method)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.REFLT">REFLT (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
       <li><a href="spikedev-stopwatch.html#spikedev.stopwatch.StopWatch.reset">reset() (spikedev.stopwatch.StopWatch method)</a>
 </li>
       <li><a href="spikedev-stopwatch.html#spikedev.stopwatch.StopWatch.restart">restart() (spikedev.stopwatch.StopWatch method)</a>
 </li>
       <li><a href="spikedev-motor.html#spikedev.motor.MotorPolarity.REVERSED">REVERSED (spikedev.motor.MotorPolarity attribute)</a>
 </li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensor.rgb">rgb() (spikedev.sensor.ColorSensor method)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.rgb2lab">rgb2lab() (in module spikedev.sensor)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.RGB_I">RGB_I (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.RREFL">RREFL (spikedev.sensor.ColorSensorMode attribute)</a>
+</li>
       <li><a href="spikedev-tank.html#spikedev.tank.MoveDifferential.run_arc_left">run_arc_left() (spikedev.tank.MoveDifferential method)</a>
 </li>
       <li><a href="spikedev-tank.html#spikedev.tank.MoveDifferential.run_arc_right">run_arc_right() (spikedev.tank.MoveDifferential method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="spikedev-motor.html#spikedev.motor.Motor.run_at_speed">run_at_speed() (spikedev.motor.Motor method)</a>
 
       <ul>
@@ -478,8 +507,6 @@
         <li><a href="spikedev-tank.html#spikedev.tank.MoveTank.run_at_speed">(spikedev.tank.MoveTank method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="spikedev-motor.html#spikedev.motor.Motor.run_for_degrees">run_for_degrees() (spikedev.motor.Motor method)</a>
 
       <ul>
@@ -513,6 +540,8 @@
       <li><a href="spikedev-sensor.html#spikedev.sensor.Sensor">Sensor (class in spikedev.sensor)</a>
 </li>
       <li><a href="spikedev-sensor.html#spikedev.sensor.Sensor.set_mode">set_mode() (spikedev.sensor.Sensor method)</a>
+</li>
+      <li><a href="spikedev-sensor.html#spikedev.sensor.ColorSensorMode.SHSV">SHSV (spikedev.sensor.ColorSensorMode attribute)</a>
 </li>
       <li><a href="spikedev-motor.html#spikedev.motor.MotorMode.SPEED">SPEED (spikedev.motor.MotorMode attribute)</a>
 </li>
@@ -679,11 +708,7 @@
 </li>
       </ul></li>
       <li><a href="spikedev-button.html#spikedev.button.Button.was_pressed">was_pressed() (spikedev.button.Button method)</a>
-
-      <ul>
-        <li><a href="spikedev-sensor.html#spikedev.sensor.TouchSensor.was_pressed">(spikedev.sensor.TouchSensor method)</a>
 </li>
-      </ul></li>
       <li><a href="spikedev-wheel.html#spikedev.wheel.Wheel">Wheel (class in spikedev.wheel)</a>
 </li>
   </ul></td>

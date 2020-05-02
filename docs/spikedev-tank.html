@@ -209,11 +209,11 @@ to <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dl class="py method">
 <dt id="spikedev.tank.MoveTank.run_for_degrees">
 <code class="sig-name descname">run_for_degrees</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">degrees</span></em>, <em class="sig-param"><span class="n">left_speed</span></em>, <em class="sig-param"><span class="n">right_speed</span></em>, <em class="sig-param"><span class="n">stop</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">block</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.tank.MoveTank.run_for_degrees" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the motors at the specified speeds, the left motor will run for <code class="docutils literal notranslate"><span class="pre">degrees</span></code></p>
+<dd><p>Run the motors at the specified speeds, the two motors combined will move an average of <code class="docutils literal notranslate"><span class="pre">degrees</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>degrees</strong> (<em>int</em>) – the number of degrees to move the left motor</p></li>
+<li><p><strong>degrees</strong> (<em>int</em>) – the average number of degrees for the two motors to move</p></li>
 <li><p><strong>left_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the left motor</p></li>
 <li><p><strong>right_speed</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorSpeed" title="spikedev.motor.MotorSpeed"><em>MotorSpeed</em></a>) – the speed of the right motor</p></li>
 <li><p><strong>stop</strong> (<a class="reference internal" href="spikedev-motor.html#spikedev.motor.MotorStop" title="spikedev.motor.MotorStop"><em>MotorStop</em></a>) – how to stop the motors, defaults to <code class="xref py py-class docutils literal notranslate"><span class="pre">MotorStop.BRAKE</span></code></p></li>

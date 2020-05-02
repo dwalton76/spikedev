@@ -85,8 +85,8 @@ class MoveTank:
         desc=None,
     ):
         super().__init__()
-        self.left_motor = motor_class(left_motor_port, left_motor_polarity)
-        self.right_motor = motor_class(right_motor_port, right_motor_polarity)
+        self.left_motor = motor_class(left_motor_port, polarity=left_motor_polarity)
+        self.right_motor = motor_class(right_motor_port, polarity=right_motor_polarity)
         self.interrupted = False
         self.stalled = False
         self.pair = self.left_motor.port.motor.pair(self.right_motor.port.motor)
@@ -94,23 +94,23 @@ class MoveTank:
         self.rxed_callback = True
 
         # callback setup
-        if left_motor_port == "A":
+        if self.left_motor.port_letter == "A":
             self.pair.callback(_callback_A)
-        elif left_motor_port == "B":
+        elif self.left_motor.port_letter == "B":
             self.pair.callback(_callback_B)
-        elif left_motor_port == "C":
+        elif self.left_motor.port_letter == "C":
             self.pair.callback(_callback_C)
-        elif left_motor_port == "D":
+        elif self.left_motor.port_letter == "D":
             self.pair.callback(_callback_D)
-        elif left_motor_port == "E":
+        elif self.left_motor.port_letter == "E":
             self.pair.callback(_callback_E)
-        elif left_motor_port == "F":
+        elif self.left_motor.port_letter == "F":
             self.pair.callback(_callback_F)
         else:
             raise ValueError("invalid port {}".format(self.port_letter))
 
         global _portletter2motor
-        _portletter2motor[self.port_letter] = self
+        _portletter2motor[self.left_motor.port_letter] = self
 
     def __str__(self):
         if self.desc is not None:
@@ -171,10 +171,10 @@ class MoveTank:
 
     def run_for_degrees(self, degrees, left_speed, right_speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """
-        Run the motors at the specified speeds, the left motor will run for ``degrees``
+        Run the motors at the specified speeds, the two motors combined will move an average of ``degrees``
 
         Args:
-            degrees (int): the number of degrees to move the left motor
+            degrees (int): the average number of degrees for the two motors to move
             left_speed (MotorSpeed): the speed of the left motor
             right_speed (MotorSpeed): the speed of the right motor
             stop (MotorStop): how to stop the motors, defaults to :class:`MotorStop.BRAKE`
@@ -468,7 +468,7 @@ class MoveDifferential(MoveTank):
         # The circle formed at the halfway point between the two wheels is the
         # circle that must have a radius of radius_mm
         circle_outer_mm = 2 * math.pi * (radius_mm + (self.wheel_distance_mm / 2))
-        circle_middle_mm = 2 * math.pi * radius_mm
+        # circle_middle_mm = 2 * math.pi * radius_mm
         circle_inner_mm = 2 * math.pi * (radius_mm - (self.wheel_distance_mm / 2))
 
         if arc_right:
@@ -483,35 +483,18 @@ class MoveDifferential(MoveTank):
             right_speed = speed
             left_speed = float(circle_inner_mm / circle_outer_mm) * right_speed
 
+        avg_wheel_rotations = float(distance_mm / self.wheel.circumference_mm)
+        avg_wheel_degrees = int(avg_wheel_rotations * 360)
         log_msg(
             "{}: arc {}, radius {}, distance {}, left-speed {}, right-speed {}, ".format(
                 self, "right" if arc_right else "left", radius_mm, distance_mm, left_speed, right_speed
             )
-            + "circle_outer_mm {}, circle_middle_mm {}, circle_inner_mm {}".format(
-                circle_outer_mm, circle_middle_mm, circle_inner_mm
+            + "wheel circumference_mm {}, avg_wheel_rotations {}, avg_wheel_degrees {}".format(
+                self.wheel.circumference_mm, avg_wheel_rotations, avg_wheel_degrees
             )
         )
 
-        # We know we want the middle circle to be of length distance_mm so
-        # calculate the percentage of circle_middle_mm we must travel for the
-        # middle of the robot to travel distance_mm.
-        circle_middle_percentage = float(distance_mm / circle_middle_mm)
-
-        # Now multiple that percentage by circle_outer_mm to calculate how
-        # many mm the outer wheel should travel.
-        circle_outer_final_mm = circle_middle_percentage * circle_outer_mm
-
-        outer_wheel_rotations = float(circle_outer_final_mm / self.wheel.circumference_mm)
-        outer_wheel_degrees = int(outer_wheel_rotations * 360)
-
-        log_msg(
-            "{}: arc {}, circle_middle_percentage {}, circle_outer_final_mm {}, ".format(
-                self, "right" if arc_right else "left", circle_middle_percentage, circle_outer_final_mm
-            )
-            + "outer_wheel_rotations {}, outer_wheel_degrees {}".format(outer_wheel_rotations, outer_wheel_degrees)
-        )
-
-        MoveTank.run_for_degrees(self, outer_wheel_degrees, left_speed, right_speed, stop=stop, block=block, **kwargs)
+        MoveTank.run_for_degrees(self, avg_wheel_degrees, left_speed, right_speed, stop=stop, block=block, **kwargs)
 
     def run_arc_right(self, radius, distance, speed, stop=MotorStop.BRAKE, block=True, **kwargs):
         """

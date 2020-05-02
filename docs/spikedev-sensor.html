@@ -162,23 +162,28 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>desc</strong> (<em>str</em>) – defaults to None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>hub.port</em>) – the hub.port.X for this sensor</p></li>
+<li><p><strong>desc</strong> (<em>str</em>) – description, defaults to None</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="spikedev.sensor.Sensor.set_mode">
 <code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor.set_mode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.sensor.Sensor.ensure_mode">
-<code class="sig-name descname">ensure_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor.ensure_mode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Set the mode for the sensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mode</strong> (<em>int</em>) – put the sensor in this mode</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="spikedev.sensor.Sensor.value">
 <code class="sig-name descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.Sensor.value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the current value(s) from the sensor</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -212,8 +217,13 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt id="spikedev.sensor.TouchSensorMode.FPRAW">
+<code class="sig-name descname">FPRAW</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FPRAW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt id="spikedev.sensor.TouchSensorMode.CALIB">
-<code class="sig-name descname">CALIB</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CALIB</code><em class="property"> = 6</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -222,15 +232,25 @@
 <dt id="spikedev.sensor.TouchSensor">
 <em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">TouchSensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spikedev.sensor.Sensor" title="spikedev.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.sensor.Sensor</span></code></a></p>
+<img alt="_images/touch-sensor.jpg" src="_images/touch-sensor.jpg" />
 <dl class="py method">
 <dt id="spikedev.sensor.TouchSensor.value">
 <code class="sig-name descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the current value of the TouchSensor</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="spikedev.sensor.TouchSensor.is_pressed">
 <code class="sig-name descname">is_pressed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.is_pressed" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">TouchSensorMode.TOUCH</span></code> and return True if the TouchSensor is currently pressed</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>True if the button is currently pressed</p>
 </dd>
@@ -241,35 +261,10 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="spikedev.sensor.TouchSensor.was_pressed">
-<code class="sig-name descname">was_pressed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.was_pressed" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>True if the button was pressed since the device started or the last time this method was called.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.sensor.TouchSensor.presses">
-<code class="sig-name descname">presses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.presses" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the running total of button presses. Also resets this total to zero.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="spikedev.sensor.TouchSensor.is_released">
 <code class="sig-name descname">is_released</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.TouchSensor.is_released" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">TouchSensorMode.TOUCH</span></code> and return True if the TouchSensor is currently released</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>True if the button is currently released</p>
 </dd>
@@ -325,6 +320,151 @@
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="spikedev.sensor.rgb2lab">
+<code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">rgb2lab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">red</span></em>, <em class="sig-param"><span class="n">green</span></em>, <em class="sig-param"><span class="n">blue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.rgb2lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert RGB (red, green, blue) to <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>red</strong> (<em>int</em>) – red value from 0-255</p></li>
+<li><p><strong>green</strong> (<em>int</em>) – green value from 0-255</p></li>
+<li><p><strong>blue</strong> (<em>int</em>) – blue value from 0-255</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The LAB color space equivalent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.ColorSensorMode">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">ColorSensorMode</code><a class="headerlink" href="#spikedev.sensor.ColorSensorMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.COLOR">
+<code class="sig-name descname">COLOR</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.REFLT">
+<code class="sig-name descname">REFLT</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.REFLT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.AMBI">
+<code class="sig-name descname">AMBI</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.AMBI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.LIGHT">
+<code class="sig-name descname">LIGHT</code><em class="property"> = 3</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.LIGHT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.RREFL">
+<code class="sig-name descname">RREFL</code><em class="property"> = 4</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.RREFL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.RGB_I">
+<code class="sig-name descname">RGB_I</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.RGB_I" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.HSV">
+<code class="sig-name descname">HSV</code><em class="property"> = 6</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.HSV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.SHSV">
+<code class="sig-name descname">SHSV</code><em class="property"> = 7</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.SHSV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.DEBUG">
+<code class="sig-name descname">DEBUG</code><em class="property"> = 8</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.ColorSensorMode.CALIB">
+<code class="sig-name descname">CALIB</code><em class="property"> = 9</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.ColorSensor">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">ColorSensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.sensor.Sensor" title="spikedev.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.sensor.Sensor</span></code></a></p>
+<img alt="_images/color-sensor.jpg" src="_images/color-sensor.jpg" />
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.color">
+<code class="sig-name descname">color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of the color. The LED is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.reflected_light_intensity">
+<code class="sig-name descname">reflected_light_intensity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.reflected_light_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.REFLT</span></code> and return the reflected light intensity as a
+percentage (0 to 100). The LED is on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the reflected light intensity as a percentage (0 to 100)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.ambient_light_intensity">
+<code class="sig-name descname">ambient_light_intensity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.ambient_light_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode to <code class="docutils literal notranslate"><span class="pre">ColorSensorMode.AMBI</span></code> and return the ambient light intensity as a
+percentage (0 to 100). The LED is off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the ambient light intensity as a percentage (0 to 100)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.hsv">
+<code class="sig-name descname">hsv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>HSV: Hue, Saturation, Value
+- H: position in the spectrum
+- S: color saturation (“purity”)
+- V: color brightness</p>
+<p>The LED is on</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.rgb">
+<code class="sig-name descname">rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale_by_intensity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.rgb" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>red</p></li>
+<li><p>green</p></li>
+<li><p>blue</p></li>
+</ul>
+<p>The LED is on</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.sensor.ColorSensor.lab">
+<code class="sig-name descname">lab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale_by_intensity</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.ColorSensor.lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>The color in <a class="reference external" href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB</a> color space
+The LED is on</p>
 </dd></dl>
 
 </dd></dl>
