@@ -79,7 +79,12 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Install</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
@@ -88,7 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="spikedev-stopwatch.html">spikedev.stopwatch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.wheel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.wheel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-spikedev.wheel">Classes</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -153,10 +162,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-spikedev.wheel">
-<span id="spikedev-wheel"></span><h1>spikedev.wheel<a class="headerlink" href="#module-spikedev.wheel" title="Permalink to this headline">¶</a></h1>
-<p>Wheel and Rim classes</p>
-<img alt="_images/tires.jpg" src="_images/tires.jpg" />
+  <div class="section" id="spikedev-wheel">
+<h1>spikedev.wheel<a class="headerlink" href="#spikedev-wheel" title="Permalink to this headline">¶</a></h1>
+<p>A module for classes related to wheels and rims</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>A scenario where a <code class="docutils literal notranslate"><span class="pre">Wheel</span></code> class would be used is when the user needs their
+robot to drive for a specific distance. That calculation requires the circumference
+of the wheel of the robot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
+
+<span class="n">tire</span> <span class="o">=</span> <span class="n">SpikeWheel</span><span class="p">()</span>
+
+<span class="c1"># calculate the number of rotations needed to travel forward 500mm</span>
+<span class="n">rotations_for_500mm</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">/</span> <span class="n">tire</span><span class="o">.</span><span class="n">circumference_mm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-spikedev.wheel">
+<span id="classes"></span><h2>Classes<a class="headerlink" href="#module-spikedev.wheel" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="spikedev.wheel.Wheel">
 <em class="property">class </em><code class="sig-prename descclassname">spikedev.wheel.</code><code class="sig-name descname">Wheel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">diameter_mm</span></em>, <em class="sig-param"><span class="n">width_mm</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.wheel.Wheel" title="Permalink to this definition">¶</a></dt>
@@ -170,18 +194,6 @@
 </ul>
 </dd>
 </dl>
-<p>A scenario where a <code class="docutils literal notranslate"><span class="pre">Wheel</span></code> class would be used is when the user needs their
-robot to drive at a specific speed or drive for a specific distance. Both of
-those calculations require the circumference of the wheel of the robot.</p>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeWheel</span>
-
-<span class="n">tire</span> <span class="o">=</span> <span class="n">SpikeWheel</span><span class="p">()</span>
-
-<span class="c1"># calculate the number of rotations needed to travel forward 500 mm</span>
-<span class="n">rotations_for_500mm</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">/</span> <span class="n">tire</span><span class="o">.</span><span class="n">circumference_mm</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py class">
@@ -207,6 +219,7 @@ those calculations require the circumference of the wheel of the robot.</p>
 </ul>
 </dd></dl>
 
+</div>
 </div>
 
 

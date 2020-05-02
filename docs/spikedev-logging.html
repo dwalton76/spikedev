@@ -80,10 +80,19 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Install</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.logging</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-spikedev.logging">Methods</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-sensor.html">spikedev.sensor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-stopwatch.html">spikedev.stopwatch</a></li>
@@ -154,28 +163,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-spikedev.logging">
-<span id="spikedev-logging"></span><h1>spikedev.logging<a class="headerlink" href="#module-spikedev.logging" title="Permalink to this headline">¶</a></h1>
-<p>A simple module for logging message with timestamps</p>
-<img alt="_images/logging.jpg" src="_images/logging.jpg" />
-<dl class="py function">
-<dt id="spikedev.logging.log_msg">
-<code class="sig-prename descclassname">spikedev.logging.</code><code class="sig-name descname">log_msg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.logging.log_msg" title="Permalink to this definition">¶</a></dt>
-<dd><p>prints a timestamp followed by <code class="docutils literal notranslate"><span class="pre">msg</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – the string to print</p>
-</dd>
-</dl>
-<p>Example:</p>
+  <div class="section" id="spikedev-logging">
+<h1>spikedev.logging<a class="headerlink" href="#spikedev-logging" title="Permalink to this headline">¶</a></h1>
+<p>A module for logging message with timestamps</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.logging</span> <span class="kn">import</span> <span class="n">log_msg</span>
 
 <span class="n">log_msg</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
 <span class="c1"># 2015-01-01 00:13:02.440 AM: Hello World</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="module-spikedev.logging">
+<span id="methods"></span><h2>Methods<a class="headerlink" href="#module-spikedev.logging" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="spikedev.logging.log_msg">
+<code class="sig-prename descclassname">spikedev.logging.</code><code class="sig-name descname">log_msg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.logging.log_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a timestamp followed by the <code class="docutils literal notranslate"><span class="pre">msg</span></code> string</p>
 </dd></dl>
 
+</div>
 </div>
 
 

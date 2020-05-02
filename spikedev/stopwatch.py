@@ -32,27 +32,15 @@ A StopWatch class for tracking the amount of time between events
 import utime
 
 
-class StopWatchAlreadyStartedException(Exception):
-    """
-    Exception raised when start() is called on a StopWatch which was already start()ed and not yet
-    stopped.
-    """
-
-    pass
-
-
 class StopWatch(object):
     """
-    A timer class which lets you start timing and then check the amount of time
-    elapsed.
+    A timer class which lets you start a virtual stopwatch and later check
+    the amount of time elapsed
     """
 
     def __init__(self, desc=None):
         """
         Initializes the StopWatch but does not start it.
-
-        desc:
-            A string description to print when stringifying.
         """
         self.desc = desc
         self._start_time = None
@@ -64,9 +52,7 @@ class StopWatch(object):
 
     def start(self):
         """
-        Starts the timer. If the timer is already running, resets it.
-
-        Raises a :py:class:`ev3dev2.stopwatch.StopWatchAlreadyStartedException` if already started.
+        Start the timer. If the timer is already running, raise :py:class:`StopWatchAlreadyStartedException`
         """
         if self.is_started:
             raise StopWatchAlreadyStartedException()
@@ -76,7 +62,7 @@ class StopWatch(object):
 
     def stop(self):
         """
-        Stops the timer. The time value of this Stopwatch is paused and will not continue increasing.
+        Stop the timer. The time value of this ``Stopwatch`` is paused and will not continue increasing.
         """
         if self._start_time is None:
             return
@@ -86,14 +72,14 @@ class StopWatch(object):
 
     def reset(self):
         """
-        Resets the timer and leaves it stopped.
+        Reset the timer and leave it stopped
         """
         self._start_time = None
         self._stopped_total_time = None
 
     def restart(self):
         """
-        Resets and then starts the timer.
+        Reset and start the timer
         """
         self.reset()
         self.start()
@@ -101,14 +87,15 @@ class StopWatch(object):
     @property
     def is_started(self):
         """
-        True if the StopWatch has been started but not stoped (i.e., it's currently running), false otherwise.
+        Return ``True`` if the ``StopWatch`` has been started but not stopped
+        (i.e., it's currently running), else return ``False``
         """
         return self._start_time is not None
 
     @property
     def value_ms(self):
         """
-        Returns the value of the stopwatch in milliseconds
+        Return the value of the ``StopWatch`` in milliseconds
         """
         if self._stopped_total_time is not None:
             return self._stopped_total_time
@@ -118,15 +105,14 @@ class StopWatch(object):
     @property
     def value_secs(self):
         """
-        Returns the value of the stopwatch in seconds
+        Return the value of the ``StopWatch`` in seconds
         """
         return self.value_ms / 1000
 
     @property
     def value_hms(self):
         """
-        Returns this StopWatch's elapsed time as a tuple
-        ``(hours, minutes, seconds, milliseconds)``.
+        Return the ``StopWatch`` elapsed time as a tuple ``(hours, minutes, seconds, milliseconds)``.
         """
         (hours, x) = divmod(int(self.value_ms), 3600000)
         (mins, x) = divmod(x, 60000)
@@ -136,23 +122,31 @@ class StopWatch(object):
     @property
     def hms_str(self):
         """
-        Returns the stringified value of the stopwatch in HH:MM:SS.msec format
+        Return the stringified value of the ``StopWatch`` in `HH-MM-SS.msec` format
         """
         return "%02d:%02d:%02d.%03d" % self.value_hms
 
     def is_elapsed_ms(self, duration_ms):
         """
-        Returns True if this timer has measured at least ``duration_ms``
-        milliseconds.
-        Otherwise, returns False. If ``duration_ms`` is None, returns False.
+        Return ``True`` if this timer has measured at least ``duration_ms``
+        milliseconds, else returns ``False``. If ``duration_ms`` is None, return ``False``.
         """
 
         return duration_ms is not None and self.value_ms >= duration_ms
 
     def is_elapsed_secs(self, duration_secs):
         """
-        Returns True if this timer has measured at least ``duration_secs`` seconds.
-        Otherwise, returns False. If ``duration_secs`` is None, returns False.
+        Return ``True`` if this timer has measured at least ``duration_secs`` seconds,
+        else returns ``False``. If ``duration_secs`` is None, returns ``False``.
         """
 
         return duration_secs is not None and self.value_secs >= duration_secs
+
+
+class StopWatchAlreadyStartedException(Exception):
+    """
+    Exception raised when start() is called on a StopWatch which was already start()ed and not yet
+    stopped.
+    """
+
+    pass

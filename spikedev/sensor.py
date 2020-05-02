@@ -31,20 +31,14 @@ class Sensor:
 
     def set_mode(self, mode):
         """
-        Set the mode for the sensor
-
-        Args:
-            mode (int): put the sensor in this mode
+        Set the mode for the sensor to ``mode``
         """
         self.mode = mode
         self.port.device.mode(mode)
 
     def _ensure_mode(self, mode):
         """
-        If the sensor is not already in the desired mode, put it in the descired mode.
-
-        Args:
-            mode (int): put the sensor in this mode
+        If the sensor is not in ``mode``, put it in ``mode``.
         """
         if self.mode != mode:
             self.set_mode(mode)
@@ -89,39 +83,32 @@ class TouchSensor(Sensor):
 
     def value(self):
         """
-        Returns:
-            int: the current value of the TouchSensor
+        Return the current value of the ``TouchSensor``
         """
         # get() always returns a list with a single entry
         return self.port.device.get()[0]
 
     def is_pressed(self):
         """
-        Set the mode to ``TouchSensorMode.TOUCH`` and return True if the TouchSensor is currently pressed
-
-        Returns:
-            bool: True if the button is currently pressed
+        Set the mode to ``TouchSensorMode.TOUCH``. Return ``True`` if the TouchSensor
+        is currently pressed, else return ``False``
         """
         self._ensure_mode(TouchSensorMode.TOUCH)
         return bool(self.value())
 
     def is_released(self):
         """
-        Set the mode to ``TouchSensorMode.TOUCH`` and return True if the TouchSensor is currently released
-
-        Returns:
-            bool: True if the button is currently released
+        Set the mode to ``TouchSensorMode.TOUCH``. Return ``True`` if the TouchSensor
+        is currently released, else return ``False``
         """
         self._ensure_mode(TouchSensorMode.TOUCH)
         return not bool(self.value())
 
     def wait_for_pressed(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was pressed within ``timeout_ms``
+        Wait ``timeout_ms`` for the ``TouchSensor`` to be pressed. Return ``True`` if the
+        button was pressed within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_pressed():
@@ -143,11 +130,9 @@ class TouchSensor(Sensor):
 
     def wait_for_released(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was released within ``timeout_ms``
+        Wait ``timeout_ms`` for the ``TouchSensor`` to be released. Return ``True`` if the
+        button was released within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_released():
@@ -169,11 +154,9 @@ class TouchSensor(Sensor):
 
     def wait_for_bump(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was pressed and released within ``timeout_ms``
+        Wait ``timeout_ms`` for the ``TouchSensor`` to be bumped. Return ``True`` if the
+        button was bumped within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_pressed():
@@ -194,15 +177,7 @@ class TouchSensor(Sensor):
 
 def rgb2lab(red, green, blue):
     """
-    Convert RGB (red, green, blue) to `CIELAB <https://en.wikipedia.org/wiki/CIELAB_color_space>`_
-
-    Args:
-        red (int): red value from 0-255
-        green (int): green value from 0-255
-        blue (int): blue value from 0-255
-
-    Returns:
-        The LAB color space equivalent
+    Convert RGB (``red``, ``green``, ``blue``) to `CIELAB <https://en.wikipedia.org/wiki/CIELAB_color_space>`_
     """
 
     # XYZ -> Standard-RGB
@@ -299,9 +274,6 @@ class ColorSensor(Sensor):
         """
         Set the mode to ``ColorSensorMode.REFLT`` and return the reflected light intensity as a
         percentage (0 to 100). The LED is on.
-
-        Returns:
-            int: the reflected light intensity as a percentage (0 to 100)
         """
         self._ensure_mode(ColorSensorMode.REFLT)
         return self.value()[0]
@@ -310,21 +282,14 @@ class ColorSensor(Sensor):
         """
         Set the mode to ``ColorSensorMode.AMBI`` and return the ambient light intensity as a
         percentage (0 to 100). The LED is off.
-
-        Returns:
-            int: the ambient light intensity as a percentage (0 to 100)
         """
         self._ensure_mode(ColorSensorMode.AMBI)
         return self.value()[0]
 
     def hsv(self):
         """
-        HSV: Hue, Saturation, Value
-        - H: position in the spectrum
-        - S: color saturation ("purity")
-        - V: color brightness
-
-        The LED is on
+        Set the mode to ``ColorSensorMode.HSR`` and return the Hue, Saturation, Value values.
+        The LED is on.
         """
         self._ensure_mode(ColorSensorMode.HSV)
         (hue, saturation, value) = self.value()
@@ -335,11 +300,8 @@ class ColorSensor(Sensor):
 
     def rgb(self, scale_by_intensity=True):
         """
-        - red
-        - green
-        - blue
-
-        The LED is on
+        Set the mode to ``ColorSensorMode.RGB_I`` and return the Red, Green, Blue values.
+        The LED is on.
         """
         self._ensure_mode(ColorSensorMode.RGB_I)
         (red, green, blue, intensity) = self.value()
@@ -357,8 +319,9 @@ class ColorSensor(Sensor):
 
     def lab(self, scale_by_intensity=True):
         """
-        The color in `CIELAB <https://en.wikipedia.org/wiki/CIELAB_color_space>`_ color space
-        The LED is on
+        Set the mode to ``ColorSensorMode.RGB_I`` and return the
+        `CIELAB <https://en.wikipedia.org/wiki/CIELAB_color_space>`_ values.
+        The LED is on.
         """
         (red, green, blue) = self.rgb(scale_by_intensity)
         return rgb2lab(red, green, blue)

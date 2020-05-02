@@ -1,8 +1,3 @@
-"""
-Wheel and Rim classes
-
-.. image:: images/tires.jpg
-"""
 # standard libraries
 from math import pi
 
@@ -15,20 +10,6 @@ class Wheel:
         diameter_mm (int): the wheel's diameter in millimeters
         width_mm (int): the wheel's width in millimeters
 
-    A scenario where a ``Wheel`` class would be used is when the user needs their
-    robot to drive at a specific speed or drive for a specific distance. Both of
-    those calculations require the circumference of the wheel of the robot.
-
-    Example:
-
-    .. code:: python
-
-        from spikedev.wheel import SpikeWheel
-
-        tire = SpikeWheel()
-
-        # calculate the number of rotations needed to travel forward 500 mm
-        rotations_for_500mm = 500 / tire.circumference_mm
     """
 
     def __init__(self, diameter_mm, width_mm):

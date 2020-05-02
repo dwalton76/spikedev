@@ -80,13 +80,22 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Install</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-sensor.html">spikedev.sensor</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.stopwatch</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spikedev.stopwatch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-spikedev.stopwatch">Classes</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
@@ -154,9 +163,104 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-spikedev.stopwatch">
-<span id="spikedev-stopwatch"></span><h1>spikedev.stopwatch<a class="headerlink" href="#module-spikedev.stopwatch" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spikedev-stopwatch">
+<h1>spikedev.stopwatch<a class="headerlink" href="#spikedev-stopwatch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spikedev.button</span> <span class="kn">import</span> <span class="n">ButtonCenter</span>
+<span class="kn">from</span> <span class="nn">spikedev.stopwatch</span> <span class="kn">import</span> <span class="n">StopWatch</span>
+
+<span class="n">button</span> <span class="o">=</span> <span class="n">ButtonCenter</span><span class="p">()</span>
+
+<span class="n">sw</span> <span class="o">=</span> <span class="n">StopWatch</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press the center as soon as possible)</span>
+<span class="n">sw</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">button</span><span class="o">.</span><span class="n">wait_for_bump</span><span class="p">()</span>
+<span class="n">sw</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;center button pressed in </span><span class="si">{}</span><span class="s2"> ms&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">value_ms</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-spikedev.stopwatch">
+<span id="classes"></span><h2>Classes<a class="headerlink" href="#module-spikedev.stopwatch" title="Permalink to this headline">¶</a></h2>
 <p>A StopWatch class for tracking the amount of time between events</p>
+<dl class="py class">
+<dt id="spikedev.stopwatch.StopWatch">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.stopwatch.</code><code class="sig-name descname">StopWatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A timer class which lets you start a virtual stopwatch and later check
+the amount of time elapsed</p>
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the timer. If the timer is already running, raise <a class="reference internal" href="#spikedev.stopwatch.StopWatchAlreadyStartedException" title="spikedev.stopwatch.StopWatchAlreadyStartedException"><code class="xref py py-class docutils literal notranslate"><span class="pre">StopWatchAlreadyStartedException</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the timer. The time value of this <code class="docutils literal notranslate"><span class="pre">Stopwatch</span></code> is paused and will not continue increasing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the timer and leave it stopped</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.restart">
+<code class="sig-name descname">restart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset and start the timer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_started">
+<em class="property">property </em><code class="sig-name descname">is_started</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_started" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> has been started but not stopped
+(i.e., it’s currently running), else return <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_ms">
+<em class="property">property </em><code class="sig-name descname">value_ms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> in milliseconds</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_secs">
+<em class="property">property </em><code class="sig-name descname">value_secs</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> in seconds</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.value_hms">
+<em class="property">property </em><code class="sig-name descname">value_hms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> elapsed time as a tuple <code class="docutils literal notranslate"><span class="pre">(hours,</span> <span class="pre">minutes,</span> <span class="pre">seconds,</span> <span class="pre">milliseconds)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.hms_str">
+<em class="property">property </em><code class="sig-name descname">hms_str</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.hms_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the stringified value of the <code class="docutils literal notranslate"><span class="pre">StopWatch</span></code> in <cite>HH-MM-SS.msec</cite> format</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_elapsed_ms">
+<code class="sig-name descname">is_elapsed_ms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_ms</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code>
+milliseconds, else returns <code class="docutils literal notranslate"><span class="pre">False</span></code>. If <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code> is None, return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spikedev.stopwatch.StopWatch.is_elapsed_secs">
+<code class="sig-name descname">is_elapsed_secs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_secs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> seconds,
+else returns <code class="docutils literal notranslate"><span class="pre">False</span></code>. If <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> is None, returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py exception">
 <dt id="spikedev.stopwatch.StopWatchAlreadyStartedException">
 <em class="property">exception </em><code class="sig-prename descclassname">spikedev.stopwatch.</code><code class="sig-name descname">StopWatchAlreadyStartedException</code><a class="headerlink" href="#spikedev.stopwatch.StopWatchAlreadyStartedException" title="Permalink to this definition">¶</a></dt>
@@ -165,93 +269,7 @@
 stopped.</p>
 </dd></dl>
 
-<dl class="py class">
-<dt id="spikedev.stopwatch.StopWatch">
-<em class="property">class </em><code class="sig-prename descclassname">spikedev.stopwatch.</code><code class="sig-name descname">StopWatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A timer class which lets you start timing and then check the amount of time
-elapsed.</p>
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Starts the timer. If the timer is already running, resets it.</p>
-<p>Raises a <code class="xref py py-class docutils literal notranslate"><span class="pre">ev3dev2.stopwatch.StopWatchAlreadyStartedException</span></code> if already started.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.stop">
-<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops the timer. The time value of this Stopwatch is paused and will not continue increasing.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets the timer and leaves it stopped.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.restart">
-<code class="sig-name descname">restart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.restart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets and then starts the timer.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.is_started">
-<em class="property">property </em><code class="sig-name descname">is_started</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_started" title="Permalink to this definition">¶</a></dt>
-<dd><p>True if the StopWatch has been started but not stoped (i.e., it’s currently running), false otherwise.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.value_ms">
-<em class="property">property </em><code class="sig-name descname">value_ms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_ms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the value of the stopwatch in milliseconds</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.value_secs">
-<em class="property">property </em><code class="sig-name descname">value_secs</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_secs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the value of the stopwatch in seconds</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.value_hms">
-<em class="property">property </em><code class="sig-name descname">value_hms</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.value_hms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns this StopWatch’s elapsed time as a tuple
-<code class="docutils literal notranslate"><span class="pre">(hours,</span> <span class="pre">minutes,</span> <span class="pre">seconds,</span> <span class="pre">milliseconds)</span></code>.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.hms_str">
-<em class="property">property </em><code class="sig-name descname">hms_str</code><a class="headerlink" href="#spikedev.stopwatch.StopWatch.hms_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>SS.msec format</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Returns the stringified value of the stopwatch in HH</p>
-</dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p>MM</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.is_elapsed_ms">
-<code class="sig-name descname">is_elapsed_ms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_ms</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_ms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code>
-milliseconds.
-Otherwise, returns False. If <code class="docutils literal notranslate"><span class="pre">duration_ms</span></code> is None, returns False.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="spikedev.stopwatch.StopWatch.is_elapsed_secs">
-<code class="sig-name descname">is_elapsed_secs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration_secs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.stopwatch.StopWatch.is_elapsed_secs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if this timer has measured at least <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> seconds.
-Otherwise, returns False. If <code class="docutils literal notranslate"><span class="pre">duration_secs</span></code> is None, returns False.</p>
-</dd></dl>
-
-</dd></dl>
-
+</div>
 </div>
 
 

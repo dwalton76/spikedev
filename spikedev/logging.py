@@ -1,9 +1,3 @@
-"""
-A simple module for logging message with timestamps
-
-.. image:: images/logging.jpg
-"""
-
 # standard libraries
 import utime
 
@@ -42,18 +36,6 @@ def _timestamp():
 
 def log_msg(msg):
     """
-    prints a timestamp followed by ``msg``
-
-    Args:
-        msg (str): the string to print
-
-    Example:
-
-    .. code:: python
-
-        from spikedev.logging import log_msg
-
-        log_msg("Hello World")
-        # 2015-01-01 00:13:02.440 AM: Hello World
+    Prints a timestamp followed by the ``msg`` string
     """
     print("%s: %s" % (_timestamp(), msg))

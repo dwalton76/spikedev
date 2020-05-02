@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to spikedev’s documentation! &mdash; spikedev  documentation</title>
+  <title>spikedev &mdash; spikedev  documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="spikedev.button" href="spikedev-button.html" /> 
+    <link rel="next" title="Install Steps" href="install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,7 +79,12 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Install</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
@@ -134,7 +139,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to spikedev’s documentation!</li>
+      <li>spikedev</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,19 +158,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-spikedev-s-documentation">
-<h1>Welcome to spikedev’s documentation!<a class="headerlink" href="#welcome-to-spikedev-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spikedev">
+<h1>spikedev<a class="headerlink" href="#spikedev" title="Permalink to this headline">¶</a></h1>
+<p>spikedev is an open source micropython library for
+<a class="reference external" href="https://education.lego.com/en-us/products/lego-education-spike-prime-set/45678#product">LEGO SPIKE</a>.
+The goal of this library is to build on the functionality provided by LEGO’s <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hub</span></code> library.
+spikedev is not firmware, it is simply a colletion of <code class="docutils literal notranslate"><span class="pre">.py</span></code> files that you copy to your SPIKE hub
+and then import like any other library.</p>
+<p>Many features in spikedev were ported from <a class="reference external" href="https://github.com/ev3dev/ev3dev-lang-python">ev3dev-lang-python</a>.</p>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Install</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#ampy">ampy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#booting-spike">Booting SPIKE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#install-spikedev">Install spikedev</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#workflow-steps">Workflow steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#write-your-program">Write your program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#run-your-program">Run your program</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-button.html">spikedev.button</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-button.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-button.html#module-spikedev.button">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-logging.html">spikedev.logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-logging.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-logging.html#module-spikedev.logging">Methods</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-motor.html">spikedev.motor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spikedev-sensor.html">spikedev.sensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spikedev-stopwatch.html">spikedev.stopwatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-sensor.html">spikedev.sensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-sensor.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-sensor.html#module-spikedev.sensor">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-stopwatch.html">spikedev.stopwatch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-stopwatch.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-stopwatch.html#module-spikedev.stopwatch">Classes</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-tank.html">spikedev.tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spikedev-unit.html">spikedev.unit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spikedev-wheel.html">spikedev.wheel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-wheel.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spikedev-wheel.html#module-spikedev.wheel">Classes</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -178,7 +225,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="spikedev-button.html" class="btn btn-neutral float-right" title="spikedev.button" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Install Steps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

@@ -36,10 +36,8 @@ def _callback_connect(held_ms):
 
 class Button:
     """
-    A base class for SPIKE buttons
-
-    Args:
-        desc (str): defaults to None
+    A base class for SPIKE buttons. ``button_name`` must be one of ``left``, ``right``, ``center`` or ``connect``.
+    ``desc`` is an optional string that will be using when printing a ``Button`` object.
     """
 
     def __init__(self, button_name, desc=None):
@@ -56,29 +54,26 @@ class Button:
 
     def is_pressed(self):
         """
-        Returns:
-            bool: True if the button is currently pressed
+        Return ``True`` if the button is currently pressed, else return ``False``
         """
         return self._button.is_pressed()
 
     def was_pressed(self):
         """
-        Returns:
-            bool: True if the button was pressed since the device started or the last time this method was called.
+        Return ``True`` if the button was pressed since the device started
+        or the last time this method was called, else return ``False``
         """
         return self._button.was_pressed()
 
     def presses(self):
         """
-        Returns:
-            int: the running total of button presses. Also resets this total to zero.
+        Return an ``int`` of the number of button presses. Also resets this counter to zero.
         """
         return self._button.presses()
 
     def is_released(self):
         """
-        Returns:
-            bool: True if the button is currently released
+        Return ``True`` if the button is currently released, else return ``False``
         """
         return not self._button.is_pressed()
 
@@ -98,11 +93,9 @@ class Button:
 
     def wait_for_pressed(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was pressed within ``timeout_ms``
+        Wait ``timeout_ms`` for the button to be pressed. Return ``True`` if the
+        button was pressed within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_pressed():
@@ -120,11 +113,9 @@ class Button:
 
     def wait_for_released(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was released within ``timeout_ms``
+        Wait ``timeout_ms`` for the button to be released. Return ``True`` if the
+        button was released within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_released():
@@ -142,11 +133,9 @@ class Button:
 
     def wait_for_bump(self, timeout_ms=None):
         """
-        Args:
-            timeout_ms (int): the number of milliseconds to wait
-
-        Returns:
-            bool: True if the button was pressed and released within ``timeout_ms``
+        Wait ``timeout_ms`` for the button to be bumped. Return ``True`` if the
+        button was bumped within ``timeout_ms``, else return ``False``. If ``timeout_ms``
+        is ``None`` this will wait for forever.
         """
 
         if self.is_pressed():
