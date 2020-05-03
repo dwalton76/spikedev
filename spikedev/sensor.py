@@ -51,24 +51,21 @@ class Sensor:
 
 
 class TouchSensorMode:
-
-    # value will be from 0 to 10
+    """
+    * ``FORCE`` value will be from 0 to 10
+    * ``TOUCH`` value will be either 0 or 1
+    * ``TAP`` value is one of None, 1, 2 or 3
+    * ``FPEAK`` value will be from 0 to 10, remembers the highest value
+    * ``FRAW`` value will be from 380 to 698
+    * ``FPRAW`` TBD
+    * ``CALIB`` TBD
+    """
     FORCE = 0
-
-    # value will be either 0 or 1
     TOUCH = 1
-
-    # value is one of None, 1, 2 or 3
     TAP = 2
-
-    # value will be from 0 to 10, remembers the highest value
     FPEAK = 3
-
-    # value will be from 380 to 698
     FRAW = 4
-
     FPRAW = 5
-
     CALIB = 6
 
 
@@ -242,6 +239,18 @@ def rgb2lab(red, green, blue):
 
 
 class ColorSensorMode:
+    """
+    * ``COLOR`` single value, LED is on
+    * ``REFLT`` single value, LED is on,  0 - 100
+    * ``AMBI`` single value, LED is off, 0 - 100
+    * ``LIGHT`` three values, LED is off, always reads [0, 0, 0], not sure?
+    * ``RREFL`` two values, LED is on, not sure?
+    * ``RGB_I`` four values, LED is on, (red, green, blue, intensity?)
+    * ``HSV`` three values,  LED is on, (hue, saturation, value)
+    * ``SHSV``  four values, LED is off, not sure?
+    * ``DEBUG`` TBD
+    * ``CALIB`` TBD
+    """
     COLOR = 0  # single value, LED is on
     REFLT = 1  # single value, LED is on,  0 - 100
     AMBI = 2  # single value, LED is off, 0 - 100
@@ -325,3 +334,36 @@ class ColorSensor(Sensor):
         """
         (red, green, blue) = self.rgb(scale_by_intensity)
         return rgb2lab(red, green, blue)
+
+
+class DistanceSensorMode:
+    """
+    * ``DISTL`` returns a number from 4 to 49
+    * ``DISTS`` returns a number from 4 to 24. Does not work from as far away as DISTL
+    * ``SINGL`` always returns [18]
+    * ``LISTN`` always returns [0]
+    * ``TRAW`` returns a number between 80 and 1600
+    * ``LIGHT`` always returns [0, 0, 0, 0]
+    * ``PING`` always returns [None]
+    * ``ADRAW`` always returns [20]
+    * ``CALIB`` TBD
+    """
+    DISTL = 0
+    DISTS = 1
+    SINGL = 2
+    LISTN = 3
+    TRAW = 4
+    LIGHT = 5
+    PING = 6
+    ADRAW = 7
+    CALIB = 8
+
+
+class DistanceSensor(Sensor):
+    """
+    .. image:: images/distance-sensor.jpg
+    """
+
+    def __init__(self, port, desc=None, mode=DistanceSensorMode.DISTL):
+        super().__init__(port, desc)
+        self.set_mode(mode)
