@@ -1,6 +1,7 @@
 clean:
 	rm -rf build docs.log venv
 	find . -name *.pyc | xargs rm -rf
+	find . -name __pycache__ | xargs rm -rf
 
 init:
 	python3 -m venv venv

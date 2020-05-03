@@ -211,6 +211,15 @@
 <dt id="spikedev.sensor.TouchSensorMode">
 <em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">TouchSensorMode</code><a class="headerlink" href="#spikedev.sensor.TouchSensorMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FORCE</span></code> value will be from 0 to 10</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TOUCH</span></code> value will be either 0 or 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TAP</span></code> value is one of None, 1, 2 or 3</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FPEAK</span></code> value will be from 0 to 10, remembers the highest value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FRAW</span></code> value will be from 380 to 698</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FPRAW</span></code> TBD</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CALIB</span></code> TBD</p></li>
+</ul>
 <dl class="py attribute">
 <dt id="spikedev.sensor.TouchSensorMode.FORCE">
 <code class="sig-name descname">FORCE</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.TouchSensorMode.FORCE" title="Permalink to this definition">¶</a></dt>
@@ -309,6 +318,18 @@ is <code class="docutils literal notranslate"><span class="pre">None</span></cod
 <dt id="spikedev.sensor.ColorSensorMode">
 <em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">ColorSensorMode</code><a class="headerlink" href="#spikedev.sensor.ColorSensorMode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COLOR</span></code> single value, LED is on</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REFLT</span></code> single value, LED is on,  0 - 100</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AMBI</span></code> single value, LED is off, 0 - 100</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIGHT</span></code> three values, LED is off, always reads [0, 0, 0], not sure?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RREFL</span></code> two values, LED is on, not sure?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGB_I</span></code> four values, LED is on, (red, green, blue, intensity?)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HSV</span></code> three values,  LED is on, (hue, saturation, value)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHSV</span></code>  four values, LED is off, not sure?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> TBD</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CALIB</span></code> TBD</p></li>
+</ul>
 <dl class="py attribute">
 <dt id="spikedev.sensor.ColorSensorMode.COLOR">
 <code class="sig-name descname">COLOR</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.ColorSensorMode.COLOR" title="Permalink to this definition">¶</a></dt>
@@ -408,6 +429,75 @@ The LED is on.</p>
 The LED is on.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.DistanceSensorMode">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">DistanceSensorMode</code><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DISTL</span></code> returns a number from 4 to 49</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DISTS</span></code> returns a number from 4 to 24. Does not work from as far away as DISTL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SINGL</span></code> always returns [18]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LISTN</span></code> always returns [0]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRAW</span></code> returns a number between 80 and 1600</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIGHT</span></code> always returns [0, 0, 0, 0]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PING</span></code> always returns [None]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADRAW</span></code> always returns [20]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CALIB</span></code> TBD</p></li>
+</ul>
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.DISTL">
+<code class="sig-name descname">DISTL</code><em class="property"> = 0</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.DISTL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.DISTS">
+<code class="sig-name descname">DISTS</code><em class="property"> = 1</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.DISTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.SINGL">
+<code class="sig-name descname">SINGL</code><em class="property"> = 2</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.SINGL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.LISTN">
+<code class="sig-name descname">LISTN</code><em class="property"> = 3</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.LISTN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.TRAW">
+<code class="sig-name descname">TRAW</code><em class="property"> = 4</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.TRAW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.LIGHT">
+<code class="sig-name descname">LIGHT</code><em class="property"> = 5</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.LIGHT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.PING">
+<code class="sig-name descname">PING</code><em class="property"> = 6</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.PING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.ADRAW">
+<code class="sig-name descname">ADRAW</code><em class="property"> = 7</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.ADRAW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="spikedev.sensor.DistanceSensorMode.CALIB">
+<code class="sig-name descname">CALIB</code><em class="property"> = 8</em><a class="headerlink" href="#spikedev.sensor.DistanceSensorMode.CALIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="spikedev.sensor.DistanceSensor">
+<em class="property">class </em><code class="sig-prename descclassname">spikedev.sensor.</code><code class="sig-name descname">DistanceSensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">desc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spikedev.sensor.DistanceSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spikedev.sensor.Sensor" title="spikedev.sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">spikedev.sensor.Sensor</span></code></a></p>
+<img alt="_images/distance-sensor.jpg" src="_images/distance-sensor.jpg" />
 </dd></dl>
 
 </div>

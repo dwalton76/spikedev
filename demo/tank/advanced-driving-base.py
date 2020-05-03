@@ -45,14 +45,6 @@ adb.front_motor = SpikeMediumMotor(hub.port.D)
 adb.left_color_sensor = ColorSensor(hub.port.B)
 adb.right_color_sensor = ColorSensor(hub.port.F)
 
-log_msg("left RGB {}".format(adb.left_color_sensor.rgb()))
-log_msg("left LAB {}".format(adb.left_color_sensor.lab()))
-log_msg("left HSV {}".format(adb.left_color_sensor.hsv()))
-
-log_msg("right RGB {}".format(adb.right_color_sensor.rgb()))
-log_msg("right LAB {}".format(adb.right_color_sensor.lab()))
-log_msg("right HSV {}".format(adb.right_color_sensor.hsv()))
-
 adb.turn_right(90, MotorSpeedPercent(20))
 # adb.turn_left(90, MotorSpeedPercent(20))
 # adb.run_for_distance(DistanceInches(6), MotorSpeedDPS(100))
