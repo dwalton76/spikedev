@@ -5,7 +5,7 @@ clean:
 
 init:
 	python3 -m venv venv
-	@./venv/bin/python3 -m pip install black flake8 isort sphinx_rtd_theme
+	@./venv/bin/python3 -m pip install black flake8 isort sphinx_rtd_theme sphinxcontrib.yt
 
 format:
 	@./venv/bin/isort -rc demo spikedev
@@ -20,4 +20,3 @@ sphinx:
 	mkdir docs
 	touch docs/.nojekyll
 	@./venv/bin/sphinx-build -c docs-sphinx/ -w docs.log docs-sphinx docs
-

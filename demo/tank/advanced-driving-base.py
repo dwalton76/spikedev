@@ -17,7 +17,6 @@ import utime
 import hub
 
 # spikedev libraries
-from spikedev.logging import log_msg
 from spikedev.motor import MotorSpeedPercent, SpikeLargeMotor, SpikeMediumMotor
 from spikedev.sensor import ColorSensor
 from spikedev.tank import MoveDifferential
@@ -25,27 +24,19 @@ from spikedev.unit import DistanceInches, DistanceStuds
 from spikedev.wheel import SpikeLargeWheel
 
 utime.sleep(1)
+# bulldozer: 0 is raised, -180 is lowered
+# lift arm: 0 is vertical/raised, -180 is horizontal/lowered
 
-# A - left motor
-# B - left color sensor
-# C - rear medium motor
-# D - front medium motor
-# E - right motor
-# F - right color sensor
 adb = MoveDifferential(hub.port.A, hub.port.E, SpikeLargeWheel, DistanceStuds(19), motor_class=SpikeLargeMotor)
-
-# 0 is raised
-# -180 is lowered
 adb.rear_motor = SpikeMediumMotor(hub.port.C)
-
-# 0 is vertical/raised
-# -180 is horizontal/lowered
 adb.front_motor = SpikeMediumMotor(hub.port.D)
-
 adb.left_color_sensor = ColorSensor(hub.port.B)
 adb.right_color_sensor = ColorSensor(hub.port.F)
 
 adb.turn_right(90, MotorSpeedPercent(20))
+adb.run_for_distance(DistanceInches(12), MotorSpeedPercent(50))
+
+# drive halfway around a cirle with a radius of 8 inches
+adb.run_arc_right(DistanceInches(8), DistanceInches(8) * math.pi, MotorSpeedPercent(20))
+
 # adb.turn_left(90, MotorSpeedPercent(20))
-# adb.run_for_distance(DistanceInches(6), MotorSpeedDPS(100))
-# adb.run_arc_right(DistanceInches(8), DistanceInches(8) * 2 * math.pi, MotorSpeedPercent(20))
