@@ -22,6 +22,12 @@ Many features in spikedev were ported from `ev3dev-lang-python <https://github.c
 
 .. toctree::
    :maxdepth: 2
+   :caption: REPL
+
+   repl
+
+.. toctree::
+   :maxdepth: 2
    :caption: API
 
    spikedev-button
