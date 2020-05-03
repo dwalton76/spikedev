@@ -41,6 +41,7 @@ release = u''
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "sphinxcontrib.yt",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

@@ -169,9 +169,53 @@
 The goal of this library is to build on the functionality provided by LEGO’s <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">hub</span></code> library.
 spikedev is not firmware, it is simply a colletion of <code class="docutils literal notranslate"><span class="pre">.py</span></code> files that you copy to your SPIKE hub
 and then import like any other library.</p>
-<p>Many features in spikedev were ported from <a class="reference external" href="https://github.com/ev3dev/ev3dev-lang-python">ev3dev-lang-python</a>.</p>
-<p>If you would like to contribute to spikedev, the source is managed at <a class="reference external" href="https://github.com/dwalton76/spikedev">https://github.com/dwalton76/spikedev</a> .</p>
-<div class="toctree-wrapper compound">
+<p>Many features in spikedev were ported from <a class="reference external" href="https://github.com/ev3dev/ev3dev-lang-python">ev3dev-lang-python</a>.
+If you would like to contribute to spikedev, the source is managed at <a class="reference external" href="https://github.com/dwalton76/spikedev">https://github.com/dwalton76/spikedev</a> .</p>
+</div>
+<div class="section" id="example">
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
+<p>The following example of <code class="docutils literal notranslate"><span class="pre">spikedev.tank.MoveDifferential</span></code> can be used for any tank style robot, just substitute
+<code class="docutils literal notranslate"><span class="pre">SpikeLargeWheel</span></code> for the type of wheel you are using and <code class="docutils literal notranslate"><span class="pre">DistanceStuds(19)</span></code> with the number of studs seperating
+your wheels. This example is for the <a class="reference external" href="https://education.lego.com/en-us/lessons/prime-competition-ready/assembling-an-advanced-driving-base">Advanced Driving Base</a></p>
+<img alt="_images/advanced-driving-base.png" src="_images/advanced-driving-base.png" />
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>turn right 90 degrees</p></li>
+<li><p>drive forward 12 inches</p></li>
+<li><p>drive halfway around a cirle with a radius of 8 inches</p></li>
+</ul>
+</div>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run via</span>
+<span class="c1">#  sudo ampy --port &lt;your-dev-here&gt; run ./demo/tank/advanced-driving-base.py</span>
+<span class="kn">import</span> <span class="nn">hub</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">spikedev.motor</span> <span class="kn">import</span> <span class="n">MotorSpeedPercent</span><span class="p">,</span> <span class="n">SpikeLargeMotor</span><span class="p">,</span> <span class="n">SpikeMediumMotor</span>
+<span class="kn">from</span> <span class="nn">spikedev.sensor</span> <span class="kn">import</span> <span class="n">ColorSensor</span>
+<span class="kn">from</span> <span class="nn">spikedev.tank</span> <span class="kn">import</span> <span class="n">MoveDifferential</span>
+<span class="kn">from</span> <span class="nn">spikedev.unit</span> <span class="kn">import</span> <span class="n">DistanceInches</span><span class="p">,</span> <span class="n">DistanceStuds</span>
+<span class="kn">from</span> <span class="nn">spikedev.wheel</span> <span class="kn">import</span> <span class="n">SpikeLargeWheel</span>
+
+<span class="n">adb</span> <span class="o">=</span> <span class="n">MoveDifferential</span><span class="p">(</span>
+   <span class="n">left_motor_port</span><span class="o">=</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">A</span><span class="p">,</span>
+   <span class="n">right_motor_port</span><span class="o">=</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
+   <span class="n">wheel_class</span><span class="o">=</span><span class="n">SpikeLargeWheel</span><span class="p">,</span>
+   <span class="n">wheel_distance</span><span class="o">=</span><span class="n">DistanceStuds</span><span class="p">(</span><span class="mi">19</span><span class="p">),</span>
+   <span class="n">motor_class</span><span class="o">=</span><span class="n">SpikeLargeMotor</span>
+<span class="p">)</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">rear_motor</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">front_motor</span> <span class="o">=</span> <span class="n">SpikeMediumMotor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">left_color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">right_color_sensor</span> <span class="o">=</span> <span class="n">ColorSensor</span><span class="p">(</span><span class="n">hub</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">F</span>
+
+<span class="n">adb</span><span class="o">.</span><span class="n">turn_right</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">run_for_distance</span><span class="p">(</span><span class="n">DistanceInches</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">run_arc_right</span><span class="p">(</span><span class="n">DistanceInches</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">DistanceInches</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">MotorSpeedPercent</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<iframe width="640" height="360" style="margin-bottom: 25px" src="https://www.youtube.com/embed/vqxpZ1TcWzM" frameborder="0" allowfullscreen="1">&nbsp;</iframe><div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Install</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install Steps</a><ul>
@@ -230,6 +274,7 @@ and then import like any other library.</p>
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 
