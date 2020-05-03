@@ -27,7 +27,7 @@ directory. To do that run::
 
     $ git clone https://github.com/dwalton76/spikedev.git
     $ cd spikedev
-    $ sudo make install
+    $ sudo python3 ./utils/spike-install-spikedev.py
 
 ==============
 Workflow steps

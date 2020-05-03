@@ -13,12 +13,20 @@ and then import like any other library.
 
 Many features in spikedev were ported from `ev3dev-lang-python <https://github.com/ev3dev/ev3dev-lang-python>`_.
 
+If you would like to contribute to spikedev, the source is managed at https://github.com/dwalton76/spikedev .
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Install
 
    install
+
+.. toctree::
+   :maxdepth: 2
+   :caption: REPL
+
+   repl
 
 .. toctree::
    :maxdepth: 2
