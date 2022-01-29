@@ -99,13 +99,18 @@ Use screen to connect to /dev/rfcomm0::
     ctrl-C
     >>> import hub
 
+or a GUI IDE like Mu or Thonny
+
 
 Windows 10
 ==========
 
 USB
 ---
-TBD
+
+    Connection into windows is easy with a terminal emulator like putty or a GUI IDE like Mu or Thonny. The Lego hub will show up as 'USB Serial Device'
+    Use that device for the port (COM10) and speed is 115200 baud connection type is serial. 
+
 
 Bluetooth
 ---------
@@ -117,8 +122,13 @@ Mac
 
 USB
 ---
-TBD
+
+    Connection to device is similar to linix and windows, use ports of connected hub to find the hub. 
+    
+    from a shell run the command `ls /dev/tty.usb*` then connect with terminal emulator, screen or a GUI IDE like Mu or Thonny
+
 
 Bluetooth
 ---------
-TBD
+
+    darwin shell can provide a list `system_profiler SPBluetoothDataType` connect with offical app then you have it in the OS
