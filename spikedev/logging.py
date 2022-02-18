@@ -1,5 +1,11 @@
 # standard libraries
-import utime
+try:
+    from utime import ticks_ms
+except ImportError:
+    from time import monotonic_ns
+
+    def ticks_ms():
+        return monotonic_ns() // 1000000
 
 
 def _timestamp():
@@ -15,7 +21,7 @@ def _timestamp():
     year = 2020
     month = 1
 
-    ms = utime.ticks_ms()
+    ms = ticks_ms()
     (day, ms) = divmod(ms, 86400000)
     (hour, ms) = divmod(ms, 3600000)
     (minute, ms) = divmod(ms, 60000)
